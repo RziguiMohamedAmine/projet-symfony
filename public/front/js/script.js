@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 	"use strict";
 	
+	
 	/* =================================
 	BANNER ROTATOR IMAGE 
 	=================================== */
@@ -10,8 +11,6 @@ $(document).ready(function(){
 		var src = $(this).find('img').attr('src');
 		$(this).css('background-image', 'url(' + src + ')');
 	});
-	
-	
 
 	/* =================================
 	LOADER 
@@ -134,6 +133,36 @@ $(document).ready(function(){
 	tom2.each(function(e){
 		$(this).on('click', function(){
 			teams2.trigger('owl.goTo', e);
+			$(this).addClass('active').siblings().removeClass('active');
+		});
+	});
+
+	// Team - Third
+	var teams3 = $("#third-team-caro");
+	teams3.owlCarousel({
+		singleItem : true,
+		pagination : false
+	});
+ 
+	var tom3 = $('#third-nav .position');
+	tom3.each(function(e){
+		$(this).on('click', function(){
+			teams3.trigger('owl.goTo', e);
+			$(this).addClass('active').siblings().removeClass('active');
+		});
+	});
+
+	// Team - fourth
+	var teams4 = $("#fourth-team-caro");
+	teams4.owlCarousel({
+		singleItem : true,
+		pagination : false
+	});
+ 
+	var tom4 = $('#fourth-nav .position');
+	tom4.each(function(e){
+		$(this).on('click', function(){
+			teams4.trigger('owl.goTo', e);
 			$(this).addClass('active').siblings().removeClass('active');
 		});
 	});

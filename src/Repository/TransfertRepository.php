@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Joueur;
 use App\Entity\Transfert;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -32,6 +33,19 @@ class TransfertRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function addJoueur(Joueur $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
 
     /**
      * @throws ORMException

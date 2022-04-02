@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Joueur
@@ -26,6 +26,10 @@ class Joueur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=100, nullable=false)
+     * @Assert\Length(
+     *      min = "3",
+     *      minMessage = "Votre nom doit faire au moins {{ limit }} caractères",
+     * )
      */
     private $nom;
 
@@ -61,6 +65,7 @@ class Joueur
      * @var float
      *
      * @ORM\Column(name="taille", type="float", precision=10, scale=0, nullable=false)
+     *  @Assert\Positive(message = "Le taille ne peut pas etre negative",)
      */
     private $taille;
 
@@ -68,6 +73,7 @@ class Joueur
      * @var float
      *
      * @ORM\Column(name="poids", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\GreaterThan(18,message = "Le poids ne doit pas etre inferieur a 40",)
      */
     private $poids;
 
@@ -200,6 +206,8 @@ class Joueur
 
         return $this;
     }
-
+    public function __toString() {
+        return $this->nom;
+    }
 
 }

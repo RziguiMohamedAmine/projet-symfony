@@ -28,8 +28,8 @@ CSS Style Structure
 @font-face {
     font-family: 'bebas_neue';
     src: url('../fonts/bebasneue_regular-webfont.eot');
-    src: url('../fonts/bebasneue_regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/bebasneue_regular-webfont.woff2') format('woff2'),
+    src: url('../fonts/bebasneue_regular-webfontd41d.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bebasneue_regular-webfont.html') format('woff2'),
          url('../fonts/bebasneue_regular-webfont.woff') format('woff'),
          url('../fonts/bebasneue_regular-webfont.ttf') format('truetype'),
          url('../fonts/bebasneue_regular-webfont.svg#bebas_neue_regularregular') format('svg');
@@ -233,7 +233,7 @@ p {
 	padding-bottom: 60px;
 }
 .bg-section{
-	background:url('http://placehold.it/1920x700') no-repeat center center; 
+	background:url('../images/bg-section.jpg') no-repeat center center; 
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -460,6 +460,7 @@ strong, b{
 	padding: 20px 20px;
 	margin-bottom: -20px;
 	text-shadow: none;
+	
 	-webkit-transition: all .3s linear;
 	-moz-transition: all .3s linear;
 	-ms-transition: all .3s linear;
@@ -478,6 +479,7 @@ strong, b{
 	background-color: #000;
 	border-left:4px solid #f00;
 	padding: 20px 20px;
+	
 	-webkit-transition: all .5s linear;
 	-moz-transition: all .5s linear;
 	-ms-transition: all .5s linear;
@@ -513,7 +515,7 @@ strong, b{
 }
 
 .subbanner{
-	background:url('http://placehold.it/1920x400') no-repeat center center;
+	background:url('../images/banner-single.jpg') no-repeat center center;
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -560,7 +562,7 @@ strong, b{
 4. Match Facts
 ============================= */
 .stat-facts{
-	background:url('http://placehold.it/1920x400') no-repeat center center; 
+	background:url('../images/match.jpg') no-repeat center center; 
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -724,7 +726,7 @@ strong, b{
 	padding: 20px 20px;
 }
 .tab-content-bg{
-	background: url('http://placehold.it/1920x700') top center;
+	background: url('../images/gallery_1319x212.jpg') top center;
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -767,7 +769,7 @@ td.tw10{
     padding-bottom: 60px;
 }
 .bg-coach {
-    background:url('http://placehold.it/1920x700') no-repeat center center; 
+    background:url('../images/slide-1.jpg') no-repeat center center; 
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -1014,7 +1016,7 @@ td.tw10{
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
-.position .cf{
+.position .st{
 	background: #F50607;
 	background: -moz-linear-gradient(top, #F50607 0%, #C2262C 100%);
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, #F50607), color-stop(100%, #C2262C));
@@ -1122,7 +1124,7 @@ td.tw10{
     padding: 0px 0px;
 }
 .tab-team-bg{
-	background: url('http://placehold.it/1920x700') top center;
+	background: url('../images/teambg.jpg') top center;
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -1723,7 +1725,7 @@ td.tw10{
 	background-color: #29ABE2;
 }
 .bg-client{
-	background:url('http://placehold.it/1920x700') no-repeat center center; 
+	background:url('../images/client-bg.jpg') no-repeat center center; 
 	-webkit-background-size: cover; 
 	-moz-background-size: cover; 
 	-o-background-size: cover; 
@@ -2323,6 +2325,7 @@ p.help-block.text-danger li {
 	}
 	.navbar-main .navbar-brand > img {
 		width: 40%;
+
 	}
 	.navbar-main.stiky .navbar-brand > img {
 		width: 40%;

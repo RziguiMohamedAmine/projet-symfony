@@ -73,4 +73,16 @@ class JoueurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    function listJoueur($id)
+    {
+        return $this->createQueryBuilder('j')
+            ->join('j.idEquipe','e')
+            ->addSelect('e')
+            ->where('e.id=:id')
+            ->setParameter('id',$id)
+            ->getQuery()->getResult();
+    }
+
 }
