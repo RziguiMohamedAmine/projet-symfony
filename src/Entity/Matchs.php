@@ -293,5 +293,10 @@ class Matchs
         return $this;
     }
 
+    public function __toString() {
+        return $this->getEquipe1()->getNomeq() . " - " . $this->getEquipe2()->getNomeq();
+
+    }
+
 
 }

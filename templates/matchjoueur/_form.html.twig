@@ -8,12 +8,12 @@
         <div class="page-title-box">
             <div class="row align-items-center">
                 <div class="col-sm-6">
-                    <h4 class="page-title">Gestion Des Joueurs</h4>
+                    <h4 class="page-title">Gestion Des Stat</h4>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Joueurs</a></li>
-                        <li class="breadcrumb-item active">Ajouter Joueur</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Stat</a></li>
+                        <li class="breadcrumb-item active">Ajouter Stat</li>
                     </ol>
                 </div>
             </div> <!-- end row -->
@@ -25,7 +25,7 @@
                 <div class="card m-b-30">
                     <div class="card-body">
 
-                        <h4 class="mt-0 header-title">Joueurs</h4>
+                        <h4 class="mt-0 header-title">Statistiques Joueur</h4>
                         <p class="sub-title">    <code
                                     class="highlighter-rouge">  </code>
                             <code class="highlighter-rouge"> </code> <code
@@ -36,47 +36,27 @@
                         {{ form_start(form) }}
                         <div class="form-group">
 
-                            {{ form_errors(form.nom) }}
-                            {{  form_row(form.nom,{'attr':{'class':'form-control'}}) }}
-
+                            {{  form_row(form.cartonJaune,{'attr':{'class':'form-control'}}) }}
                         </div>
                         <div class="form-group">
 
-                            {{  form_row(form.prenom,{'attr':{'class':'form-control'}}) }}
+                            {{  form_row(form.cartonRouge,{'attr':{'class':'form-control'}}) }}
                         </div>
                         <div class="form-group">
 
-                            {{  form_row(form.poste,{'attr':{'class':'form-control'}}) }}
+                            {{  form_row(form.nbBut,{'attr':{'class':'form-control'}}) }}
                         </div>
                         <div class="form-group">
 
-                            {{  form_row(form.nationalite,{'attr':{'class':'form-control'}}) }}
-                        </div>
-                        <div class="form-group">
-                            {{  form_row(form.dateNaiss,{'attr':{'class':'form-control'}}) }}
-                        </div>
-                        <div class="form-group">
-                           {#  {{ form_errors(form.taille) }} #}
-                            {{  form_row(form.taille,{'attr':{'class':'form-control'}}) }}
-                        </div>
-                        <div class="form-group">
-                            {# {{ form_errors(form.poids) }}#}
-                            {{  form_row(form.poids,{'attr':{'class':'form-control'}}) }}
+                            {{  form_row(form.idJoueur,{'attr':{'class':'form-control'}}) }}
                         </div>
                         <div class="form-group">
 
-                            {{  form_row(form.idEquipe,{'attr':{'class':'form-control'}}) }}
+                            {{  form_row(form.idMatch,{'attr':{'class':'form-control'}}) }}
                         </div>
-
-                        <div class="form-group" >
-
-                            {{  form_row(form.image,{'attr':{'class':'form-control'}}) }}
-
-                        </div>
-
                         <div class="form-group">
                             <div>
-                                <button type="submit" class="btn btn-primary waves-effect waves-light" formnovalidate>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light">
                                     {{ button_label|default('Save') }}</button>
 
                                 <button type="reset" class="btn btn-secondary waves-effect m-l-5">

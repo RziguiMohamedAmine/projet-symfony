@@ -1,0 +1,11 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}New Matchjoueur{% endblock %}
+
+{% block body %}
+    <h1>Create new Matchjoueur</h1>
+
+    {{ include('matchjoueur/_form.html.twig') }}
+
+    <a href="{{ path('app_matchjoueur_index') }}">back to list</a>
+{% endblock %}

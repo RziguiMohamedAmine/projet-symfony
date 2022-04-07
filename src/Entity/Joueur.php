@@ -58,6 +58,7 @@ class Joueur
      * @var \DateTime
      *
      * @ORM\Column(name="date_naiss", type="date", nullable=false)
+     * @Assert\LessThan("01/01/2006",message = "Le date ne doit pas etre superieur a 01/01/2006",)
      */
     private $dateNaiss;
 
@@ -65,7 +66,8 @@ class Joueur
      * @var float
      *
      * @ORM\Column(name="taille", type="float", precision=10, scale=0, nullable=false)
-     *  @Assert\Positive(message = "Le taille ne peut pas etre negative",)
+     * @Assert\Positive(message = "Le taille ne peut pas etre negative",)
+     * @Assert\GreaterThan(130,message = "Le Taille ne doit pas etre inferieur a 130",)
      */
     private $taille;
 
