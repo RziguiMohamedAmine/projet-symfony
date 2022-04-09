@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matchs{% endblock %}
+
+{% block body %}
+    <h1>Matchs</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ match.id }}</td>
+            </tr>
+            <tr>
+                <th>NbBut1</th>
+                <td>{{ match.nbBut1 }}</td>
+            </tr>
+            <tr>
+                <th>NbBut2</th>
+                <td>{{ match.nbBut2 }}</td>
+            </tr>
+            <tr>
+                <th>Stade</th>
+                <td>{{ match.stade }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ match.date ? match.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NbSpectateur</th>
+                <td>{{ match.nbSpectateur }}</td>
+            </tr>
+            <tr>
+                <th>Saison</th>
+                <td>{{ match.saison }}</td>
+            </tr>
+            <tr>
+                <th>Round</th>
+                <td>{{ match.round }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_matchs_index') }}">back to list</a>
+
+    <a href="{{ path('app_matchs_edit', {'id': match.id}) }}">edit</a>
+
+    {{ include('matchs/_delete_form.html.twig') }}
+{% endblock %}

@@ -45,6 +45,31 @@ class ClassementRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Classment[] Returns an array of Classment objects
+     */
+
+    public function getLastSaisonClasment()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM classment c join equipe e on e.id = c.id_equipe where saison = (SELECT max(saison) FROM classment)';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function getSaisons()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT distinct saison  FROM classment c order by saison DESC';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
+
+
     // /**
     //  * @return Classment[] Returns an array of Classment objects
     //  */

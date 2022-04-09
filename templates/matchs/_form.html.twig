@@ -1,0 +1,203 @@
+{# {{ form_start(form) }} #}
+{#    {{ form_widget(form) }} #}
+{# <button class="btn">{{ button_label|default('Save') }}</button> #}
+{# {{ form_end(form) }} #}
+
+{% extends 'back.html.twig' %}
+
+{% block title %}New Equipe{% endblock %}
+
+{% block body %}
+    <div class="content-page">
+        <!-- Start content -->
+
+        <div class="container">
+            <div class="page-title-box">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <h4 class="page-title">Gestion Des Matchs</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Match</a></li>
+                            <li class="breadcrumb-item active">Ajouter Match</li>
+                        </ol>
+                    </div>
+                </div> <!-- end row -->
+            </div>
+            <!-- end page-title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Matchs</h4>
+                            <p class="sub-title"><code
+                                        class="highlighter-rouge"> </code>
+                                <code class="highlighter-rouge"> </code> <code
+                                        class="highlighter-rouge">
+
+                                </code></p>
+
+                            {{ form_start(form) }}
+                            <div class="form-group">
+                                {{ form_label(form.equipe1) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.equipe1) }}
+                                    </span>
+                                </div>
+
+
+                                {{ form_widget(form.equipe1,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.equipe2) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.equipe2) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.equipe2,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.stade) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.stade) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.stade,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.date) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.date) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.date,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.nbSpectateur) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.nbSpectateur) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.nbSpectateur,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.idArbitre1) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.idArbitre1) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.idArbitre1,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.idArbitre2) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.idArbitre2) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.idArbitre2,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.idArbitre3) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.idArbitre3) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.idArbitre3,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.idArbitre4) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.idArbitre4) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.idArbitre4,{'attr':{'class':'form-control'}}) }}
+
+
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(form.round) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.round) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.round,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.saison) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.saison) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.saison,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group" style="display: none">
+                                {{ form_label(form.nbBut1) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.nbBut1) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.nbBut1,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group " style="display: none">
+                                {{ form_label(form.nbBut2) }}
+                                <div class="error-message">
+                                    <span class="error-text" style="color:red">
+                                        {{ form_errors(form.nbBut2) }}
+                                    </span>
+                                </div>
+                                {{ form_widget(form.nbBut2,{'attr':{'class':'form-control'}}) }}
+
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light"
+                                            formnovalidate>
+                                        {{ button_label|default('Save') }}</button>
+
+                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+
+            <!-- container-fluid -->
+
+        </div>
+        <!-- content -->
+
+
+    </div>
+
+{% endblock %}
+

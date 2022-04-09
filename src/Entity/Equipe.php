@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
-
 /**
  * Equipe
  * @ORM\Table(name="equipe")
@@ -120,6 +119,11 @@ class Equipe
         $this->stade = $stade;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nomeq;
     }
 
 

@@ -1,0 +1,217 @@
+{% extends 'front.html.twig' %}
+
+{% block title %} Matchs {% endblock %}
+
+{% block body %}
+    <div class="section about">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="page-title">
+                        <h2 class="lead">ABOUT FC</h2>
+                        <div class="border-style"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                {% set label = 0 %}
+                <div class="col-sm-12 col-md-12">
+                    <form id="saionForm" action="{{ path('app_front_match_saison', {'saison':label}) }}">
+                        <select class="form-control" id="saisonSelect">
+                            {% for saison in saisons %}
+                                <option value="{{ saison.saison }}">
+                                    <strong>{{ saison.saison | slice(0,4) ~ '/' ~ saison.saison | slice(4,7) }}</strong>
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+
+                    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+                        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#match" id="match-tab" role="tab" data-toggle="tab"
+                                                  aria-controls="match" aria-expanded="true">MATCH D'AUJOURDHUI</a></li>
+                            <li><a href="#training" role="tab" id="training-tab" data-toggle="tab"
+                                   aria-controls="training">PROCHAINES MATCHS</a></li>
+                            <li><a href="#league" role="tab" id="league-tab" data-toggle="tab" aria-controls="league">TABLEAU
+                                    DE CLASSMENT</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content tab-content-bg">
+                            <div role="tabpanel" class="tab-pane fade in active" id="match" aria-labelledBy="match-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                        {% for match in todayMatchs %}
+                                            <tr>
+                                                <td class="tw33" style="text-align: center">
+                                                    <div class="match-date">{{ match.date | date }}</div>
+                                                    <div class="match-date"><b>{{ 'round '~match.round }}</b></div>
+
+                                                </td>
+                                                <td style="display: flex;justify-content: end;">
+                                                    <div class="match-title text-right">
+                                                        <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                             alt="{{ match.equipe1.logo }}"
+                                                             style="width: 30px;height: 30px">
+                                                        {{ match.equipe1 }}
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {% if (match.nbBut1 != -1) %}
+                                                            {{ match.nbBut1 }}
+                                                        {% endif %}
+                                                        -
+                                                        {% if (match.nbBut1 != -1) %}
+                                                            {{ match.nbBut2 }}
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="match-title match_equipe_item">
+
+                                                        {{ match.equipe2 }}
+                                                        <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                             alt="{{ match.equipe2.logo }}"
+                                                             style="width: 30px;height: 30px">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="training" aria-labelledBy="training-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                            {% for match in nextMatchs %}
+                                                <tr>
+                                                    <td class="tw40" style="text-align: center">
+                                                        <div class="match-date">{{ match.date | date }}</div>
+                                                        <div class="match-date"><b>{{ 'round '~match.round }}</b></div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="match-title text-right">
+                                                            <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                                 alt="{{ match.equipe1.logo }}"
+                                                                 style="width: 30px;height: 30px">
+                                                            {{ match.equipe1 }}
+
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            {% if (match.nbBut1 != -1) %}
+                                                                {{ match.nbBut1 }}
+                                                            {% endif %}
+                                                            -
+                                                            {% if (match.nbBut1 != -1) %}
+                                                                {{ match.nbBut2 }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="match-title match_equipe_item">
+
+                                                            {{ match.equipe2 }}
+                                                            <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                                 alt="{{ match.equipe2.logo }}"
+                                                                 style="width: 30px;height: 30px">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="league" aria-labelledBy="league-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+
+                                        <tr>
+                                            <td class="tw50">Equipe</td>
+                                            <td class="tw10">W</td>
+                                            <td class="tw10">D</td>
+                                            <td class="tw10">L</td>
+                                            <td class="tw10">G</td>
+
+                                            <td>POINT</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for classment in classments %}
+                                            <tr>
+                                                <td>
+                                                    <div class="match-title">
+                                                        <img src="{{ asset('/images/'~classment.idEquipe.logo ) }}"
+                                                             alt="{{ classment.idEquipe.logo }}"
+                                                             style="width: 30px;height: 30px">
+                                                        {{ classment.idEquipe.nomeq }}
+                                                    </div>
+                                                </td>
+                                                <td>{{ classment.nbWin }}</td>
+                                                <td>{{ classment.nbDraw }}</td>
+                                                <td>{{ classment.nbLose }}</td>
+                                                <td>{{ classment.nbTotaleBut~':'~classment.nbTotaleButRecu }}</td>
+
+                                                <td>
+                                                    <div class="match-title">{{ classment.nbPoint }}</div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- /example -->
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            "use strict";
+            $(function () {
+                $('#saisonSelect').change(function () {
+                    var selectElmt = document.getElementById("saisonSelect");
+                    var typeselectionne = selectElmt.options[selectElmt.selectedIndex].value;
+                    {#                    {% for choice in form.proveedor.vars.choices %} #}
+                    {#                    {% if choice.value == form.proveedor.vars.value %} #}
+                    {#                    {% set label = choice.label %} #}
+                    {#                    {% endif %} #}
+                    {#                    {% endfor %} #}
+                    var url = '{{ path('app_front_match_saison', {'saison':'label'}) }}';
+                    url = url.replace("label", typeselectionne);
+                    console.log(url)
+
+                    $('#saionForm').attr('action', url);
+
+                    this.form.submit();
+                });
+            })
+        });
+    </script>
+
+{% endblock %}

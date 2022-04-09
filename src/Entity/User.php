@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -65,7 +67,7 @@ class User
     private $ban = '0';
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(name="block", type="date", nullable=true)
      */
@@ -88,18 +90,6 @@ class User
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
     }
 
     public function getPrenom(): ?string
@@ -162,12 +152,12 @@ class User
         return $this;
     }
 
-    public function getBlock(): ?\DateTimeInterface
+    public function getBlock(): ?DateTimeInterface
     {
         return $this->block;
     }
 
-    public function setBlock(?\DateTimeInterface $block): self
+    public function setBlock(?DateTimeInterface $block): self
     {
         $this->block = $block;
 
@@ -198,5 +188,21 @@ class User
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
 
 }

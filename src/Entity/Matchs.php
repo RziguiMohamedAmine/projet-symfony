@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -28,33 +30,46 @@ class Matchs
      *
      * @ORM\Column(name="nb_but1", type="integer", nullable=false)
      */
-    private $nbBut1;
+    private $nbBut1 = -1;
 
     /**
      * @var int
      *
      * @ORM\Column(name="nb_but2", type="integer", nullable=false)
      */
-    private $nbBut2;
+    private $nbBut2 = -1;
 
     /**
      * @var string
      *
      * @ORM\Column(name="stade", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="cette champ est obligatoire")
+     * @Assert\Length(
+     *     min=3,
+     *     max=100,
+     *     minMessage="le nom de stade doit etre sperieur à 3",
+     *     maxMessage = "le nom de stade doit etre inferieur à 100"
+     * )
      */
-    private $stade = '';
+    private $stade;
 
     /**
-     * @var \DateTime
+     * @var int
      *
      * @ORM\Column(name="date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @Assert\NotBlank (message="ce champ est obligatoire");
+     * @Assert\GreaterThan(
+     *     "today",
+     *     message="date doit etre au future")
      */
-    private $date = 'CURRENT_TIMESTAMP';
+    private $date;
 
     /**
      * @var int
      *
      * @ORM\Column(name="nb_spectateur", type="integer", nullable=false)
+     * @Assert\NotBlank(message="ce champ est obligatoire")
+     * @Assert\Positive(message="ce champ doit etre positive")
      */
     private $nbSpectateur;
 
@@ -62,6 +77,12 @@ class Matchs
      * @var string
      *
      * @ORM\Column(name="saison", type="string", length=8, nullable=false)
+     * @Assert\NotBlank(message = "saison est obligtoire")
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]{4}\/[0-9]{4}$/",
+     *     message="saion doit etre de cette format 2020/2021"
+     * )
+     *
      */
     private $saison;
 
@@ -69,19 +90,22 @@ class Matchs
      * @var int
      *
      * @ORM\Column(name="round", type="integer", nullable=false)
+     * @Assert\NotBlank(message="round est obligatoire")
+     * @Assert\Positive(message="round doit etre >0")
      */
-    private $round = '0';
+    private $round;
+
 
     /**
-     * @var \Arbitre
+     * @var \Equipe
      *
-     * @ORM\ManyToOne(targetEntity="Arbitre")
+     * @ORM\ManyToOne(targetEntity="Equipe")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_arbitre4", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="equipe1", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
-    private $idArbitre4;
-
+    private $equipe1;
     /**
      * @var \Equipe
      *
@@ -89,7 +113,9 @@ class Matchs
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="equipe2", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
+
     private $equipe2;
 
     /**
@@ -99,8 +125,20 @@ class Matchs
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_arbitre1", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
+
     private $idArbitre1;
+    /**
+     * @var \Arbitre
+     *
+     * @ORM\ManyToOne(targetEntity="Arbitre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_arbitre2", referencedColumnName="id")
+     * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
+     */
+    private $idArbitre2;
 
     /**
      * @var \Arbitre
@@ -109,28 +147,20 @@ class Matchs
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_arbitre3", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
     private $idArbitre3;
-
-    /**
-     * @var \Equipe
-     *
-     * @ORM\ManyToOne(targetEntity="Equipe")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="equipe1", referencedColumnName="id")
-     * })
-     */
-    private $equipe1;
-
     /**
      * @var \Arbitre
      *
      * @ORM\ManyToOne(targetEntity="Arbitre")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_arbitre2", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_arbitre4", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
-    private $idArbitre2;
+    private $idArbitre4;
+
 
     public function getId(): ?int
     {
@@ -173,12 +203,12 @@ class Matchs
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -233,18 +263,6 @@ class Matchs
         return $this;
     }
 
-    public function getEquipe2(): ?Equipe
-    {
-        return $this->equipe2;
-    }
-
-    public function setEquipe2(?Equipe $equipe2): self
-    {
-        $this->equipe2 = $equipe2;
-
-        return $this;
-    }
-
     public function getIdArbitre1(): ?Arbitre
     {
         return $this->idArbitre1;
@@ -269,6 +287,23 @@ class Matchs
         return $this;
     }
 
+    public function getIdArbitre2(): ?Arbitre
+    {
+        return $this->idArbitre2;
+    }
+
+    public function setIdArbitre2(?Arbitre $idArbitre2): self
+    {
+        $this->idArbitre2 = $idArbitre2;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getEquipe1()->getNomeq() . " - " . $this->getEquipe2()->getNomeq();
+    }
+
     public function getEquipe1(): ?Equipe
     {
         return $this->equipe1;
@@ -281,14 +316,14 @@ class Matchs
         return $this;
     }
 
-    public function getIdArbitre2(): ?Arbitre
+    public function getEquipe2(): ?Equipe
     {
-        return $this->idArbitre2;
+        return $this->equipe2;
     }
 
-    public function setIdArbitre2(?Arbitre $idArbitre2): self
+    public function setEquipe2(?Equipe $equipe2): self
     {
-        $this->idArbitre2 = $idArbitre2;
+        $this->equipe2 = $equipe2;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -27,6 +27,7 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="bloc", type="string", length=500, nullable=false)
+     * @Assert\NotBlank (message="ce champ est obligatoire")
      */
     private $bloc;
 
@@ -44,6 +45,7 @@ class Billet
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_match", referencedColumnName="id")
      * })
+     * @Assert\NotBlank (message="ce champ est obligatoire")
      */
     private $idMatch;
 

@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
-
 /**
  * Arbitre
  * @ORM\Table(name="arbitre", indexes={@ORM\Index(name="id_role", columns={"id_role"})})
@@ -142,6 +141,11 @@ class Arbitre
         $this->idRole = $idRole;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 
 

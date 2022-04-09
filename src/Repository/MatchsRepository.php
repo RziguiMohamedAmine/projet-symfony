@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Matchs;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -14,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Matchs[]    findAll()
  * @method Matchs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MatchsRepository extends ServiceEntityRepository
+class  MatchsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -44,6 +45,49 @@ class MatchsRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+    /**
+     * @return Matchs[] Returns an array of Matchs objects
+     */
+
+    public function getTodayMatchs()
+    {
+
+        $atStartOfDay = new DateTime();
+        $atEndOfDay = new DateTime();
+
+        $atStartOfDay->setTime(0, 0, 0, 0);
+        $atEndOfDay->setTime(23, 59, 59, 59);
+
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.date >= :valDeb')
+            ->andWhere('m.date <= :valFin')
+            ->setParameter('valDeb', $atStartOfDay)
+            ->setParameter('valFin', $atEndOfDay)
+            ->orderBy('m.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getNextMatchs()
+    {
+
+        $atEndOfDay = new DateTime();
+
+        $atEndOfDay->setTime(23, 59, 59, 59);
+
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.date > :valDeb')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->orderBy('m.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
 
     // /**
     //  * @return Matchs[] Returns an array of Matchs objects

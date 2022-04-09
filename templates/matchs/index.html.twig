@@ -1,0 +1,168 @@
+{% extends 'back.html.twig' %}
+ {% block body %}
+
+     <div class="content-page">
+         <!-- Start content -->
+         <div class="content">
+             <div class="container-fluid">
+                 <div class="page-title-box">
+                     <div class="row align-items-center">
+                         <div class="col-sm-6">
+                             <h4 class="page-title">Gestion Des Match</h4>
+                         </div>
+                         <div class="col-sm-6">
+                             <ol class="breadcrumb float-right">
+                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Match</a></li>
+                                 <li class="breadcrumb-item active">Afficher Match</li>
+                             </ol>
+                         </div>
+                     </div> <!-- end row -->
+                 </div>
+                 <!-- end page-title -->
+
+                 <div class="row">
+                     <div class="col-12">
+                         <div class="card m-b-30">
+                             <div class="card-body">
+
+                                 <h4 class="mt-0 header-title">Gestion Match</h4>
+                                 {#                                 <p class="sub-title font-14">This is an experimental awesome solution for responsive #}
+                                 {#                                     tables with complex data.</p> #}
+
+                                 <div class="table-rep-plugin">
+                                     <div class="table-responsive b-0" data-pattern="priority-columns">
+                                         <table id="tech-companies-1" class="table  table-striped">
+                                             <thead>
+                                             <tr>
+                                                 <th>Equipe1</th>
+                                                 <th>NbBut1</th>
+                                                 <th>NbBut2</th>
+                                                 <th> Equipe2</th>
+                                                 <th>Stade</th>
+                                                 <th>Date</th>
+                                                 <th>NbSpectateur</th>
+                                                 <th>Saison</th>
+
+                                                 <th>Round</th>
+                                                 <th>Arbitre 1</th>
+                                                 <th>Arbitre 2</th>
+                                                 <th>Arbitre 3</th>
+                                                 <th>Arbitre 4</th>
+                                                 <th style="text-align: center">actions</th>
+
+
+                                             </tr>
+                                             </thead>
+                                             <tbody>
+                                             {% for match in matchs %}
+                                             <tr>
+                                                 <td>
+                                                     <img src="{{ asset('/images/'~match.equipe1.logo ) }}"
+                                                          alt="{{ match.equipe1.logo }}"
+                                                          style="width: 30px;height: 30px"
+                                                     >
+                                                     {{ match.equipe1 }}
+
+                                                 </td>
+                                                 <td>
+                                                     {% if(match.nbBut1 == -1) %}
+                                                         -
+                                                     {% else %}
+                                                         {{ match.nbBut1 }}
+                                                     {% endif %}
+                                                 </td>
+                                                 <td>
+                                                     {% if(match.nbBut1 == -1) %}
+                                                         -
+                                                     {% else %}
+                                                         {{ match.nbBut2 }}
+                                                     {% endif %}
+                                                 </td>
+                                                 <td>
+                                                     {{ match.equipe2 }}
+                                                     <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                          alt="{{ match.equipe1.logo }}"
+                                                          style="width: 30px;height: 30px"
+                                                     >
+
+                                                 </td>
+                                                 <td>{{ match.stade }}</td>
+                                                 <td>{{ match.date ? match.date|date('d-m-y h:i') : '' }}</td>
+                                                 <td>{{ match.nbSpectateur }}</td>
+                                                 <td>{{ match.saison | slice(0,4) ~ '/' ~ match.saison | slice(4,7) }}</td>
+                                                 <td>{{ match.round }}</td>
+                                                 <td>{{ match.idArbitre1 }}</td>
+                                                 <td>{{ match.idArbitre2 }}</td>
+                                                 <td>{{ match.idArbitre3 }}</td>
+                                                 <td>{{ match.idArbitre4 }}</td>
+
+
+                                                 <td style="display: flex; justify-content: center">
+                                                     <a href="{{ path('app_matchs_edit', {'id': match.id}) }}"
+                                                        class="btn btn-tbl-edit">
+                                                         <i class="fa fa-edit"
+                                                            style="font-size:20px;color:rgb(15, 192, 15)"></i>
+                                                     </a>
+                                                     <form method="post"
+                                                           action="{{ path('app_matchs_delete', {'id': match.id}) }}"
+                                                           onsubmit="return confirm('tu est sure de supprimer ce match');">
+                                                         <input type="hidden" name="_token"
+                                                                value="{{ csrf_token('delete' ~ match.id) }}">
+                                                         <button class="btn btn-tbl-edit">
+                                                             <i class="fa fa-trash"
+                                                                style="font-size:20px;color:red"></i>
+                                                         </button>
+                                                     </form>
+
+
+                                                     {#                                                 </td> #}
+                                                     {#                                                 <a href="{{ path('app_matchs_edit', {'id': match.id}) }}">edit</a> #}
+                                                     {#                                                 {{ include('matchs/_delete_form.html.twig') }} #}
+
+                                                 </td>
+                                                 {% endfor %}
+                                             </tbody>
+                                         </table>
+                                     </div>
+
+                                 </div>
+
+                             </div>
+                         </div>
+                     </div> <!-- end col -->
+                 </div> <!-- end row -->
+
+
+             </div>
+             <!-- container-fluid -->
+
+         </div>
+         <!-- content -->
+
+
+     </div>
+     <!-- ============================================================== -->
+     <!-- End Right content here -->
+     <!-- ============================================================== -->
+
+
+     <!-- END wrapper -->
+
+     <!-- jQuery  -->
+ {% endblock %}
+          {% block js %}
+
+
+              <!-- Responsive-table-->
+              <script src="../plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
+
+              <!-- App js -->
+
+              <script>
+                  $(function () {
+                      $('.table-responsive').responsiveTable({
+                          addDisplayAllBtn: 'btn btn-secondary'
+                      });
+                  });
+              </script>
+          {% endblock %}
