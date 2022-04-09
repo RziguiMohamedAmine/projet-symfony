@@ -3,13 +3,22 @@
 {% block title %} Matchs {% endblock %}
 
 {% block body %}
+    <div class="section subbanner">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="caption">Matchs</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="section about">
         <div class="container">
 
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="page-title">
-                        <h2 class="lead">ABOUT FC</h2>
+                        <h2 class="lead">MATCHS</h2>
                         <div class="border-style"></div>
                     </div>
                 </div>
@@ -32,9 +41,18 @@
                     <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
                         <ul id="myTabs" class="nav nav-tabs" role="tablist">
                             <li class="active"><a href="#match" id="match-tab" role="tab" data-toggle="tab"
-                                                  aria-controls="match" aria-expanded="true">MATCH D'AUJOURDHUI</a></li>
-                            <li><a href="#training" role="tab" id="training-tab" data-toggle="tab"
-                                   aria-controls="training">PROCHAINES MATCHS</a></li>
+                                                  aria-controls="match" aria-expanded="true">
+                                    {% if app.request.attributes.get('_route') == 'app_front_match' %}
+                                        MATCH D'AUJOURDHUI
+                                    {% else %}
+                                        MATCH DE SAISON
+                                    {% endif %}
+                                </a></li>
+                            {% if app.request.attributes.get('_route') == 'app_front_match' %}
+                                <li><a href="#training" role="tab" id="training-tab" data-toggle="tab"
+                                       aria-controls="training">PROCHAINES MATCHS</a></li>
+                            {% endif %}
+
                             <li><a href="#league" role="tab" id="league-tab" data-toggle="tab" aria-controls="league">TABLEAU
                                     DE CLASSMENT</a></li>
                         </ul>

@@ -40,14 +40,12 @@ class MatchFrontController extends AbstractController
      */
     public function indexSaison(MatchsRepository $matchsRepository, ClassementRepository $classementRepository, Request $request, $saison): Response
     {
-        $nextMatchs = $matchsRepository->findBy(['saison' => $saison]);
-        $todayMatchs = $matchsRepository->findBy(['saison' => $saison]);
+        $todayMatchs = $matchsRepository->findBy(['saison' => $saison], ['date' => 'DESC']);
         $classment = $classementRepository->findBy(['saison' => $saison]);
-        dump($classment);
         $saisons = $classementRepository->getSaisons();
         return $this->render('match_front/index.html.twig', [
             'todayMatchs' => $todayMatchs,
-            'nextMatchs' => $nextMatchs,
+            'nextMatchs' => [],
             'classments' => $classment,
             'saisons' => $saisons
         ]);
