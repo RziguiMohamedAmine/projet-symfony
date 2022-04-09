@@ -65,7 +65,7 @@ class  MatchsRepository extends ServiceEntityRepository
             ->andWhere('m.date <= :valFin')
             ->setParameter('valDeb', $atStartOfDay)
             ->setParameter('valFin', $atEndOfDay)
-            ->orderBy('m.date', 'ASC')
+            ->orderBy('m.date', 'DESC')
             ->getQuery()
             ->getResult();
     }
