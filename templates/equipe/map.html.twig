@@ -1,0 +1,69 @@
+{% extends 'front.html.twig' %}
+ {% block body %}
+     <div class="section subbanner">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-12 col-md-12">
+                     {% for stade in stades %}
+                     <div class="caption">Stade de {{ stade.nomeq }} <span><img src="{{ 'http://127.0.0.1/images/'~ stade.logo }}" width = "80" height = "80"></span></div>
+
+                     {% endfor %}
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+
+     <div class="section singlepage">
+         <div class="container">
+
+             <div class="row">
+                 <div class="col-sm-12 col-md-12">
+                     <div class="page-title">
+                         <h2 class="lead">Stade </h2>
+                         <div class="border-style"></div>
+                         <div class="page-description">
+                             <p><strong>Federation Tunisienne de football</strong> Lorem ipsum dolor sit amet, libero turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin viverra, vel varius eget sit mollis. Commodo enim aliquam suspendisse tortor cum diam, commodo facilisis, rutrum et duis nisl porttitor, vel eleifend odio ultricies ut, orci in adipiscing felis velit nibh.</p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+
+     <div class="section singlepage" >
+         <div class="container">
+
+             <div class="teams-caro">
+                 <div id="primary-team-caro" class="owl-carousel owl-theme">
+
+
+
+
+                 </div>
+             </div>
+                 {% for s in stades %}
+             <div class="row">
+
+                 <div class="col-sm-12 col-md-12">
+
+                     <div class="maps-wraper">
+                         <div id="cd-zoom-in"></div>
+                         <div id="cd-zoom-out"></div>
+                         <div id="maps" class="maps" data-lat={{s.alt}} data-lng={{ s.lng}} >
+
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+                 {% endfor %}
+         </div>
+     </div>
+
+
+
+ {% endblock %}

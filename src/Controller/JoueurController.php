@@ -25,6 +25,10 @@ class JoueurController extends AbstractController
             'joueurs' => $joueurRepository->findAll(),
         ]);
     }
+
+
+
+
     /**
      * @Route("/admin/new", name="app_joueur_new", methods={"GET", "POST"})
      */

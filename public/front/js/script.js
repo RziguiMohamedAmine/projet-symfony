@@ -240,12 +240,16 @@ $(document).ready(function(){
 	
 	var latitude = myLat,
 		longitude = myLng,
-		map_zoom = 14;
+		map_zoom = 17;
+
 
 	//google map custom marker icon - .png fallback for IE11
 	var is_internetExplorer11= navigator.userAgent.toLowerCase().indexOf('trident') > -1;
-	var marker_url = ( is_internetExplorer11 ) ? 'images/cd-icon-location.png' : 'images/cd-icon-location.svg';
-
+	var marker_url = new google.maps.Marker({
+		position:{lat:myLat,lng:myLng},
+		map,
+		title: "Hello World!",
+	});
 	//define the basic color of your map, plus a value for saturation and brightness
 	var main_color = '#000000',
 		saturation_value= -80,

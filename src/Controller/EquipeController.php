@@ -6,6 +6,7 @@ use App\Entity\Equipe;
 use App\Form\EquipeType;
 use App\Repository\EquipeRepository;
 use App\Repository\JoueurRepository;
+use App\Repository\StadeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,12 +32,15 @@ class EquipeController extends AbstractController
     /**
      * @Route("/client/", name="app_equipe_indexFront", methods={"GET"})
      */
-    public function indexFront(EquipeRepository $equipeRepository): Response
+    public function indexFront(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository): Response
     {
         return $this->render('equipe/indexFront.html.twig', [
             'equipes' => $equipeRepository->findAll(),
+            'joueurs' => $joueurRepository->ScoreJoueur(),
         ]);
     }
+
+
 
 
     /**
@@ -123,6 +127,7 @@ class EquipeController extends AbstractController
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
 
+
     /**
      * @param EquipeRepository $equipeRepository
      * @param JoueurRepository $joueurRepository
@@ -130,7 +135,7 @@ class EquipeController extends AbstractController
      * @return Response
      *  @Route("/front/{id}", name="app_equipe_joueur", methods={"GET", "POST"})
      */
-    function ListJoueurByEquipe(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository,$id)
+  public  function ListJoueurByEquipe(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository,$id)
     {
         $equipe = $equipeRepository->find($id);
         $joueur=$joueurRepository->listJoueur($equipe->getId());
@@ -138,6 +143,25 @@ class EquipeController extends AbstractController
             'e'=>$equipe,'joueur'=>$joueur
         ]);
     }
+
+    /**
+     * @param EquipeRepository $equipeRepository
+     * @param StadeRepository $StadeRepository
+     * @param $id
+     * @return Response
+     *  @Route("/front/map/{id}", name="app_equipe_map", methods={"GET", "POST"})
+     */
+  public  function stadeEquipe(EquipeRepository $equipeRepository,StadeRepository $StadeRepository,$id)
+    {
+        $equipe = $equipeRepository->find($id);
+        return $this->render("equipe/map.html.twig",[
+            'stades'=>$StadeRepository->mapStade($equipe->getStade(),$equipe->getId()),
+        ]);
+
+    }
+
+
+
 
     /**
      * @param EquipeRepository $equipeRepository

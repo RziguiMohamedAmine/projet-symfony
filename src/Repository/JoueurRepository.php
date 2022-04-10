@@ -85,4 +85,20 @@ class JoueurRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+
+    public function ScoreJoueur(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+         select joueur.*,equipe.*, sum(m.nb_but) as
+           somme from joueur INNER join matchjoueur m on joueur.id=m.id_joueur INNER JOIN equipe on equipe.id=joueur.id_equipe
+           GROUP by joueur.id order by somme DESC LIMIT 5';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
 }

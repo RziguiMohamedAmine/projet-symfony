@@ -73,4 +73,22 @@ class StadeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+   public function mapStade(String $nom,int $id) :array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * from stade inner join equipe on stade.stade=:nom where equipe.id=:id';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['nom' => $nom,'id'=>$id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+    }
+
+
+
+
 }

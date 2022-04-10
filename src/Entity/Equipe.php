@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -24,7 +24,10 @@ class Equipe
 
     /**
      * @var string
-     *
+     **@Assert\Length(
+     *      min = "3",
+     *      minMessage = "Le nom de l'equipe doit faire au moins {{ limit }} caractères",
+     * )
      * @ORM\Column(name="nomeq", type="string", length=100, nullable=false)
      */
     private $nomeq;
