@@ -23,31 +23,44 @@
                     </div>
                 </div>
             </div>
+            {% set label = 0 %}
 
+
+            <div class="col-md-4 pull-right " style="margin-bottom: 5px; padding: 0">
+                <form id="saionForm" action="{{ path('app_front_match_saison', {'saison':label}) }}">
+                    <label for="saisonSelect">Saison</label>
+                    <select class="form-control" id="saisonSelect">
+                        {% for saison in saisons %}
+                            <option value="{{ saison.saison }}" {% if( currentSaison and saison.saison == currentSaison ) %} selected {% endif %}>
+                                <strong>{{ saison.saison | slice(0,4) ~ '/' ~ saison.saison | slice(4,7) }}</strong>
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
             <div class="row">
 
-                {% set label = 0 %}
                 <div class="col-sm-12 col-md-12">
-                    <form id="saionForm" action="{{ path('app_front_match_saison', {'saison':label}) }}">
-                        <select class="form-control" id="saisonSelect">
-                            {% for saison in saisons %}
-                                <option value="{{ saison.saison }}">
-                                    <strong>{{ saison.saison | slice(0,4) ~ '/' ~ saison.saison | slice(4,7) }}</strong>
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </form>
+
+
+                    {% set nav_tabs = 'nav-tabs-4' %}
+                    {% if(app.request.attributes.get('_route') == 'app_front_match_saison') %}
+                        {% set nav_tabs = 'nav-tabs-2' %}
+                    {% endif %}
+
 
                     <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
-                        <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#match" id="match-tab" role="tab" data-toggle="tab"
-                                                  aria-controls="match" aria-expanded="true">
+                        <ul id="myTabs" class="nav nav-tabs {{ nav_tabs }}" role="tablist">
+                            <li class="active">
+                                <a href="#match" id="match-tab" role="tab" data-toggle="tab"
+                                   aria-controls="match" aria-expanded="true">
                                     {% if app.request.attributes.get('_route') == 'app_front_match' %}
                                         MATCH D'AUJOURDHUI
                                     {% else %}
                                         MATCH DE SAISON
                                     {% endif %}
-                                </a></li>
+                                </a>
+                            </li>
                             {% if app.request.attributes.get('_route') == 'app_front_match' %}
                                 <li><a href="#training" role="tab" id="training-tab" data-toggle="tab"
                                        aria-controls="training">PROCHAINES MATCHS</a></li>
@@ -55,58 +68,71 @@
 
                             <li><a href="#league" role="tab" id="league-tab" data-toggle="tab" aria-controls="league">TABLEAU
                                     DE CLASSMENT</a></li>
+                            {% if(app.request.attributes.get('_route') == 'app_front_match') %}
+                                <li><a href="#historique" role="tab" id="league-tab" data-toggle="tab"
+                                       aria-controls="league">Historique
+                                        de match</a></li>
+                            {% endif %}
                         </ul>
                         <div id="myTabContent" class="tab-content tab-content-bg">
                             <div role="tabpanel" class="tab-pane fade in active" id="match" aria-labelledBy="match-tab">
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <tbody>
-                                        {% for match in todayMatchs %}
-                                            <tr>
-                                                <td class="tw33" style="text-align: center">
-                                                    <div class="match-date">{{ match.date | date }}</div>
-                                                    <div class="match-date"><b>{{ 'round '~match.round }}</b></div>
+                                    {% if((todayMatchs | length)>0) %}
+                                        <table class="table table-striped">
+                                            <tbody>
 
-                                                </td>
-                                                <td style="display: flex;justify-content: end;">
-                                                    <div class="match-title text-right">
-                                                        <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
-                                                             alt="{{ match.equipe1.logo }}"
-                                                             style="width: 30px;height: 30px">
-                                                        {{ match.equipe1 }}
+                                            {% for match in todayMatchs %}
+                                                <tr>
+                                                    <td class="tw33" style="text-align: center">
+                                                        <div class="match-date">{{ match.date | date }}</div>
+                                                        <div class="match-date">
+                                                            <b>{{ 'round '~match.round }}</b>
+                                                        </div>
 
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="text-center">
-                                                        {% if (match.nbBut1 != -1) %}
-                                                            {{ match.nbBut1 }}
-                                                        {% endif %}
-                                                        -
-                                                        {% if (match.nbBut1 != -1) %}
-                                                            {{ match.nbBut2 }}
-                                                        {% endif %}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="match-title match_equipe_item">
+                                                    </td>
+                                                    <td style="display: flex;justify-content: end;">
+                                                        <div class="match-title text-right">
+                                                            <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                                 alt="{{ match.equipe1.logo }}"
+                                                                 style="width: 30px;height: 30px">
+                                                            {{ match.equipe1 }}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-center">
+                                                            {% if (match.nbBut1 != -1) %}
+                                                                {{ match.nbBut1 }}
+                                                            {% endif %}
+                                                            -
+                                                            {% if (match.nbBut1 != -1) %}
+                                                                {{ match.nbBut2 }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="match-title match_equipe_item">
 
-                                                        {{ match.equipe2 }}
-                                                        <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
-                                                             alt="{{ match.equipe2.logo }}"
-                                                             style="width: 30px;height: 30px">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
+                                                            {{ match.equipe2 }}
+                                                            <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                                 alt="{{ match.equipe2.logo }}"
+                                                                 style="width: 30px;height: 30px">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <center><b>Pas de match aujourdui</b></center>
+                                    {% endif %}
 
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="training" aria-labelledBy="training-tab">
                                 <div class="table-responsive">
+                                    {% if((nextMatchs | length)>0) %}
+
                                     <table class="table table-striped">
                                         <table class="table table-striped">
                                             <tbody>
@@ -150,6 +176,9 @@
 
                                             </tbody>
                                         </table>
+                                        {% else %}
+                                            <center><b>Pas de match jouée pour cette saison</b></center>
+                                        {% endif %}
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="league" aria-labelledBy="league-tab">
@@ -194,6 +223,56 @@
                                     </table>
                                 </div>
                             </div>
+                            {% if(app.request.attributes.get('_route') == 'app_front_match') %}
+                                <div role="tabpanel" class="tab-pane fade" id="historique" aria-labelledBy="league-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                {% for match in matchHistory %}
+                                                    <tr>
+                                                        <td class="tw40" style="text-align: center">
+                                                            <div class="match-date">{{ match.date | date }}</div>
+                                                            <div class="match-date"><b>{{ 'round '~match.round }}</b>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="match-title text-right">
+                                                                <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                                     alt="{{ match.equipe1.logo }}"
+                                                                     style="width: 30px;height: 30px">
+                                                                {{ match.equipe1 }}
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="text-center">
+                                                                {% if (match.nbBut1 != -1) %}
+                                                                    {{ match.nbBut1 }}
+                                                                {% endif %}
+                                                                -
+                                                                {% if (match.nbBut1 != -1) %}
+                                                                    {{ match.nbBut2 }}
+                                                                {% endif %}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="match-title match_equipe_item">
+
+                                                                {{ match.equipe2 }}
+                                                                <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                                     alt="{{ match.equipe2.logo }}"
+                                                                     style="width: 30px;height: 30px">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            {% endif %}
 
                         </div>
                     </div><!-- /example -->
@@ -215,14 +294,14 @@
                 $('#saisonSelect').change(function () {
                     var selectElmt = document.getElementById("saisonSelect");
                     var typeselectionne = selectElmt.options[selectElmt.selectedIndex].value;
-                    {#                    {% for choice in form.proveedor.vars.choices %} #}
-                    {#                    {% if choice.value == form.proveedor.vars.value %} #}
-                    {#                    {% set label = choice.label %} #}
-                    {#                    {% endif %} #}
-                    {#                    {% endfor %} #}
-                    var url = '{{ path('app_front_match_saison', {'saison':'label'}) }}';
-                    url = url.replace("label", typeselectionne);
-                    console.log(url)
+                    console.log(selectElmt.options[0].value);
+                    if (selectElmt.options[0].value != typeselectionne) {
+                        var url = '{{ path('app_front_match_saison', {'saison':'label'}) }}';
+                        url = url.replace("label", typeselectionne);
+                    } else {
+                        var url = '{{ path('app_front_match') }}';
+                    }
+
 
                     $('#saionForm').attr('action', url);
 

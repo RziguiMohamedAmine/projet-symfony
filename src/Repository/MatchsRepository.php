@@ -86,6 +86,22 @@ class  MatchsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getMatchHistory()
+    {
+
+        $atEndOfDay = new DateTime();
+
+        $atEndOfDay->setTime(0, 0, 0, 0);
+
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.date < :valDeb')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->orderBy('m.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
 
 

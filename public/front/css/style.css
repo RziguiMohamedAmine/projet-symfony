@@ -800,10 +800,16 @@ strong, b {
     margin-right: 20px;
 }
 
-.nav-tabs > li {
+.nav-tabs-4 > li {
     float: left;
     margin-bottom: -1px;
-    width: 33.3333%;
+    width: 25%;
+}
+
+.nav-tabs-2 > li {
+    float: left;
+    margin-bottom: -1px;
+    width: 50%;
 }
 
 .nav-tabs > li > a {
@@ -830,7 +836,7 @@ strong, b {
 }
 
 .tab-content-bg {
-    background: url('../images/gallery_1319x212.jpg') top center;
+    background: url('../images/client-bg.jpg') top center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

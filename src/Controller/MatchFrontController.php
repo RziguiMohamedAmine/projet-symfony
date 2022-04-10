@@ -22,6 +22,7 @@ class MatchFrontController extends AbstractController
     {
         $todayMatchs = $matchsRepository->getTodayMatchs();
         $nextMatchs = $matchsRepository->getNextMatchs();
+        $matchHistory = $matchsRepository->getMatchHistory();
         $saisons = $classementRepository->getSaisons();
 
         $classment = $classementRepository->findBy(['saison' => $saisons[0]]);
@@ -30,8 +31,11 @@ class MatchFrontController extends AbstractController
         return $this->render('match_front/index.html.twig', [
             'todayMatchs' => $todayMatchs,
             'nextMatchs' => $nextMatchs,
+            'matchHistory' => $matchHistory,
             'classments' => $classment,
-            'saisons' => $saisons
+            'saisons' => $saisons,
+            'currentSaison' => null
+
         ]);
     }
 
@@ -47,7 +51,8 @@ class MatchFrontController extends AbstractController
             'todayMatchs' => $todayMatchs,
             'nextMatchs' => [],
             'classments' => $classment,
-            'saisons' => $saisons
+            'saisons' => $saisons,
+            'currentSaison' => $saison
         ]);
     }
 }
