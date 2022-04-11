@@ -1,0 +1,111 @@
+{% extends 'front.html.twig' %}
+
+{% block title %} Matchs {% endblock %}
+
+{% block body %}
+    <div class="section subbanner">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="caption">Matchs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section about">
+        <div class="container ">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="page-title">
+                        <h2 class="lead">Billet</h2>
+                        <div class="border-style"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+
+                <div class="row">
+                    <img src="{{ asset('/images/rades.png') }}" usemap="#image-map">
+                    <map name="image-map">
+                        <area target="_self" alt="b" title="b"
+                              href="{{ path('app_billet_front_bloc', {'id' : app.request.attributes.get('_route_params')['id'], 'bloc': 'b'}) }}"
+                              coords="46,49,70,81,54,96,50,108,45,120,47,139,49,156,52,168,60,178,69,188,45,217,18,188,11,162,8,139,9,102,23,70,33,57"
+                              shape="poly">
+                        <area target="_self" alt="a" title="a"
+                              href="{{ path('app_billet_front_bloc', {'id' : app.request.attributes.get('_route_params')['id'], 'bloc': 'a'}) }}"
+                              coords="55,39,75,74,96,63,116,64,131,63,154,64,175,65,196,64,210,66,220,72,239,40,227,29,196,26,162,25,117,27,89,26,71,33"
+                              shape="poly">
+                        <area target="_self" alt="e" title="e"
+                              href="{{ path('app_billet_front_bloc', {'id' : app.request.attributes.get('_route_params')['id'], 'bloc': 'e'}) }}"
+                              coords="251,46,226,74,238,93,247,108,248,135,247,155,240,176,228,186,249,214,268,194,281,181,289,156,284,132,285,96,274,74,260,55"
+                              shape="poly">
+                        <area target="_self" alt="d" title="d"
+                              href="{{ path('app_billet_front_bloc', {'id' : app.request.attributes.get('_route_params')['id'], 'bloc': 'd'}) }}"
+                              coords="122,194,201,193,222,188,240,221,209,231,183,232,152,233,130,234,121,229"
+                              shape="poly">
+                        <area target="_self" alt="c" title="c"
+                              href="{{ path('app_billet_front_bloc', {'id' : app.request.attributes.get('_route_params')['id'], 'bloc': 'c'}) }}"
+                              coords="76,187,92,195,118,197,119,233,85,231,56,219"
+                              shape="poly">
+                    </map>
+                    {% if(app.request.attributes.get('_route') == 'app_billet_front_bloc') %}
+                        <div class="row mx-n3">
+                            <div class="col-sm-6 col-xl-3 px-3 mb-5">
+                                <div class="card card-frame h-100" style="border-top-width: 5px;">
+                                    <div class="card-header p-4">
+                                        <h6 class="text-uppercase font-weight-bold text-spacing text-monospace text-dark">
+                                            Bloc {{ app.request.attributes.get('_route_params')['bloc'] | upper }}</h6>
+                                        <div>
+                                            <span class="h1 price-card--price-number js-toggle-price-content odometer"
+                                                  data-price-monthly="0" data-price-yearly="0">
+                                            {% if(app.request.attributes.get('_route_params')['bloc'] == 'a') %}
+                                                35
+                                            {% elseif(app.request.attributes.get('_route_params')['bloc'] == 'b') %}
+                                                30
+                                            {% elseif(app.request.attributes.get('_route_params')['bloc'] == 'c') %}
+                                                25
+                                            {% elseif(app.request.attributes.get('_route_params')['bloc'] == 'd') %}
+                                                20
+                                            {% elseif(app.request.attributes.get('_route_params')['bloc'] == 'e') %}
+                                                15
+                                            {% endif %}
+
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card-footer border-0 px-4 pb-4">
+                                        <form action="{{ path('app_billet_front_bloc_post' , {'id' : app.request.attributes.get('_route_params')['id'], 'bloc': app.request.attributes.get('_route_params')['bloc'] | upper}) }}"
+                                              method="post">
+                                            <button class="btn btn-block btn-primary transition-3d-hover" type="submit">
+                                                Obtenir la
+                                                ticket
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

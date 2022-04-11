@@ -12,6 +12,7 @@
             </div>
         </div>
     </div>
+
     <div class="section about">
         <div class="container ">
             <div class="row">
@@ -30,27 +31,30 @@
                             <div class="match">
                                 <div class="match-header">
                                     <div class="match-date">
-                                        {{ match.date }}
+                                        {{ match.date | date }}
                                     </div>
                                 </div>
                                 <div class="match-content">
                                     <div class="column">
                                         <div class="team team--home">
                                             <div class="team-logo">
-                                                <img src="https://assets.codepen.io/285131/whufc.svg"/>
+                                                <img src="{{ asset('/images/')~match.equipe1.logo }}"/>
                                             </div>
                                             <h2 class="team-name">{{ match.equipe1.nomeq }}</h2>
                                         </div>
                                     </div>
-                                    <div class="column">
+                                    <div class="">
                                         <div class="match-details">
-                                            <button class="match-bet-place">obtenir un billet</button>
+                                            <a class="match-bet-place"
+                                               href="{{ path('app_billet_front_reservation', {'id': match.id}) }}">
+                                                obtenir un billet
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="column">
                                         <div class="team team--away">
                                             <div class="team-logo">
-                                                <img src="https://assets.codepen.io/285131/chelsea.svg"/>
+                                                <img src="{{ asset('/images/')~match.equipe2.logo }}"/>
                                             </div>
                                             <h2 class="team-name">{{ match.equipe2.nomeq }}</h2>
                                         </div>
@@ -59,102 +63,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <div class="container-match-billet col-sm-12 col-md-4">
-                        <div class="match">
-                            <div class="match-header">
-                                <div class="match-date">
-                                    12 Aug at <strong>19:00</strong>
-                                </div>
-                            </div>
-                            <div class="match-content">
-                                <div class="column">
-                                    <div class="team team--home">
-                                        <div class="team-logo">
-                                            <img src="https://assets.codepen.io/285131/whufc.svg"/>
-                                        </div>
-                                        <h2 class="team-name">West Ham</h2>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="match-details">
-                                        <button class="match-bet-place">obtenir un billet</button>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="team team--away">
-                                        <div class="team-logo">
-                                            <img src="https://assets.codepen.io/285131/chelsea.svg"/>
-                                        </div>
-                                        <h2 class="team-name">Chelsea</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-match-billet col-sm-12 col-md-4">
-                        <div class="match">
-                            <div class="match-header">
-                                <div class="match-date">
-                                    12 Aug at <strong>19:00</strong>
-                                </div>
-                            </div>
-                            <div class="match-content">
-                                <div class="column">
-                                    <div class="team team--home">
-                                        <div class="team-logo">
-                                            <img src="https://assets.codepen.io/285131/whufc.svg"/>
-                                        </div>
-                                        <h2 class="team-name">West Ham</h2>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="match-details">
-                                        <button class="match-bet-place">obtenir un billet</button>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="team team--away">
-                                        <div class="team-logo">
-                                            <img src="https://assets.codepen.io/285131/chelsea.svg"/>
-                                        </div>
-                                        <h2 class="team-name">Chelsea</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-match-billet col-sm-12 col-md-4">
-                        <div class="match">
-                            <div class="match-header">
-                                <div class="match-date">
-                                    12 Aug at <strong>19:00</strong>
-                                </div>
-                            </div>
-                            <div class="match-content">
-                                <div class="column">
-                                    <div class="team team--home">
-                                        <div class="team-logo">
-                                            <img src="https://assets.codepen.io/285131/whufc.svg"/>
-                                        </div>
-                                        <h2 class="team-name">West Ham</h2>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="match-details">
-                                        <button class="match-bet-place">obtenir un billet</button>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="team team--away">
-                                        <div class="team-logo">
-                                            <img src="https://assets.codepen.io/285131/chelsea.svg"/>
-                                        </div>
-                                        <h2 class="team-name">Chelsea</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center;">
                         <ul class="pagination">
                             <li class="active"><a href="#">1</a></li>

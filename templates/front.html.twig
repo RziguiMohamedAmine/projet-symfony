@@ -105,13 +105,20 @@
                 <li><a href="">Equipes</a></li>
                 <li
                         {% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison') %}
-                    class="active"
-                        {% endif %}>
+                            class="active"
+                        {% endif %}
+                >
                     <a href="{{ path('app_front_match') }}">
                         Match
                     </a>
                 </li>
-                <li><a href="news.html">NEWS</a></li>
+                <li
+                        {% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison') %}
+                            class="active"
+                        {% endif %}
+                >
+                    <a href="{{ path('app_billet_front') }}">Billet</a>
+                </li>
                 <li><a href="shop.html">SHOP</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
             </ul>
