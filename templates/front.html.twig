@@ -112,12 +112,30 @@
                         Match
                     </a>
                 </li>
-                <li
-                        {% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison') %}
-                            class="active"
-                        {% endif %}
-                >
-                    <a href="{{ path('app_billet_front') }}">Billet</a>
+                {#                <li #}
+                {#                                        {% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison') %} #}
+                {#                                            class="active" #}
+                {#                                        {% endif %} #}
+                {#                > #}
+                {#                    <a href="{{ path('app_billet_front') }}">Billet</a> #}
+                {#                </li> #}
+
+                <li class="nav-item dropdown
+ {% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison' or app.request.attributes.get('_route') == 'app_billet_front_mes_billet') %}
+                                             active
+
+                {% endif %}
+                ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Billet
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('app_billet_front') }}">Achat Billet</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{{ path('app_billet_front_mes_billet') }}">Mes Billets</a>
+                    </div>
                 </li>
                 <li><a href="shop.html">SHOP</a></li>
                 <li><a href="contact.html">CONTACT</a></li>

@@ -13,106 +13,168 @@
 
 
      <div class="section singlepage">
-         <div class="container">
+     <div class="container">
 
-             <div class="row">
-                 <div class="col-sm-12 col-md-12">
-                     <div class="page-title">
-                         <h2 class="lead">Mes Billets</h2>
-                         <div class="border-style"></div>
-                         <div class="page-description">
-                             <p><strong>Federation Tunisienne de football</strong> Lorem ipsum dolor sit amet, libero
-                                 turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor
-                                 bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin
-                                 viverra, vel varius eget sit mollis. Commodo enim aliquam suspendisse tortor cum diam,
-                                 commodo facilisis, rutrum et duis nisl porttitor, vel eleifend odio ultricies ut, orci
-                                 in adipiscing felis velit nibh.</p>
-                         </div>
+         <div class="row">
+             <div class="col-sm-12 col-md-12">
+                 <div class="page-title">
+                     <h2 class="lead">Mes Billets</h2>
+                     <div class="border-style"></div>
+                     <div class="page-description">
+                         <p><strong>Federation Tunisienne de football</strong> Lorem ipsum dolor sit amet, libero
+                             turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor
+                             bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin
+                             viverra, vel varius eget sit mollis. Commodo enim aliquam suspendisse tortor cum diam,
+                             commodo facilisis, rutrum et duis nisl porttitor, vel eleifend odio ultricies ut, orci
+                             in adipiscing felis velit nibh.</p>
                      </div>
                  </div>
              </div>
+         </div>
 
-             <div class="row">
+         <div class="row">
 
-                 <div class="col-sm-12 col-md-12">
+             <div class="col-sm-12 col-md-12">
 
-                     <div class="team-tab" data-example-id="togglable-tabs">
-                         <ul id="myTabs" class="nav nav-tabs nav-tabs-team" role="tablist">
-                             <li class="active"><a href="#primary" id="primary-tab" role="tab" data-toggle="tab"
-                                                   aria-controls="primary" aria-expanded="true">Billet Active</a></li>
-                             <li><a href="#primary" id="primary-tab" role="tab" data-toggle="tab"
-                                    aria-controls="primary" aria-expanded="true">Billet Expirée</a></li>
-                         </ul>
-                         <div id="myTabContent" class="tab-content tab-team tab-team-bg">
-                             <div role="tabpanel" class="tab-pane fade in active" id="primary"
-                                  aria-labelledBy="primary-tab">
-                                 <div class="teams">
-                                     <div class="nav-team" id="primary-nav">
-                                         {% for billet in billets %}
-                                             <div class="position " style="display: flex; justify-content: center;">
-                                                 <a style="display: flex; align-items: center; width: 100%;
+                 <div class="team-tab" data-example-id="togglable-tabs">
+                     <ul id="myTabs" class="nav nav-tabs nav-tabs-team" role="tablist">
+                         <li class="active"><a href="#primary" id="primary-tab" role="tab" data-toggle="tab"
+                                               aria-controls="primary" aria-expanded="true">Billet Active</a></li>
+                         <li><a href="#secondary" role="tab" id="secondary-tab" data-toggle="tab"
+                                aria-controls="secondary">Billet Expirée</a></li>
+
+
+                     </ul>
+                     <div id="myTabContent" class="tab-content tab-team tab-team-bg">
+                         <div role="tabpanel" class="tab-pane fade in active" id="primary"
+                              aria-labelledBy="primary-tab">
+                             <div class="teams">
+                                 <div class="nav-team" id="primary-nav">
+                                     {% for billet in validBillets %}
+                                         <div class="position {% if loop.index == 1 %} active{% endif %}"
+                                              style="display: flex; justify-content: center;">
+                                             <a style="display: flex; align-items: center; width: 100%;
     justify-content: space-between;">
-                                                     <img
-                                                             src="{{ asset('/images/')~billet.idMatch.equipe1.logo }}"
-                                                             style="width: 30px;height: 30px; display: inline-block">
-                                                     {{ billet.idMatch.equipe1.nomeq~' - '~ billet.idMatch.equipe2.nomeq }}
-                                                     <img style="width: 30px;height: 30px; display: inline-block"
-                                                          src="{{ asset('/images/')~billet.idMatch.equipe2.logo }}">
-                                                 </a>
-                                             </div>
-                                         {% endfor %}
-                                         <!--  -->
-                                     </div>
+                                                 <img
+                                                         src="{{ asset('/images/')~billet.idMatch.equipe1.logo }}"
+                                                         style="width: 30px;height: 30px; display: inline-block">
+                                                 {{ billet.idMatch.equipe1.nomeq~' - '~ billet.idMatch.equipe2.nomeq }}
+                                                 <img style="width: 30px;height: 30px; display: inline-block"
+                                                      src="{{ asset('/images/')~billet.idMatch.equipe2.logo }}">
+                                             </a>
+                                         </div>
+                                     {% endfor %}
+                                     <!--  -->
                                  </div>
-                                 <div class="teams-caro">
-                                     <div id="primary-team-caro" class="owl-carousel owl-theme">
-
-                                         {% for billet in billets %}
-                                             <div class="item">
-
-                                                 <div class="teams-description">
-
-                                                     <p>
-                                                         <span class="title">Equipe1 : </span>{{ billet.idMatch.equipe1.nomeq }}
-                                                     </p>
-                                                     <p>
-                                                         <span class="title">Equipe2 : </span>{{ billet.idMatch.equipe2.nomeq }}
-                                                     </p>
-                                                     <p>
-                                                         <span class="title">Stade : </span>{{ billet.idMatch.equipe1.stade }}
-                                                     </p>
-                                                     <p>
-                                                         <span class="title">Bloc : </span>{{ billet.bloc }}
-                                                     </p>
-                                                     <p>
-                                                         <span class="title">Prix : </span>{{ billet.prix }}
-                                                     </p>
-
-                                                     <p>
-                                                         <span class="title">Prix : </span>{{ billet.idMatch.date | date }}
-                                                     </p>
-
-                                                 </div>
-
-                                             </div>
-                                         {% endfor %}
-
-
-                                     </div>
-                                 </div>
-                                 <div class="clearfix"></div>
                              </div>
+                             <div class="teams-caro">
+                                 <div id="primary-team-caro" class="owl-carousel owl-theme">
+
+                                     {% for billet in validBillets %}
+                                         <div class="item">
+
+                                             <div class="teams-description">
+                                                 <p>
+                                                     <span class="title">Référence : </span>{{ 'B'~billet.id*3600 }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Equipe1 : </span>{{ billet.idMatch.equipe1.nomeq }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Equipe2 : </span>{{ billet.idMatch.equipe2.nomeq }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Stade : </span>{{ billet.idMatch.equipe1.stade }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Bloc : </span>{{ billet.bloc | upper }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Prix : </span>{{ billet.prix }} DT
+                                                 </p>
+
+                                                 <p>
+                                                     <span class="title">Prix : </span>{{ billet.idMatch.date | date }}
+                                                 </p>
+
+                                             </div>
+
+                                         </div>
+                                     {% endfor %}
+
+
+                                 </div>
+                             </div>
+
                              <div class="clearfix"></div>
                          </div>
 
-                     </div>
-                 </div><!-- /example -->
+                         <div role="tabpanel" class="tab-pane fade" id="secondary" aria-labelledBy="secondary-tab">
+                             <div class="teams">
+                                 <div class="nav-team" id="secondary-nav">
+                                     {% for billet in invalidBillet %}
+                                         <div class="position {% if loop.index == 1 %} active{% endif %}"
+                                              style="display: flex; justify-content: center;">
+                                             <a style="display: flex; align-items: center; width: 100%;
+    justify-content: space-between;">
+                                                 <img
+                                                         src="{{ asset('/images/')~billet.idMatch.equipe1.logo }}"
+                                                         style="width: 30px;height: 30px; display: inline-block">
+                                                 {{ billet.idMatch.equipe1.nomeq~' - '~ billet.idMatch.equipe2.nomeq }}
+                                                 <img style="width: 30px;height: 30px; display: inline-block"
+                                                      src="{{ asset('/images/')~billet.idMatch.equipe2.logo }}">
+                                             </a>
+                                         </div>
+                                     {% endfor %}
+                                 </div>
+                             </div>
+                             <div class="teams-caro">
+                                 <div id="secondary-team-caro" class="owl-carousel owl-theme">
+                                     {% for billet in invalidBillet %}
+                                         <div class="item">
+
+                                             <div class="teams-description">
+                                                 <p>
+                                                     <span class="title">Référence : </span>{{ 'B'~billet.id*3600 }}
+                                                 </p>
+
+                                                 <p>
+                                                     <span class="title">Equipe1 : </span>{{ billet.idMatch.equipe1.nomeq }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Equipe2 : </span>{{ billet.idMatch.equipe2.nomeq }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Stade : </span>{{ billet.idMatch.equipe1.stade }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Bloc : </span>{{ billet.bloc | upper }}
+                                                 </p>
+                                                 <p>
+                                                     <span class="title">Prix : </span>{{ billet.prix }} DT
+                                                 </p>
+
+                                                 <p>
+                                                     <span class="title">Prix : </span>{{ billet.idMatch.date | date }}
+                                                 </p>
+
+                                             </div>
+
+                                         </div>
+                                     {% endfor %}
+
+                                 </div>
+                             </div>
+                             <div class="clearfix"></div>
+                         </div>
+                         /div>
+                     </div><!-- /example -->
+
+                 </div>
+
 
              </div>
-
-
          </div>
-     </div>
      </div>
 
 

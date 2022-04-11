@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Billet;
 use App\Repository\BilletRepository;
 use App\Repository\MatchsRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,11 +18,15 @@ class BilletFrontController extends AbstractController
     /**
      * @Route("/mesbillet", name="app_billet_front_mes_billet", methods={"get"})
      */
-    public function mesBillet(MatchsRepository $matchsRepository, BilletRepository $billetRepository): Response
+    public function mesBillet(BilletRepository $billetRepository, UserRepository $userRepository): Response
     {
+        $user = $userRepository->find(61);
+        $validBillet = $billetRepository->getValidBillet(61);
+        $invalidBillet = $billetRepository->getInvalidBillet(61);
 
         return $this->render('billet_front/mes_billet.html.twig', [
-            'billets' => $billetRepository->findAll()
+            'validBillets' => $validBillet,
+            'invalidBillet' => $invalidBillet,
         ]);
     }
 
@@ -48,12 +53,13 @@ class BilletFrontController extends AbstractController
     /**
      * @Route("/{id}/{bloc}", name="app_billet_front_bloc_post", methods={"POST"})
      */
-    public function postBloc(MatchsRepository $matchsRepository, BilletRepository $billetRepository, $id, $bloc): Response
+    public function postBloc(MatchsRepository $matchsRepository, BilletRepository $billetRepository, UserRepository $userRepository, $id, $bloc): Response
     {
 
         $billet = new Billet();
         $billet->setBloc($bloc);
         $billet->setIdMatch($matchsRepository->find($id));
+        $billet->setIdUser($userRepository->find(61));
         if ($bloc == 'A') {
             $billet->setPrix(35);
 

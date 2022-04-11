@@ -22,11 +22,11 @@ class MatchFrontController extends AbstractController
     {
         $todayMatchs = $matchsRepository->getTodayMatchs();
         $nextMatchs = $matchsRepository->getNextMatchs();
-        $matchHistory = $matchsRepository->getMatchHistory();
         $saisons = $classementRepository->getSaisons();
 
+        $matchHistory = $matchsRepository->getMatchHistory($saisons[0]['saison']);
+
         $classment = $classementRepository->findBy(['saison' => $saisons[0]]);
-        dump($saisons[0]);
 
         return $this->render('match_front/index.html.twig', [
             'todayMatchs' => $todayMatchs,

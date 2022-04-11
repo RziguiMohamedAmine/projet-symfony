@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use DateTime;
+
 
 /**
  * @method Billet|null find($id, $lockMode = null, $lockVersion = null)
@@ -43,6 +45,44 @@ class BilletRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function getValidBillet(int $idUser)
+    {
+
+        $atEndOfDay = new DateTime();
+
+        $atEndOfDay->setTime(23, 59, 59, 59);
+
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.idUser = :idUser')
+            ->join('b.idMatch', 'm')
+            ->andWhere('m.date > :valDeb')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->setParameter('idUser', $idUser)
+            ->orderBy('m.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getInvalidBillet(int $idUser)
+    {
+
+        $atEndOfDay = new DateTime();
+
+        $atEndOfDay->setTime(0, 0, 0, 0);
+
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.idUser = :idUser')
+            ->join('b.idMatch', 'm')
+            ->andWhere('m.date < :valDeb')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->setParameter('idUser', $idUser)
+            ->orderBy('m.date', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

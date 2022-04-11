@@ -86,7 +86,7 @@ class  MatchsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getMatchHistory()
+    public function getMatchHistory(int $saison)
     {
 
         $atEndOfDay = new DateTime();
@@ -96,7 +96,9 @@ class  MatchsRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('m')
             ->andWhere('m.date < :valDeb')
+            ->andWhere('m.saison = :saison')
             ->setParameter('valDeb', $atEndOfDay)
+            ->setParameter('saison', $saison)
             ->orderBy('m.date', 'ASC')
             ->getQuery()
             ->getResult();

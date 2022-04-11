@@ -142,6 +142,7 @@ a {
 a:hover {
     color: #f00;
     text-decoration: none;
+    background: white;
 }
 
 h3, h4, h5 {
