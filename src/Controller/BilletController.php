@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BilletController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="app_billet_index", methods={"GET"})
      */
@@ -94,4 +96,6 @@ class BilletController extends AbstractController
 
         return $this->redirectToRoute('app_billet_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }
