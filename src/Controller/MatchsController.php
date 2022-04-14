@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Matchs;
 use App\Form\Matchs1Type;
+use App\Repository\EquipeRepository;
 use App\Repository\MatchsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,6 +78,7 @@ class MatchsController extends AbstractController
     }
 
     /**
+     *
      * @Route("/{id}", name="app_matchs_delete", methods={"POST"})
      */
     public function delete(Request $request, Matchs $match, MatchsRepository $matchsRepository): Response
@@ -86,6 +88,16 @@ class MatchsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/tirageausort/{saison}", name="app_matchs_tirage_au_sort")
+     */
+    public function tirageAuSort($saison, MatchsRepository $matchsRepository): Response
+    {
+        $matchsRepository->trigeausort($saison);
+        exit();
+//        return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
     }
 
 

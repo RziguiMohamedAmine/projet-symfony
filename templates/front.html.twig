@@ -121,7 +121,7 @@
                 {#                </li> #}
 
                 <li class="nav-item dropdown
- {% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison' or app.request.attributes.get('_route') == 'app_billet_front_mes_billet') %}
+ {% if(app.request.attributes.get('_route') == 'app_billet_front' or app.request.attributes.get('_route') == 'app_billet_front_reservation' or app.request.attributes.get('_route') == 'app_billet_front_mes_billet' or app.request.attributes.get('_route') == 'app_billet_front_bloc') %}
                                              active
 
                 {% endif %}

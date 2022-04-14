@@ -7,26 +7,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-12">
-                    <div class="caption">Matchs</div>
+                    <div class="caption">Choisir un bloC</div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
 
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="section about">
         <div class="container ">
             <div class="row">
@@ -34,12 +20,62 @@
                     <div class="page-title">
                         <h2 class="lead">Billet</h2>
                         <div class="border-style"></div>
+                        <div class="page-description">
+                            <p><strong>Choisir un bloc</strong> Lorem ipsum dolor sit amet, libero
+                                turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor
+                                bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin
+                                viverra, vel varius eget sit mollis. Commodo enim aliquam suspendisse tortor cum diam,
+                                commodo facilisis, rutrum et duis nisl porttitor, vel eleifend odio ultricies ut, orci
+                                in adipiscing felis velit nibh.</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12">
+                <div>
+                    <table class="table table-striped">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr style="background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;">
 
-                <div class="row">
+                                <td>
+                                    <div class="match-title text-right" style="font-size: 31px;">
+                                        <img src="{{ asset('/images/'~match.equipe1.logo ) }}"
+                                             alt="{{ match.equipe1.logo }}"
+                                             style="width: 70px;height: 70px">
+                                        {{ match.equipe1 }}
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+
+                                        -
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="match-title match_equipe_item" style="font-size: 31px;">
+
+                                        {{ match.equipe2 }}
+                                        <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                             alt="{{ match.equipe2.logo }}"
+                                             style="width: 70px;height: 70px">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            <div>
+
+                <div class="row" style="display: flex;
+    justify-content: space-around;">
                     <img src="{{ asset('/images/rades.png') }}" usemap="#image-map">
                     <map name="image-map">
                         <area target="_self" alt="b" title="b"
@@ -64,8 +100,8 @@
                               shape="poly">
                     </map>
                     {% if(app.request.attributes.get('_route') == 'app_billet_front_bloc') %}
-                        <div class="row mx-n3">
-                            <div class="col-sm-6 col-xl-3 px-3 mb-5">
+                        <div style="width: 290px;">
+                            <div style="background: white;padding: 20px;">
                                 <div class="card card-frame h-100" style="border-top-width: 5px;">
                                     <div class="card-header p-4">
                                         <h6 class="text-uppercase font-weight-bold text-spacing text-monospace text-dark">

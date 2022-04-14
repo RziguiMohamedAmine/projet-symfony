@@ -35,8 +35,9 @@ class BilletFrontController extends AbstractController
      */
     public function index(MatchsRepository $matchsRepository): Response
     {
+        $matchs = array_merge($matchsRepository->getNextMatchs(), $matchsRepository->getTodayMatchs());
         return $this->render('billet_front/index.html.twig', [
-            'matchs' => $matchsRepository->getNextMatchs(),
+            'matchs' => $matchs,
         ]);
     }
 
@@ -44,9 +45,11 @@ class BilletFrontController extends AbstractController
      * @Route("/{id}", name="app_billet_front_reservation", methods={"GET"})
      * @Route("/{id}/{bloc}", name="app_billet_front_bloc", methods={"GET"})
      */
-    public function bloc(): Response
+    public function bloc($id, MatchsRepository $matchsRepository): Response
     {
+
         return $this->render('billet_front/choose_bloc.html.twig', [
+            'match' => $matchsRepository->find($id)
         ]);
     }
 

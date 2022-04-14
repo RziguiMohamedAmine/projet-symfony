@@ -52,7 +52,7 @@ class BilletRepository extends ServiceEntityRepository
 
         $atEndOfDay = new DateTime();
 
-        $atEndOfDay->setTime(23, 59, 59, 59);
+//        $atEndOfDay->setTime(0, 0, 59, 59);
 
 
         return $this->createQueryBuilder('b')

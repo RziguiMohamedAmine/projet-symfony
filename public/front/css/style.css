@@ -142,7 +142,7 @@ a {
 a:hover {
     color: #f00;
     text-decoration: none;
-    background: white;
+    /*background: white;*/
 }
 
 h3, h4, h5 {
@@ -2921,6 +2921,7 @@ body {
     flex-direction: column;
     min-width: 373px;
     border-radius: 10px;
+    min-height: 303px;
     box-shadow: 0 0 2px 0 rgba(48, 48, 48, 0.1), 0 4px 4px 0 rgba(48, 48, 48, 0.1);
 }
 
@@ -2987,6 +2988,7 @@ body {
 
 .column {
     padding: 32px;
+    min-height: 243px;
     display: flex;
     justify-content: center;
     align-items: center;
