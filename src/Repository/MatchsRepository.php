@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Arbitre;
+use App\Entity\Classment;
 use App\Entity\Equipe;
 use App\Entity\Matchs;
 use DateTime;
@@ -108,17 +109,18 @@ class  MatchsRepository extends ServiceEntityRepository
 
     public function trigeausort($saison)
     {
+        $matchs = array();
         $equipeRepository = $this->getEntityManager()->getRepository(Equipe::class);
+        $classmentRepesitory = $this->getEntityManager()->getRepository(Classment::class);
         $equipes = $equipeRepository->findAll();
         $equipe1 = array();
         $equipe2 = array();
         $numberOfRound = count($equipes) - 1;
         $numberOfMatchPerRound = count($equipes) / 2;
-        dump($numberOfMatchPerRound);
-        dump($numberOfRound);
 
         $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT distinct saison  FROM classment c where saison = ' . $saison;
+        $sql = 'SELECT distinct saison  FROM matchs where saison = ' . $saison;
+        dump($sql);
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
         if ($resultSet->rowCount() > 0) {
@@ -150,7 +152,7 @@ class  MatchsRepository extends ServiceEntityRepository
 //                $match->setDate();
                 $match->setStade($equipe1[$j]->getStade());
                 $match->setRound($i + 1);
-                $this->_em->persist($match);
+                $matchs[] = $match;
 //                if (j % 3 == 0) {
 //                    matchDate = roundDate.plusSeconds(3600 * 24 * (j / 3));
 //                } else {
@@ -172,14 +174,55 @@ class  MatchsRepository extends ServiceEntityRepository
 
             $equipe1[1] = $auxEquipe2;
             $equipe2[count($equipe2) - 1] = $auxEquipe1;
+
 //            roundDate = roundDate . plusSeconds(3600 * 24 * 7);
 
         }
+        $matchsReversed = $this->reverseMatchsArray($matchs, $numberOfRound);
 
-//        for ($i = 0; $i<)
-//        List<Match> matchListReverse = new ArrayList<>(reverseListOrderAndEquipe(matchList, nombreRound));
+        $matchsAll = array_merge($matchs, $matchsReversed);
+
+        foreach ($matchsAll as $match) {
+            $this->_em->persist($match);
+        }
+
+        foreach ($equipes as $equipe) {
+            $classment = new Classment();
+            $classment->setIdEquipe($equipe);
+            $classment->setSaison($saison);
+            $classmentRepesitory->_em->persist($classment);
+        }
         $this->_em->flush();
     }
+
+    private function reverseMatchsArray(array $matchs, $nombreRound): array
+    {
+        $matchsReverserd = array();
+        for ($i = 0; $i < count($matchs); $i++) {
+//            match2.setDate(Timestamp.from(match.getDate().toInstant().plusSeconds(3600 * 24 * 7 * 20)));
+
+            $newMatch = new Matchs();
+            $newMatch->setEquipe1($matchs[$i]->getEquipe2());
+            $newMatch->setEquipe2($matchs[$i]->getEquipe1());
+            $newMatch->setNbBut1(-1);
+            $newMatch->setNbBut2(-1);
+            $newMatch->setSaison($matchs[$i]->getSaison());
+            $newMatch->setIdArbitre1($matchs[$i]->getIdArbitre1());
+            $newMatch->setIdArbitre2($matchs[$i]->getIdArbitre2());
+            $newMatch->setIdArbitre3($matchs[$i]->getIdArbitre3());
+            $newMatch->setIdArbitre4($matchs[$i]->getIdArbitre4());
+            $newMatch->setNbSpectateur(10000);
+//                $match->setDate();
+            $newMatch->setStade($matchs[$i]->getEquipe2()->getStade());
+            $newMatch->setRound($nombreRound + $matchs[$i]->getRound());
+            $matchsReverserd[] = $newMatch;
+        }
+
+        return $matchsReverserd;
+
+    }
+
+
 
 
 

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Matchs;
 use App\Form\Matchs1Type;
-use App\Repository\EquipeRepository;
 use App\Repository\MatchsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,8 +95,7 @@ class MatchsController extends AbstractController
     public function tirageAuSort($saison, MatchsRepository $matchsRepository): Response
     {
         $matchsRepository->trigeausort($saison);
-        exit();
-//        return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
