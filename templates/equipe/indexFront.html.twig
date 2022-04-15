@@ -61,6 +61,9 @@
                                                  <p><span class="title">Stade : </span>{{ equipe.stade }}<a href="{{ path('app_equipe_map', {'id': equipe.id}) }}" class="btn btn-tbl-edit" >
                                                          <i class="fa fa-map-marker" style="font-size:30px;color:red"></i>
                                                      </a></p>
+                                                 <p><span class="title">Formation:</span><a href="{{ path('app_equipe_formation', {'id': equipe.id}) }}" class="btn btn-tbl-edit" >
+                                                         <img src="{{asset('front/images/foot.png')}}" width="50" height="50" alt="" />
+                                                     </a></p>
                                                  <p><span class="title">INFORMATION </span></p>
                                                  <p class="font-normal">Lorem ipsum dolor sit amet, libero turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin viverra, vel varius eget sit mollis.</p>
 

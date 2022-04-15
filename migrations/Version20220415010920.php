@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220405084934 extends AbstractMigration
+final class Version20220415010920 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,15 @@ final class Version20220405084934 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-
+        $this->addSql('CREATE TABLE formation (id INT AUTO_INCREMENT NOT NULL, id_equipe INT DEFAULT NULL, st INT NOT NULL, lw INT NOT NULL, rw INT NOT NULL, lm INT NOT NULL, mc INT NOT NULL, rm INT NOT NULL, rcb INT NOT NULL, lcb INT NOT NULL, lb INT NOT NULL, rb INT NOT NULL, gk INT NOT NULL, INDEX IDX_404021BF27E0FF8 (id_equipe), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE formation ADD CONSTRAINT FK_404021BF27E0FF8 FOREIGN KEY (id_equipe) REFERENCES equipe (id)');
+        $this->addSql('ALTER TABLE stade CHANGE stade stade VARCHAR(255) NOT NULL, CHANGE alt alt INT NOT NULL, CHANGE lng lng INT NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('DROP TABLE formation');
         $this->addSql('ALTER TABLE arbitre CHANGE nom nom VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE prenom prenom VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE image image VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE email email VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`');
         $this->addSql('ALTER TABLE billet CHANGE bloc bloc VARCHAR(500) NOT NULL COLLATE `utf8mb4_general_ci`');
         $this->addSql('ALTER TABLE categorie CHANGE nom nom VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`');
@@ -36,6 +39,7 @@ final class Version20220405084934 extends AbstractMigration
         $this->addSql('ALTER TABLE orders CHANGE state state VARCHAR(20) DEFAULT \'pending\' NOT NULL COLLATE `utf8mb4_general_ci`');
         $this->addSql('ALTER TABLE produit CHANGE nom nom VARCHAR(255) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE image image VARCHAR(500) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE description description VARCHAR(500) NOT NULL COLLATE `utf8mb4_general_ci`');
         $this->addSql('ALTER TABLE role_arbitre CHANGE role role VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE description description VARCHAR(500) NOT NULL COLLATE `utf8mb4_general_ci`');
+        $this->addSql('ALTER TABLE stade CHANGE stade stade VARCHAR(255) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE alt alt DOUBLE PRECISION NOT NULL, CHANGE lng lng DOUBLE PRECISION NOT NULL');
         $this->addSql('ALTER TABLE taille CHANGE nom nom VARCHAR(500) CHARACTER SET latin1 NOT NULL COLLATE `latin1_swedish_ci`');
         $this->addSql('ALTER TABLE user CHANGE nom nom VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE prenom prenom VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE email email VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE pass pass VARCHAR(100) NOT NULL COLLATE `utf8mb4_general_ci`, CHANGE forgetpassCode forgetpassCode VARCHAR(50) DEFAULT NULL COLLATE `utf8mb4_general_ci`, CHANGE role role VARCHAR(50) DEFAULT \'user\' NOT NULL COLLATE `utf8mb4_general_ci`');
     }

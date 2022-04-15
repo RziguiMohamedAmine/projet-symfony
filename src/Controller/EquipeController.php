@@ -127,6 +127,24 @@ class EquipeController extends AbstractController
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    /**
+     * @param EquipeRepository $equipeRepository
+     * @param JoueurRepository $joueurRepository
+     * @param $id
+     * @return Response
+     *  @Route("/back/formation/{id}", name="app_equipe_formationback", methods={"GET", "POST"})
+     */
+    public  function FormationEquipeBack(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository,$id)
+    {
+        $equipe = $equipeRepository->find($id);
+        $joueur=$joueurRepository->listJoueur($equipe->getId());
+        return $this->render("equipe/formationback.html.twig",[
+            'e'=>$equipe,'joueur'=>$joueur
+        ]);
+    }
+
+
+
 
     /**
      * @param EquipeRepository $equipeRepository
@@ -140,6 +158,23 @@ class EquipeController extends AbstractController
         $equipe = $equipeRepository->find($id);
         $joueur=$joueurRepository->listJoueur($equipe->getId());
         return $this->render("Joueur/indexFront.html.twig",[
+            'e'=>$equipe,'joueur'=>$joueur
+        ]);
+    }
+
+
+    /**
+     * @param EquipeRepository $equipeRepository
+     * @param JoueurRepository $joueurRepository
+     * @param $id
+     * @return Response
+     *  @Route("/front/formation/{id}", name="app_equipe_formation", methods={"GET", "POST"})
+     */
+    public  function FormationEquipe(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository,$id)
+    {
+        $equipe = $equipeRepository->find($id);
+        $joueur=$joueurRepository->listJoueur($equipe->getId());
+        return $this->render("equipe/formation.html.twig",[
             'e'=>$equipe,'joueur'=>$joueur
         ]);
     }

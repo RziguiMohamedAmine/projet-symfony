@@ -2,6 +2,7 @@
 namespace App\Form;
 
 use App\Entity\Equipe;
+use App\Repository\JoueurRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +24,7 @@ class EquipeType extends AbstractType
             ->add('nomEntreneur',TextType::class,[
                 'attr'=>['placeholder'=>'entrer entreneur'],
             ])
+
             ->add('niveau',ChoiceType::class, [
                 'choices'  => [
                     'ligue1' => 'ligue1',

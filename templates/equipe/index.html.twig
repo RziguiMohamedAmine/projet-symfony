@@ -52,6 +52,7 @@
                                                         <th data-priority="3">Modifier</th>
                                                         <th data-priority="6">Supprimer</th>
                                                         <th data-priority="6">Effectif</th>
+                                                        <th data-priority="6">Formation</th>
 
                                                     </tr>
                                                     </thead>
@@ -77,9 +78,13 @@
                                                         <td> <a href="{{ path('app_equipe_joueur_back', {'id': equipe.id}) }}" class="btn btn-tbl-edit">
                                                                 <i class="fa fa-users" style="font-size:30px;color:rgb(15, 192, 15)"></i>
                                                             </a></td>
+                                                        <td> <a href="{{ path('app_equipe_formationback', {'id': equipe.id}) }}" class="btn btn-tbl-edit" >
+                                                                <img src="{{asset('front/images/foot.png')}}" width="50" height="50" alt="" />
+                                                            </a>
+                                                        </td>
 
 
-                                                         </tr>
+                                                    </tr>
                                                      {% else %}
                                                       <tr>
                                                           <td colspan="7">no records found</td>
