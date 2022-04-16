@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as AcmeAssert;
 
 
 /**
@@ -81,7 +82,7 @@ class Matchs
      *     pattern = "/^[0-9]{4}\/[0-9]{4}$/",
      *     message="saion doit etre de cette format 2020/2021"
      * )
-     *
+     * @AcmeAssert\SaisonFormat()
      */
     private $saison;
 

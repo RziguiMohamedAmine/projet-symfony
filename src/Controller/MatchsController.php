@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Matchs;
 use App\Form\Matchs1Type;
+use App\Form\TirageAuSortType;
 use App\Repository\MatchsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,6 +68,8 @@ class MatchsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $matchsRepository->add($match);
+            $this->addFlash('success', 'match changer avec succée');
+
             return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -83,6 +86,7 @@ class MatchsController extends AbstractController
     public function delete(Request $request, Matchs $match, MatchsRepository $matchsRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $match->getId(), $request->request->get('_token'))) {
+            $this->addFlash('success', 'match Suprimée avec succée');
             $matchsRepository->remove($match);
         }
 
@@ -90,12 +94,31 @@ class MatchsController extends AbstractController
     }
 
     /**
-     * @Route("/tirageausort/{saison}", name="app_matchs_tirage_au_sort")
+     * @Route("/tirageausort/form", name="app_matchs_tirage_au_sort_form")
      */
-    public function tirageAuSort($saison, MatchsRepository $matchsRepository): Response
+    public function tirageAuSortForm(Request $request, MatchsRepository $matchsRepository): Response
     {
-        $matchsRepository->trigeausort($saison);
-        return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+        $form = $this->createForm(TirageAuSortType::class);
+        $form->handleRequest($request);
+        dump($form->getErrors());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $saison = $form["Saison"]->getData();
+            $date = $form["Date"]->getData();
+            $result = $matchsRepository->trigeausort($saison);
+            if ($result == "true") {
+                dump($result);
+
+                $this->addFlash('success', 'Tirage Au Sort de saison' . $saison . ' effectuée avec succée <ul> <li> création des matchs</li><li> création de table de classment</li></ul>');
+            } else {
+                $this->addFlash('fail', $result);
+
+            }
+
+        }
+
+        return $this->render('matchs/TirageAuSortForm.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
 

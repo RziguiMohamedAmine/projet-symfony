@@ -120,7 +120,6 @@ class  MatchsRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
         $sql = 'SELECT distinct saison  FROM matchs where saison = ' . $saison;
-        dump($sql);
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
         if ($resultSet->rowCount() > 0) {
@@ -193,6 +192,8 @@ class  MatchsRepository extends ServiceEntityRepository
             $classmentRepesitory->_em->persist($classment);
         }
         $this->_em->flush();
+
+        return "true";
     }
 
     private function reverseMatchsArray(array $matchs, $nombreRound): array
