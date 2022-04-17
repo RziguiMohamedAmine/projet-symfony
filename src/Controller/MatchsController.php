@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Matchs;
 use App\Form\Matchs1Type;
 use App\Form\TirageAuSortType;
+use App\Repository\EquipeRepository;
 use App\Repository\MatchsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,12 +33,15 @@ class MatchsController extends AbstractController
     public function new(Request $request, MatchsRepository $matchsRepository): Response
     {
         $match = new Matchs();
+
         $form = $this->createForm(Matchs1Type::class, $match);
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             $match->setSaison(str_replace("/", "", $match->getSaison()));
+            $matchsRepository->haveMatch($match->getEquipe1(), $match->getDate());
             $matchsRepository->add($match);
             return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -100,13 +104,11 @@ class MatchsController extends AbstractController
     {
         $form = $this->createForm(TirageAuSortType::class);
         $form->handleRequest($request);
-        dump($form->getErrors());
         if ($form->isSubmitted() && $form->isValid()) {
             $saison = $form["Saison"]->getData();
             $date = $form["Date"]->getData();
             $result = $matchsRepository->trigeausort($saison);
             if ($result == "true") {
-                dump($result);
 
                 $this->addFlash('success', 'Tirage Au Sort de saison' . $saison . ' effectuée avec succée <ul> <li> création des matchs</li><li> création de table de classment</li></ul>');
             } else {

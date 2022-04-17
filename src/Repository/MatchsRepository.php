@@ -223,6 +223,24 @@ class  MatchsRepository extends ServiceEntityRepository
 
     }
 
+    public function haveMatch(Equipe $equipe, DateTime $date)
+    {
+
+
+        $qb = $this->_em->createQueryBuilder()
+            ->select('equipe1')
+            ->from('matchs', 'm')
+            ->andWhere('m.equipe1 = :idEquipe')
+            ->orWhere('m.equipe2 = :idEquipe')
+            ->andWhere('m.date >= :valDeb')
+            ->andWhere('m.date <= :valFin')
+            ->setParameter('idEquipe', $equipe->getId())
+            ->setParameter('valDeb', $date->setTime(0, 0, 0, 0))
+            ->setParameter('valFin', $date->setTime(23, 59, 59, 59));
+        dump($qb->getQuery()->getResult());
+
+    }
+
 
 
 

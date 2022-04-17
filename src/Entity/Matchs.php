@@ -172,9 +172,9 @@ class Matchs
         return $this->nbBut1;
     }
 
-    public function setNbBut1(int $nbBut1): self
+    public function setNbBut1($nbBut1): self
     {
-        $this->nbBut1 = $nbBut1;
+        $this->nbBut1 = -1;
 
         return $this;
     }
@@ -184,9 +184,9 @@ class Matchs
         return $this->nbBut2;
     }
 
-    public function setNbBut2(int $nbBut2): self
+    public function setNbBut2($nbBut2): self
     {
-        $this->nbBut2 = $nbBut2;
+        $this->nbBut2 = -1;
 
         return $this;
     }
@@ -196,7 +196,7 @@ class Matchs
         return $this->stade;
     }
 
-    public function setStade(string $stade): self
+    public function setStade($stade): self
     {
         $this->stade = $stade;
 
@@ -208,7 +208,7 @@ class Matchs
         return $this->date;
     }
 
-    public function setDate(DateTimeInterface $date): self
+    public function setDate($date): self
     {
         $this->date = $date;
 
@@ -220,7 +220,7 @@ class Matchs
         return $this->nbSpectateur;
     }
 
-    public function setNbSpectateur(int $nbSpectateur): self
+    public function setNbSpectateur($nbSpectateur): self
     {
         $this->nbSpectateur = $nbSpectateur;
 
@@ -232,7 +232,7 @@ class Matchs
         return $this->saison;
     }
 
-    public function setSaison(string $saison): self
+    public function setSaison($saison): self
     {
         $this->saison = $saison;
 
@@ -244,7 +244,7 @@ class Matchs
         return $this->round;
     }
 
-    public function setRound(int $round): self
+    public function setRound($round): self
     {
         $this->round = $round;
 
@@ -256,7 +256,7 @@ class Matchs
         return $this->idArbitre4;
     }
 
-    public function setIdArbitre4(?Arbitre $idArbitre4): self
+    public function setIdArbitre4($idArbitre4): self
     {
         $this->idArbitre4 = $idArbitre4;
 
@@ -268,7 +268,7 @@ class Matchs
         return $this->idArbitre1;
     }
 
-    public function setIdArbitre1(?Arbitre $idArbitre1): self
+    public function setIdArbitre1($idArbitre1): self
     {
         $this->idArbitre1 = $idArbitre1;
 
@@ -280,7 +280,7 @@ class Matchs
         return $this->idArbitre3;
     }
 
-    public function setIdArbitre3(?Arbitre $idArbitre3): self
+    public function setIdArbitre3($idArbitre3): self
     {
         $this->idArbitre3 = $idArbitre3;
 
@@ -292,7 +292,7 @@ class Matchs
         return $this->idArbitre2;
     }
 
-    public function setIdArbitre2(?Arbitre $idArbitre2): self
+    public function setIdArbitre2($idArbitre2): self
     {
         $this->idArbitre2 = $idArbitre2;
 
@@ -309,7 +309,7 @@ class Matchs
         return $this->equipe1;
     }
 
-    public function setEquipe1(?Equipe $equipe1): self
+    public function setEquipe1($equipe1): self
     {
         $this->equipe1 = $equipe1;
 
@@ -321,7 +321,7 @@ class Matchs
         return $this->equipe2;
     }
 
-    public function setEquipe2(?Equipe $equipe2): self
+    public function setEquipe2($equipe2): self
     {
         $this->equipe2 = $equipe2;
 

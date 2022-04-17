@@ -45,6 +45,8 @@ class EquipeRepository extends ServiceEntityRepository
         }
     }
 
+
+
     // /**
     //  * @return Equipe[] Returns an array of Equipe objects
     //  */

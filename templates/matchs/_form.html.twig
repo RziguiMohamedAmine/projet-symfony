@@ -46,6 +46,7 @@
 
                                 {{ form_widget(form.equipe1,{'attr':{'class':'form-control'}}) }}
                             </div>
+
                             <div class="form-group">
                                 {{ form_label(form.equipe2) }}
                                 {{ form_widget(form.equipe2,{'attr':{'class':'form-control'}}) }}
@@ -144,3 +145,47 @@
 
 {% endblock %}
 
+{% block js %}
+    <script>
+        window.onload = () => {
+            let equipe1 = document.querySelector("#matchs1_equipe1");
+            equipe1.addEventListener("change", function () {
+                let form = this.closest("form");
+                let data = this.name + "=" + this.value;
+                fetch(form.action, {
+                    method: form.getAttribute("method"),
+                    body: data,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset:UTF-8"
+                    }
+
+                }).then(response => response.text()).then(html => {
+                    let content = document.createElement("html");
+                    content.innerHTML = html;
+                    let nouveauSelect = content.querySelector("#matchs1_equipe2");
+                    document.querySelector("#matchs1_equipe2").replaceWith(nouveauSelect);
+                });
+            });
+
+            // let arbitre1 = document.querySelector("#matchs1_idArbitre1");
+            // equipe1.addEventListener("change", function () {
+            //     let form = this.closest("form");
+            //     let data = this.name + "=" + this.value;
+            //     fetch(form.action, {
+            //         method: form.getAttribute("method"),
+            //         body: data,
+            //         headers: {
+            //             "Content-Type": "application/x-www-form-urlencoded; charset:UTF-8"
+            //         }
+            //
+            //     }).then(response => response.text()).then(html => {
+            //         let content = document.createElement("html");
+            //         content.innerHTML = html;
+            //         let nouveauSelect = content.querySelector("#matchs1_idArbitre2");
+            //         document.querySelector("#matchs1_idArbitre2").replaceWith(nouveauSelect);
+            //     });
+            // });
+        }
+
+    </script>
+{% endblock %}

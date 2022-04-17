@@ -2,12 +2,21 @@
 
 namespace App\Form;
 
+use App\Entity\Arbitre;
+use App\Entity\Equipe;
 use App\Entity\Matchs;
+use App\Repository\EquipeRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -15,6 +24,13 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 class Matchs1Type extends AbstractType
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -58,8 +74,8 @@ class Matchs1Type extends AbstractType
             ->add('equipe1', null, [
                 'placeholder' => 'select La primiere equipe pour ce match'
             ])
-            ->add('equipe2', null, [
-                'placeholder' => 'select La deuixieme equipe pour ce match'
+            ->add('equipe2', ChoiceType::class, [
+                'placeholder' => 'select La deuixieme equipe pour ce match(choisir la pemiere equipe) '
             ])
             ->add('idArbitre1', null, [
                 'label' => 'Arbitre1',
@@ -81,6 +97,49 @@ class Matchs1Type extends AbstractType
                 'placeholder' => 'select Le quatrieme  Arbitre pour ce match'
 
             ]);
+
+        $formModifier = function (FormInterface $form, Equipe $equipe1 = null) {
+            $equipeRepository = $this->entityManager->getRepository(Equipe::class);
+            $qb = $equipeRepository->createQueryBuilder('e')
+                ->where('e.id != :idEquipe1')
+                ->setParameter('idEquipe1', $equipe1->getId());
+            $form->add('equipe2', EntityType::class, [
+                'class' => Equipe::class,
+                'choice_label' => 'nomeq',
+                'placeholder' => 'select La deuixieme equipe pour ce match',
+                'label' => 'Equipe 2',
+                'query_builder' => $qb
+            ]);
+        };
+
+        $builder->get('equipe1')->addEventListener(FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                dump($event->getForm()->getExtraData());
+                $equipe1 = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $equipe1);
+            }
+        );
+//        $formModifierArbitre = function (FormInterface $form, Equipe $arbitre1 = null) {
+//            $equipeRepository = $this->entityManager->getRepository(Arbitre::class);
+////            $qb = $equipeRepository->createQueryBuilder('a')
+////                ->where('e.id != :idEquipe1')
+////                ->setParameter('idEquipe1', $equipe1->getId());
+////            $form->add('equipe2', EntityType::class, [
+////                'class' => Equipe::class,
+////                'choice_label' => 'nomeq',
+////                'placeholder' => 'select La deuixieme equipe pour ce match',
+////                'label' => 'Equipe 2',
+//////                'query_builder' => $qb
+////            ]);
+//        };
+//
+//        $builder->get('idArbitre1')->addEventListener(FormEvents::POST_SUBMIT,
+//            function (FormEvent $event) use ($formModifierArbitre) {
+//                dump($event->getForm()->all());
+//                $Arbitre1 = $event->getForm()->getParent();
+//                $formModifierArbitre($event->getForm()->getParent(), $Arbitre1);
+//            }
+//        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
