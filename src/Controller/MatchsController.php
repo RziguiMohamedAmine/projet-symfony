@@ -40,10 +40,15 @@ class MatchsController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $match->setSaison(str_replace("/", "", $match->getSaison()));
-            $matchsRepository->haveMatch($match->getEquipe1(), $match->getDate());
-            $matchsRepository->add($match);
-            return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+//            dump($matchsRepository->haveMatch($match->getEquipe1(), $match->getDate()));
+            if ($matchsRepository->haveMatch($match->getEquipe1(), $match->getDate()) == []) {
+                $match->setSaison(str_replace("/", "", $match->getSaison()));
+                $matchsRepository->add($match);
+                return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $this->addFlash('fail', 'une equipe de deux a un match pour ' . $match->getDate()->format('d-m-y'));
+            }
+
         }
 
         return $this->render('matchs/new.html.twig', [
@@ -107,7 +112,7 @@ class MatchsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $saison = $form["Saison"]->getData();
             $date = $form["Date"]->getData();
-            $result = $matchsRepository->trigeausort($saison);
+            $result = $matchsRepository->trigeausort($saison, $date);
             if ($result == "true") {
 
                 $this->addFlash('success', 'Tirage Au Sort de saison' . $saison . ' effectuée avec succée <ul> <li> création des matchs</li><li> création de table de classment</li></ul>');

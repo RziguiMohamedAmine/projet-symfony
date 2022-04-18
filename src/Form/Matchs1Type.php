@@ -99,22 +99,24 @@ class Matchs1Type extends AbstractType
             ]);
 
         $formModifier = function (FormInterface $form, Equipe $equipe1 = null) {
-            $equipeRepository = $this->entityManager->getRepository(Equipe::class);
-            $qb = $equipeRepository->createQueryBuilder('e')
-                ->where('e.id != :idEquipe1')
-                ->setParameter('idEquipe1', $equipe1->getId());
-            $form->add('equipe2', EntityType::class, [
-                'class' => Equipe::class,
-                'choice_label' => 'nomeq',
-                'placeholder' => 'select La deuixieme equipe pour ce match',
-                'label' => 'Equipe 2',
-                'query_builder' => $qb
-            ]);
+            if ($equipe1 != null) {
+                $equipeRepository = $this->entityManager->getRepository(Equipe::class);
+                $qb = $equipeRepository->createQueryBuilder('e')
+                    ->where('e.id != :idEquipe1')
+                    ->setParameter('idEquipe1', $equipe1->getId());
+                $form->add('equipe2', EntityType::class, [
+                    'class' => Equipe::class,
+                    'choice_label' => 'nomeq',
+                    'placeholder' => 'select La deuixieme equipe pour ce match',
+                    'label' => 'Equipe 2',
+                    'query_builder' => $qb
+                ]);
+            }
+
         };
 
         $builder->get('equipe1')->addEventListener(FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {
-                dump($event->getForm()->getExtraData());
                 $equipe1 = $event->getForm()->getData();
                 $formModifier($event->getForm()->getParent(), $equipe1);
             }

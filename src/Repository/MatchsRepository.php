@@ -6,11 +6,13 @@ use App\Entity\Arbitre;
 use App\Entity\Classment;
 use App\Entity\Equipe;
 use App\Entity\Matchs;
+use DateInterval;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use const DateTimeInterface;
 
 /**
  * @method Matchs|null find($id, $lockMode = null, $lockVersion = null)
@@ -107,14 +109,15 @@ class  MatchsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function trigeausort($saison)
+    public function trigeausort($saison, DateTime $date)
     {
         $matchs = array();
+        $equipe1 = array();
+        $equipe2 = array();
         $equipeRepository = $this->getEntityManager()->getRepository(Equipe::class);
         $classmentRepesitory = $this->getEntityManager()->getRepository(Classment::class);
         $equipes = $equipeRepository->findAll();
-        $equipe1 = array();
-        $equipe2 = array();
+
         $numberOfRound = count($equipes) - 1;
         $numberOfMatchPerRound = count($equipes) / 2;
 
@@ -131,7 +134,7 @@ class  MatchsRepository extends ServiceEntityRepository
         }
 
         for ($i = 0; $i < $numberOfRound; $i++) {
-//            Instant matchDate = roundDate;
+            $matchDate = $date;
 
             for ($j = 0; $j < $numberOfMatchPerRound; $j++) {
                 $match = new Matchs();
@@ -148,14 +151,18 @@ class  MatchsRepository extends ServiceEntityRepository
                 $match->setIdArbitre3($arbiter);
                 $match->setIdArbitre4($arbiter);
                 $match->setNbSpectateur(10000);
-//                $match->setDate();
+                $dateaux = new DateTime();
+                $dateaux->setTimestamp($matchDate->getTimestamp());
+                $match->setDate($dateaux);
                 $match->setStade($equipe1[$j]->getStade());
                 $match->setRound($i + 1);
                 $matchs[] = $match;
-//                if (j % 3 == 0) {
-//                    matchDate = roundDate.plusSeconds(3600 * 24 * (j / 3));
+                $matchDate = $date->add(new DateInterval('P1D'));
+
+//                if ($j % 3 == 0) {
+//                    $matchDate = $date->add(new DateInterval('P' . ($j / 3) . 'D'));
 //                } else {
-//                    matchDate = matchDate.plusSeconds(3600 * 2);
+//                    $matchDate = $matchDate->add(new DateInterval('PT2H'));
 //
 //                }
             }
@@ -174,9 +181,10 @@ class  MatchsRepository extends ServiceEntityRepository
             $equipe1[1] = $auxEquipe2;
             $equipe2[count($equipe2) - 1] = $auxEquipe1;
 
-//            roundDate = roundDate . plusSeconds(3600 * 24 * 7);
+            $date = $date->add(new DateInterval('P7D'));
 
         }
+        dump($matchs);
         $matchsReversed = $this->reverseMatchsArray($matchs, $numberOfRound);
 
         $matchsAll = array_merge($matchs, $matchsReversed);
@@ -213,7 +221,11 @@ class  MatchsRepository extends ServiceEntityRepository
             $newMatch->setIdArbitre3($matchs[$i]->getIdArbitre3());
             $newMatch->setIdArbitre4($matchs[$i]->getIdArbitre4());
             $newMatch->setNbSpectateur(10000);
-//                $match->setDate();
+            $date = $matchs[$i]->getDate();
+            $timeSpam = ($date->getTimestamp() + (28 * 3600 * 24));
+            $date1 = new DateTime();
+            $date1 = $date1->setTimestamp($timeSpam);
+            $newMatch->setDate($date1);
             $newMatch->setStade($matchs[$i]->getEquipe2()->getStade());
             $newMatch->setRound($nombreRound + $matchs[$i]->getRound());
             $matchsReverserd[] = $newMatch;
@@ -225,19 +237,32 @@ class  MatchsRepository extends ServiceEntityRepository
 
     public function haveMatch(Equipe $equipe, DateTime $date)
     {
+        $atStartOfDay = $date;
+        $atEndOfDay = $date;
+        $atStartOfDay->setTime(0, 0, 0, 0);
+        $atEndOfDay->setTime(23, 59, 59, 59);
 
-
-        $qb = $this->_em->createQueryBuilder()
-            ->select('equipe1')
-            ->from('matchs', 'm')
+        $qb = $this->createQueryBuilder('m')
+//            ->select('m.equipe1')
+//            ->from(Matchs::class, 'm')
             ->andWhere('m.equipe1 = :idEquipe')
             ->orWhere('m.equipe2 = :idEquipe')
             ->andWhere('m.date >= :valDeb')
             ->andWhere('m.date <= :valFin')
             ->setParameter('idEquipe', $equipe->getId())
-            ->setParameter('valDeb', $date->setTime(0, 0, 0, 0))
-            ->setParameter('valFin', $date->setTime(23, 59, 59, 59));
-        dump($qb->getQuery()->getResult());
+            ->setParameter('valDeb', $atStartOfDay)
+            ->setParameter('valFin', $atEndOfDay);
+        return $qb->getQuery()->getResult();
+
+
+//        dump($this->createQueryBuilder('m')
+//            ->andWhere('m.date >= :valDeb')
+//            ->andWhere('m.date <= :valFin')
+//            ->setParameter('valDeb', $atStartOfDay)
+//            ->setParameter('valFin', $atEndOfDay)
+//            ->orderBy('m.date', 'DESC')
+//            ->getQuery()
+//            ->getResult());
 
     }
 
