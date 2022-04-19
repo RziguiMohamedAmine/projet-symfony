@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Matchs;
 use App\Form\Matchs1Type;
+use App\Form\ResultType;
 use App\Form\TirageAuSortType;
 use App\Repository\EquipeRepository;
 use App\Repository\MatchsRepository;
@@ -76,6 +77,8 @@ class MatchsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $match->setSaison(str_replace("/", "", $match->getSaison()));
+
             $matchsRepository->add($match);
             $this->addFlash('success', 'match changer avec succée');
 
@@ -111,6 +114,7 @@ class MatchsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $saison = $form["Saison"]->getData();
+            $saison = str_replace("/", "", $saison);
             $date = $form["Date"]->getData();
             $result = $matchsRepository->trigeausort($saison, $date);
             if ($result == "true") {
@@ -124,6 +128,35 @@ class MatchsController extends AbstractController
         }
 
         return $this->render('matchs/TirageAuSortForm.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     *
+     * @Route("/result/{id}", name="app_matchs_update_result", methods={"POST", "GET"})
+     */
+    public function result(Request $request, Matchs $match, MatchsRepository $matchsRepository): Response
+    {
+        $form = $this->createForm(ResultType::class);
+        $form->handleRequest($request);
+//        if (!$form->isSubmitted()) {
+//
+//        }
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $nbBut1 = $form->get("nbBut1")->getData();
+            $nbBut2 = $form->get('nbBut2')->getData();
+
+            $matchsRepository->updateResultClassment($match, $nbBut1, $nbBut2);
+            $this->addFlash('success', "resultat effecturer avec succée <ul><li>mise à jour de resultat de match</li> <li>mise à jour de classment</li></ul>");
+        } else {
+            $form->get("equipe1")->setData($match->getEquipe1()->getNomeq());
+            $form->get("equipe2")->setData($match->getEquipe2()->getNomeq());
+        }
+
+        return $this->render('matchs/update_result_form.html.twig', [
             'form' => $form->createView()
         ]);
     }

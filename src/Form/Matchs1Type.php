@@ -74,7 +74,7 @@ class Matchs1Type extends AbstractType
             ->add('equipe1', null, [
                 'placeholder' => 'select La primiere equipe pour ce match'
             ])
-            ->add('equipe2', ChoiceType::class, [
+            ->add('equipe2', null, [
                 'placeholder' => 'select La deuixieme equipe pour ce match(choisir la pemiere equipe) '
             ])
             ->add('idArbitre1', null, [

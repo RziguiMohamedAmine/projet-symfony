@@ -243,8 +243,6 @@ class  MatchsRepository extends ServiceEntityRepository
         $atEndOfDay->setTime(23, 59, 59, 59);
 
         $qb = $this->createQueryBuilder('m')
-//            ->select('m.equipe1')
-//            ->from(Matchs::class, 'm')
             ->andWhere('m.equipe1 = :idEquipe')
             ->orWhere('m.equipe2 = :idEquipe')
             ->andWhere('m.date >= :valDeb')
@@ -255,15 +253,229 @@ class  MatchsRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
 
 
-//        dump($this->createQueryBuilder('m')
-//            ->andWhere('m.date >= :valDeb')
-//            ->andWhere('m.date <= :valFin')
-//            ->setParameter('valDeb', $atStartOfDay)
-//            ->setParameter('valFin', $atEndOfDay)
-//            ->orderBy('m.date', 'DESC')
-//            ->getQuery()
-//            ->getResult());
+    }
 
+    public function updateResultClassment(Matchs $match, $nbBut1, $nbBut2)
+    {
+//        $query = $query->set('c.nbPoint', 'c.nbPoint +3')
+//            ->set('c.nbTotaleBut', 'c.nbTotaleBut + $nbBut1')
+//            ->set('c.nbTotaleButRecu', 'c.nbTotaleButRecu + $nbBut2')
+//            ->set('c.nbWin', 'c.nbWin+ 1')
+//            ->set('c.nbDraw', 'c.nbDraw')
+//            ->set('c.nbLose', 'c.nbLose')
+//            ->where('c.idEquipe = :idEquipe');
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->update('App\Entity\Matchs', "m")
+            ->set('m.nbBut1', ':nbBut1')
+            ->set('m.nbBut2', ':nbBut2')
+            ->where('m.id = :id')
+            ->setParameter('nbBut1', $nbBut1)
+            ->setParameter('nbBut2', $nbBut2)
+            ->setParameter('id', $match->getId())
+            ->getQuery()
+            ->execute();
+        $qb1 = $this->_em->createQueryBuilder();
+        $query = $qb1->update('App\Entity\Classment', 'c');
+        if ($match->getNbBut1() == -1 && $match->getNbBut2() == -1) {
+            if ($nbBut1 > $nbBut2) {
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', 'c.nbPoint +3')
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut1")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2")
+                    ->set('c.nbWin', 'c.nbWin+ 1')
+                    ->where('c.idEquipe = :idEquipe')
+                    ->andWhere('c.saison = :saison')
+                    ->setParameter('idEquipe', $match->getEquipe1()->getId())
+                    ->setParameter('saison', $match->getSaison())
+                    ->getQuery()->execute();
+
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut2")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1")
+                    ->set('c.nbLose', 'c.nbLose+1')
+                    ->where('c.idEquipe = :idEquipe')
+                    ->andWhere('c.saison = :saison')
+                    ->setParameter('idEquipe', $match->getEquipe2()->getId())
+                    ->setParameter('saison', $match->getSaison())
+                    ->getQuery()->execute();
+            } else if ($nbBut1 < $nbBut2) {
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')->set('c.nbPoint', 'c.nbPoint +3')
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut2")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1")
+                    ->set('c.nbWin', 'c.nbWin+ 1')
+                    ->where('c.idEquipe = :idEquipe')
+                    ->setParameter('idEquipe', $match->getEquipe2()->getId())
+                    ->getQuery()->execute();
+
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut1")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2")
+                    ->set('c.nbLose', 'c.nbLose+1')
+                    ->where('c.idEquipe = :idEquipe')
+                    ->setParameter('idEquipe', $match->getEquipe1()->getId())
+                    ->getQuery()->execute();
+            } else {
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')->set('c.nbPoint', 'c.nbPoint +1')
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut2")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1")
+                    ->set('c.nbDraw', 'c.nbDraw +1')
+                    ->where('c.idEquipe = :idEquipe')
+                    ->setParameter('idEquipe', $match->getEquipe1()->getId())
+                    ->getQuery()->execute();
+
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')->set('c.nbPoint', 'c.nbPoint +1')
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut1")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2")
+                    ->set('c.nbDraw', 'c.nbDraw +1')
+                    ->where('c.idEquipe = :idEquipe')
+                    ->setParameter('idEquipe', $match->getEquipe2()->getId())
+                    ->getQuery()->execute();
+            }
+        } else {
+//            uery = $query->set('c.nbPoint', 'c.nbPoint +3')
+//            ->set('c.nbTotaleBut', 'c.nbTotaleBut + $nbBut1')
+//            ->set('c.nbTotaleButRecu', 'c.nbTotaleButRecu + $nbBut2')
+//            ->set('c.nbWin', 'c.nbWin+ 1')
+//            ->set('c.nbDraw', 'c.nbDraw')
+//            ->set('c.nbLose', 'c.nbLose')
+//            ->where('c.idEquipe = :idEquipe');
+            $nbPoint1 = 0;
+            $nbTotaleBut1 = 0;
+            $nbTotaleButRecu1 = 0;
+            $nbWin1 = 0;
+            $nbDraw1 = 0;
+            $nbLose1 = 0;
+            $nbPoint2 = 0;
+            $nbTotaleBut2 = 0;
+            $nbTotaleButRecu2 = 0;
+            $nbWin2 = 0;
+            $nbDraw2 = 0;
+            $nbLose2 = 0;
+            if ($match->getNbBut1() > $match->getNbBut2()) {
+                $nbPoint1 = $nbPoint1 - 3;
+                $nbTotaleBut1 = $nbTotaleBut1 - $match->getNbBut1();
+                $nbTotaleButRecu1 = $nbTotaleButRecu1 - $match->getNbBut2();
+                $nbWin1 = $nbWin1 - 1;
+
+                $nbTotaleBut2 = $nbTotaleBut2 - $match->getNbBut2();
+                $nbTotaleButRecu2 = $nbTotaleButRecu2 - $match->getNbBut1();
+                $nbLose2 = $nbLose2 - 1;
+
+
+            } else if ($match->getNbBut1() < $match->getNbBut2()) {
+                $nbPoint2 = $nbPoint2 - 3;
+                $nbTotaleBut2 = $nbTotaleBut2 - $match->getNbBut2();
+                $nbTotaleButRecu2 = $nbTotaleButRecu2 - $match->getNbBut1();
+                $nbWin2 = $nbWin2 - 1;
+
+                $nbTotaleBut1 = $nbTotaleBut1 - $match->getNbBut1();
+                $nbTotaleButRecu1 = $nbTotaleButRecu1 - $match->getNbBut2();
+                $nbLose1 = $nbLose1 - 1;
+            } else {
+
+                $nbPoint1 = $nbPoint1 - 1;
+                $nbTotaleBut1 = $nbTotaleBut1 - $match->getNbBut1();
+                $nbTotaleButRecu1 = $nbTotaleButRecu1 - $match->getNbBut2();
+                $nbDraw1 = $nbDraw1 - 1;
+                $nbPoint2 = $nbPoint2 - 1;
+                $nbTotaleBut2 = $nbTotaleBut2 - $match->getNbBut2();
+                $nbTotaleButRecu2 = $nbTotaleButRecu2 - $match->getNbBut1();
+                $nbDraw2 = $nbDraw2 - 1;
+
+            }
+
+            if ($nbBut1 > $nbBut2) {
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', "c.nbPoint + $nbPoint1 + 3")
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut1 + $nbTotaleBut1")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2 + $nbTotaleButRecu1")
+                    ->set('c.nbWin', "c.nbWin + 1 + $nbWin1")
+                    ->set('c.nbDraw', "c.nbDraw + $nbDraw1")
+                    ->set('c.nbLose', "c.nbLose + $nbLose1")
+                    ->where('c.idEquipe = :idEquipe')
+                    ->andWhere('c.saison = :saison')
+                    ->setParameter('idEquipe', $match->getEquipe1()->getId())
+                    ->setParameter('saison', $match->getSaison())
+                    ->getQuery()->execute();
+
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', "c.nbPoint + $nbPoint2")
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut2 + $nbTotaleBut2")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1+$nbTotaleButRecu2")
+                    ->set('c.nbLose', "c.nbLose + 1 + $nbLose2")
+                    ->set('c.nbWin', "c.nbWin +$nbWin2")
+                    ->set('c.nbDraw', "c.nbDraw + $nbDraw2")
+                    ->where('c.idEquipe = :idEquipe')
+                    ->andWhere('c.saison = :saison')
+                    ->setParameter('idEquipe', $match->getEquipe2()->getId())
+                    ->setParameter('saison', $match->getSaison())
+                    ->getQuery()->execute();
+            } else if ($nbBut1 < $nbBut2) {
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', "c.nbPoint +$nbPoint1")
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut1 + $nbTotaleBut1")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2+$nbTotaleButRecu1")
+                    ->set('c.nbLose', "c.nbLose + 1 + $nbLose1")
+                    ->set('c.nbDraw', "c.nbDraw + $nbDraw1")
+                    ->set('c.nbLose', "c.nbWin + $nbWin1")
+                    ->where('c.idEquipe = :idEquipe')
+                    ->andWhere('c.saison = :saison')
+                    ->setParameter('idEquipe', $match->getEquipe1()->getId())
+                    ->setParameter('saison', $match->getSaison())
+                    ->getQuery()->execute();
+
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', "c.nbPoint + $nbPoint2 + 3")
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut2 + $nbTotaleBut2")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1 + $nbTotaleButRecu2")
+                    ->set('c.nbWin', "c.nbWin + 1 +$nbWin2")
+                    ->set('c.nbDraw', "c.nbDraw + $nbDraw2")
+                    ->set('c.nbLose', "c.nbLose + $nbLose2")
+                    ->where('c.idEquipe = :idEquipe')
+                    ->andWhere('c.saison = :saison')
+                    ->setParameter('idEquipe', $match->getEquipe2()->getId())
+                    ->setParameter('saison', $match->getSaison())
+                    ->getQuery()->execute();
+
+            } else {
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', "c.nbPoint +1+$nbPoint1")
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut2 + $nbTotaleBut1")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1 + $nbTotaleButRecu1")
+                    ->set('c.nbDraw', "c.nbDraw +1+$nbDraw1")
+                    ->set('c.nbLose', "c.nbLose + $nbLose1")
+                    ->set('c.nbLose', "c.nbWin + $nbWin1")
+                    ->where('c.idEquipe = :idEquipe')
+                    ->setParameter('idEquipe', $match->getEquipe1()->getId())
+                    ->getQuery()->execute();
+
+                $this->_em->createQueryBuilder()
+                    ->update('App\Entity\Classment', 'c')
+                    ->set('c.nbPoint', "c.nbPoint +1+$nbPoint2")
+                    ->set('c.nbTotaleBut', "c.nbTotaleBut + $nbBut1 + $nbTotaleBut2")
+                    ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2 + $nbTotaleButRecu2")
+                    ->set('c.nbDraw', "c.nbDraw +1+$nbDraw2")
+                    ->set('c.nbLose', "c.nbLose + $nbLose2")
+                    ->set('c.nbLose', "c.nbWin + $nbWin2")
+                    ->where('c.idEquipe = :idEquipe')
+                    ->setParameter('idEquipe', $match->getEquipe2()->getId())
+                    ->getQuery()->execute();
+            }
+
+
+        }
+        return $query;
     }
 
 
