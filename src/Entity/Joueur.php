@@ -35,28 +35,28 @@ class Joueur
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="prenom", type="string", length=100, nullable=false)
      */
     private $prenom;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="poste", type="string", length=100, nullable=false)
      */
     private $poste;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="nationalite", type="string", length=100, nullable=false)
      */
     private $nationalite;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="date_naiss", type="date", nullable=false)
      * @Assert\LessThan("01/01/2006",message = "Le date ne doit pas etre superieur a 01/01/2006",)
      */
@@ -64,7 +64,7 @@ class Joueur
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="taille", type="float", precision=10, scale=0, nullable=false)
      * @Assert\Positive(message = "Le taille ne peut pas etre negative",)
      * @Assert\GreaterThan(130,message = "Le Taille ne doit pas etre inferieur a 130",)
@@ -73,7 +73,7 @@ class Joueur
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="poids", type="float", precision=10, scale=0, nullable=false)
      * @Assert\GreaterThan(18,message = "Le poids ne doit pas etre inferieur a 40",)
      */
@@ -81,7 +81,7 @@ class Joueur
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="image", type="string", length=200, nullable=false)
      */
     private $image;

@@ -53,6 +53,7 @@
                                                         <th data-priority="6">Supprimer</th>
                                                         <th data-priority="6">Effectif</th>
                                                         <th data-priority="6">Formation</th>
+                                                        <th data-priority="6">Imprimer Liste Joueur</th>
 
                                                     </tr>
                                                     </thead>
@@ -83,6 +84,9 @@
                                                             </a>
                                                         </td>
 
+                                                        <td> <a href="{{ path('app_equipe_formationdd', {'id': equipe.id}) }}" class="btn btn-tbl-edit">
+                                                                <i class="fa fa-file-pdf" style="font-size:50px;color:rgb(15, 192, 15)" ></i>
+                                                            </a></td>
 
                                                     </tr>
                                                      {% else %}

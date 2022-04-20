@@ -23,12 +23,12 @@ class Stade
     private $Stade;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $alt;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $lng;
 
@@ -49,24 +49,24 @@ class Stade
         return $this;
     }
 
-    public function getAlt(): ?int
+    public function getAlt(): ?float
     {
         return $this->alt;
     }
 
-    public function setAlt(int $alt): self
+    public function setAlt(float $alt): self
     {
         $this->alt = $alt;
 
         return $this;
     }
 
-    public function getLng(): ?int
+    public function getLng(): ?float
     {
         return $this->lng;
     }
 
-    public function setLng(int $lng): self
+    public function setLng(float $lng): self
     {
         $this->lng = $lng;
 

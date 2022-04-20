@@ -81,6 +81,7 @@ class JoueurRepository extends ServiceEntityRepository
             ->join('j.idEquipe','e')
             ->addSelect('e')
             ->where('e.id=:id')
+            ->orderBy('j.poste','asc')
             ->setParameter('id',$id)
             ->getQuery()->getResult();
     }
