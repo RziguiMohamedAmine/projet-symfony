@@ -62,7 +62,7 @@
                             <div class="form-group">
                                 {{ form_label(form.equipe1) }}
 
-                                {{ form_widget(form.equipe1,{'attr':{'class':'form-control'}}) }}
+                                {{ form_widget(form.equipe1,{'attr':{'class':'form-control input-disabled', 'value':match.equipe1.nomeq}}) }}
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.nbBut1) }}
@@ -72,7 +72,7 @@
 
                             <div class="form-group">
                                 {{ form_label(form.equipe2) }}
-                                {{ form_widget(form.equipe2,{'attr':{'class':'form-control'}}) }}
+                                {{ form_widget(form.equipe2,{'attr':{'class':'form-control input-disabled'}, 'value':match.equipe2.nomeq}) }}
                             </div>
 
 

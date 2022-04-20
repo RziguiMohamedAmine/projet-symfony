@@ -41,7 +41,6 @@ class MatchsController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            dump($matchsRepository->haveMatch($match->getEquipe1(), $match->getDate()));
             if ($matchsRepository->haveMatch($match->getEquipe1(), $match->getDate()) == []) {
                 $match->setSaison(str_replace("/", "", $match->getSaison()));
                 $matchsRepository->add($match);
@@ -73,15 +72,14 @@ class MatchsController extends AbstractController
      */
     public function edit(Request $request, Matchs $match, MatchsRepository $matchsRepository): Response
     {
+
+        $match->setSaison(substr($match->getSaison(), 0, 4) . '/' . substr($match->getSaison(), 4));
         $form = $this->createForm(Matchs1Type::class, $match);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $match->setSaison(str_replace("/", "", $match->getSaison()));
-
             $matchsRepository->add($match);
             $this->addFlash('success', 'match changer avec succée');
-
             return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -138,26 +136,35 @@ class MatchsController extends AbstractController
      */
     public function result(Request $request, Matchs $match, MatchsRepository $matchsRepository): Response
     {
-        $form = $this->createForm(ResultType::class);
+        dump($match);
+        $form = $this->createForm(ResultType::class, [
+            'equipe1' => $match->getEquipe1()->getNomeq(),
+            'equipe2' => $match->getEquipe2()->getNomeq(),
+
+        ]);
         $form->handleRequest($request);
-//        if (!$form->isSubmitted()) {
-//
-//        }
 
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $nbBut1 = $form->get("nbBut1")->getData();
+                $nbBut2 = $form->get('nbBut2')->getData();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $nbBut1 = $form->get("nbBut1")->getData();
-            $nbBut2 = $form->get('nbBut2')->getData();
-
-            $matchsRepository->updateResultClassment($match, $nbBut1, $nbBut2);
-            $this->addFlash('success', "resultat effecturer avec succée <ul><li>mise à jour de resultat de match</li> <li>mise à jour de classment</li></ul>");
+                $matchsRepository->updateResultClassment($match, $nbBut1, $nbBut2);
+                $this->addFlash('success', "resultat effecturer avec succée <ul><li>mise à jour de resultat de match</li> <li>mise à jour de classment</li></ul>");
+                return $this->redirectToRoute('app_matchs_index');
+            }
         } else {
-            $form->get("equipe1")->setData($match->getEquipe1()->getNomeq());
-            $form->get("equipe2")->setData($match->getEquipe2()->getNomeq());
+
+            if ($match->getNbBut1() != -1 && $match->getNbBut2() != -1) {
+                $form->get('nbBut1')->setData(($match->getNbBut1()));
+                $form->get('nbBut2')->setData(($match->getNbBut2()));
+//
+            }
         }
 
         return $this->render('matchs/update_result_form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'match' => $match
         ]);
     }
 

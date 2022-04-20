@@ -257,13 +257,7 @@ class  MatchsRepository extends ServiceEntityRepository
 
     public function updateResultClassment(Matchs $match, $nbBut1, $nbBut2)
     {
-//        $query = $query->set('c.nbPoint', 'c.nbPoint +3')
-//            ->set('c.nbTotaleBut', 'c.nbTotaleBut + $nbBut1')
-//            ->set('c.nbTotaleButRecu', 'c.nbTotaleButRecu + $nbBut2')
-//            ->set('c.nbWin', 'c.nbWin+ 1')
-//            ->set('c.nbDraw', 'c.nbDraw')
-//            ->set('c.nbLose', 'c.nbLose')
-//            ->where('c.idEquipe = :idEquipe');
+
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->update('App\Entity\Matchs', "m")
             ->set('m.nbBut1', ':nbBut1')
@@ -338,13 +332,7 @@ class  MatchsRepository extends ServiceEntityRepository
                     ->getQuery()->execute();
             }
         } else {
-//            uery = $query->set('c.nbPoint', 'c.nbPoint +3')
-//            ->set('c.nbTotaleBut', 'c.nbTotaleBut + $nbBut1')
-//            ->set('c.nbTotaleButRecu', 'c.nbTotaleButRecu + $nbBut2')
-//            ->set('c.nbWin', 'c.nbWin+ 1')
-//            ->set('c.nbDraw', 'c.nbDraw')
-//            ->set('c.nbLose', 'c.nbLose')
-//            ->where('c.idEquipe = :idEquipe');
+
             $nbPoint1 = 0;
             $nbTotaleBut1 = 0;
             $nbTotaleButRecu1 = 0;
@@ -383,6 +371,7 @@ class  MatchsRepository extends ServiceEntityRepository
                 $nbTotaleBut1 = $nbTotaleBut1 - $match->getNbBut1();
                 $nbTotaleButRecu1 = $nbTotaleButRecu1 - $match->getNbBut2();
                 $nbDraw1 = $nbDraw1 - 1;
+
                 $nbPoint2 = $nbPoint2 - 1;
                 $nbTotaleBut2 = $nbTotaleBut2 - $match->getNbBut2();
                 $nbTotaleButRecu2 = $nbTotaleButRecu2 - $match->getNbBut1();
@@ -426,7 +415,7 @@ class  MatchsRepository extends ServiceEntityRepository
                     ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2+$nbTotaleButRecu1")
                     ->set('c.nbLose', "c.nbLose + 1 + $nbLose1")
                     ->set('c.nbDraw', "c.nbDraw + $nbDraw1")
-                    ->set('c.nbLose', "c.nbWin + $nbWin1")
+                    ->set('c.nbWin', "c.nbWin + $nbWin1")
                     ->where('c.idEquipe = :idEquipe')
                     ->andWhere('c.saison = :saison')
                     ->setParameter('idEquipe', $match->getEquipe1()->getId())
@@ -455,7 +444,7 @@ class  MatchsRepository extends ServiceEntityRepository
                     ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut1 + $nbTotaleButRecu1")
                     ->set('c.nbDraw', "c.nbDraw +1+$nbDraw1")
                     ->set('c.nbLose', "c.nbLose + $nbLose1")
-                    ->set('c.nbLose', "c.nbWin + $nbWin1")
+                    ->set('c.nbWin', "c.nbWin + $nbWin1")
                     ->where('c.idEquipe = :idEquipe')
                     ->setParameter('idEquipe', $match->getEquipe1()->getId())
                     ->getQuery()->execute();
@@ -467,7 +456,7 @@ class  MatchsRepository extends ServiceEntityRepository
                     ->set('c.nbTotaleButRecu', "c.nbTotaleButRecu + $nbBut2 + $nbTotaleButRecu2")
                     ->set('c.nbDraw', "c.nbDraw +1+$nbDraw2")
                     ->set('c.nbLose', "c.nbLose + $nbLose2")
-                    ->set('c.nbLose', "c.nbWin + $nbWin2")
+                    ->set('c.nbWin', "c.nbWin + $nbWin2")
                     ->where('c.idEquipe = :idEquipe')
                     ->setParameter('idEquipe', $match->getEquipe2()->getId())
                     ->getQuery()->execute();

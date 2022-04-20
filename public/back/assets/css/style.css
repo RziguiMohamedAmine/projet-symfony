@@ -3895,4 +3895,10 @@ table.focus-on tbody tr.focused td {
     z-index: 100;
 }
 
+.input-disabled {
+    background-color: #1f2a34 !important;
+    opacity: 1 !important;
+    cursor: no-drop;
+}
+
 /*# sourceMappingURL=style.css.map */
