@@ -76,7 +76,7 @@ class Produit
      * @Assert\NotBlank(message=" champ obligatoire")
      * @ORM\Column(name="code", type="integer", nullable=false)
      */
-    private $code;
+    private $code=0;
 
     /**
      * @var \Categorie

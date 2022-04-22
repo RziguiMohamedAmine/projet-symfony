@@ -32,6 +32,7 @@ class ProduitController extends AbstractController
      */
     public function index(ProduitRepository $produitRepository): Response
     {
+
         return $this->render('produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
         ]);
@@ -59,7 +60,12 @@ class ProduitController extends AbstractController
                 // ... handle exception if something happens during file upload
             }
             $produit->setImage($newFilename);
+
             $produitRepository->add($produit);
+
+            $produit->setCode($produit->getId()*1000+12*6);
+            $produitRepository->add($produit);
+
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,12 +76,18 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_produit_show", methods={"GET"})
+     * @Route("/{id_categorie}", name="app_produit_show", methods={"GET"})
+     * @param ProduitRepository $produitRepository
+     * @param CategorieRepository $categorieRepository
+     * @param $id_categorie
+     * @return Response
      */
-    public function show(Produit $produit): Response
+    public function show(ProduitRepository $produitRepository, CategorieRepository $categorieRepository, $id_categorie): Response
     {
-        return $this->render('produit/show.html.twig', [
-            'produit' => $produit,
+        $produit =  $produitRepository->findBy(array('idCat'=>$id_categorie));
+        return $this->render('produit/Produitfront.html.twig', [
+            'produit'=> $produit,
+            'categorie'=> $categorieRepository->findAll()
         ]);
     }
 

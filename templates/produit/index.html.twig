@@ -59,7 +59,7 @@
                                                      <td>{{ produit.prix }}</td>
                                                      <td>{{ produit.description }}</td>
                                                      <td>{{ produit.stock }}</td>
-                                                     <td>{{ produit.code }}</td>
+                                                     <td>{{ barcode({code: produit.code |trans, type: 'c128', format: 'html'}) }}</td>
                                                      <td><img src="{{ 'http://127.0.0.1/images/'~ produit.image }}" width = "50" height = "50"></td>
 
                                                      <td> <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-tbl-edit">

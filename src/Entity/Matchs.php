@@ -47,7 +47,7 @@ class Matchs
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="date", type="datetime", nullable=false)
      */
     private $date;
 

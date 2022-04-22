@@ -590,5 +590,8 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "yellowskies/qr-code-bundle": {
+        "version": "1.2.10"
     }
 }

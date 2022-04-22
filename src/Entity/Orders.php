@@ -32,7 +32,7 @@ class Orders
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date ;
 

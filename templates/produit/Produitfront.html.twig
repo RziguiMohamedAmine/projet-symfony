@@ -22,7 +22,7 @@
                     <div class="sidenav">
                         <h4 class="sidenav-heading">CATEGORY</h4>
                         {% for categories in categorie %}
-                        <a href="#" title="" class="active"> {{ categories.nom }}</a>
+                        <a href={{ path('app_produit_show', {'id_categorie':categories.id}) }} title="" class="active"> {{ categories.nom }}</a>
                         {% endfor %}
 
                     </div>
@@ -46,6 +46,10 @@
                                         {{ produits.prix~ ' DT' }}
 
                                         <a href="#" title="" class="shop-buy">BUY</a>
+                                        <form action="{{ path('app_wishlist_new', {'id_produit':produits.id}) }}" method="post" style="display: flex;justify-content: end;margin-right: 0px;">
+                                            <button type="submit" class="ui huge red icon button" style="background: transparent;border-color: transparent;"><i class="fa fa-heart" aria-hidden="true"
+                                                style="font-size: 26px;color: red;"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

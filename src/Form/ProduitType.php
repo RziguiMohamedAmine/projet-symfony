@@ -19,7 +19,6 @@ class ProduitType extends AbstractType
             ->add('prix')
             ->add('description',TextareaType::class)
             ->add('stock')
-            ->add('code')
             ->add('idCat')
         ;
     }
