@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8298539d-4fd3-4e2b-a965-89ada25253aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/projet-symfony-main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/projet-symfony-main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20220408230709.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/projet-symfony" beforeDir="false" afterPath="$PROJECT_DIR$/projet-symfony" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projet-symfony/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/projet-symfony/src/Repository/ProduitRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Matchs.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Matchs.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Orders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Produit.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Produit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/ProduitType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ProduitType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/Produitfront.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/Produitfront.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/index.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -217,7 +200,7 @@
       <workItem from="1649750108854" duration="703000" />
       <workItem from="1649753750647" duration="2977000" />
       <workItem from="1650491887470" duration="2328000" />
-      <workItem from="1650577993826" duration="12177000" />
+      <workItem from="1650577993826" duration="12423000" />
     </task>
     <servers />
   </component>
