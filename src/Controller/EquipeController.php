@@ -266,6 +266,15 @@ class EquipeController extends AbstractController
     }
 
 
+    /**
+     * @Route("/", name="app_equipe_indform", methods={"GET"})
+     */
+    public function indexEq(EquipeRepository $equipeRepository): Response
+    {
+        return $this->render('equipe/indexeqForm.html.twig', [
+            'equipes' => $equipeRepository->findAll(),
+        ]);
+    }
 
 
 

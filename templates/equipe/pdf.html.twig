@@ -6873,6 +6873,27 @@ CSS Style Structure
                     margin-right: 10px;
                     margin-top: -60px;
                 }
+
+
+                .navbar-right2 {
+                    float: right !important;
+                    margin-right: 45px;
+                    margin-top: 700px;
+                }
+                .navbar-right2 ~ .navbar-right2 {
+                    margin-right: 40px;
+                    margin-top: 700px;
+                }
+
+                .navbar-right3 {
+                    float: right !important;
+                    margin-right: 65px;
+                    margin-top: 876px;
+                }
+                .navbar-right3 ~ .navbar-right3 {
+                    margin-right: 60px;
+                    margin-top: 876px;
+                }
             }
             .navbar-default {
                 background-color: #f8f8f8;
@@ -9544,6 +9565,8 @@ CSS Style Structure
                     <br>
                     <br>
                     <a class="navbar-right" style="color: #0b0b0b"><strong>Féderation Tunisienne <br>de football</strong></a>
+                    <a class="navbar-right2"  ><img src="{{ asset('http://127.0.0.1/images/cachet.png') }}" width="170" height="170"></a>
+                    <a class="navbar-right3" style="color: #0b0b0b"><strong>Tunis le 24/04/2022</strong></a>
                     <br>
                     <br>
                     <div class="border-style1"></div>
@@ -9551,6 +9574,7 @@ CSS Style Structure
                     <br>
                     <br>
                     <h2 class="lead">Joueurs de {{ e.nomeq }} <img src="{{ 'http://127.0.0.1/images/'~ e.logo }}" width = "60" height = "60"></h2>
+
                     <div class="border-style"></div>
                     <div class="page-description">
                         <p><strong>Joueurs de {{ e.nomeq }} </strong> autorisé a passer le match</p>
