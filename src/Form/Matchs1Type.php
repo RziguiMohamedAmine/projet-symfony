@@ -34,13 +34,13 @@ class Matchs1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nbBut1', NumberType::class,
-                [
-                    'attr' => [
-                        'placeholder' => 'Stade de Match'
-                    ]
-                ])
-            ->add('nbBut2', NumberType::class)
+//            ->add('nbBut1', NumberType::class,
+//                [
+//                    'attr' => [
+//                        'placeholder' => 'Stade de Match'
+//                    ]
+//                ])
+//            ->add('nbBut2', NumberType::class)
             ->add('stade', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Stade de Match'
@@ -50,8 +50,7 @@ class Matchs1Type extends AbstractType
                 'widget' => 'single_text',
                 'input' => 'datetime',
                 'html5' => 'false',
-                'constraints' => [new NotBlank(['message' => 'Choisir une date valide']),
-                ],
+
             ])
             ->add('nbSpectateur', NumberType::class,
                 [
@@ -121,27 +120,6 @@ class Matchs1Type extends AbstractType
                 $formModifier($event->getForm()->getParent(), $equipe1);
             }
         );
-//        $formModifierArbitre = function (FormInterface $form, Equipe $arbitre1 = null) {
-//            $equipeRepository = $this->entityManager->getRepository(Arbitre::class);
-////            $qb = $equipeRepository->createQueryBuilder('a')
-////                ->where('e.id != :idEquipe1')
-////                ->setParameter('idEquipe1', $equipe1->getId());
-////            $form->add('equipe2', EntityType::class, [
-////                'class' => Equipe::class,
-////                'choice_label' => 'nomeq',
-////                'placeholder' => 'select La deuixieme equipe pour ce match',
-////                'label' => 'Equipe 2',
-//////                'query_builder' => $qb
-////            ]);
-//        };
-//
-//        $builder->get('idArbitre1')->addEventListener(FormEvents::POST_SUBMIT,
-//            function (FormEvent $event) use ($formModifierArbitre) {
-//                dump($event->getForm()->all());
-//                $Arbitre1 = $event->getForm()->getParent();
-//                $formModifierArbitre($event->getForm()->getParent(), $Arbitre1);
-//            }
-//        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

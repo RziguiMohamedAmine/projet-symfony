@@ -85,14 +85,14 @@
 
                                             {% for match in todayMatchs %}
                                                 <tr>
-                                                    <td class="tw33" style="text-align: center">
+                                                    <td class="tw25" style="text-align: center">
                                                         <div class="match-date">{{ match.date | date }}</div>
                                                         <div class="match-date">
                                                             <b>{{ 'round '~match.round }}</b>
                                                         </div>
 
                                                     </td>
-                                                    <td style="display: flex;justify-content: end;">
+                                                    <td class="tw25" style="display: flex;justify-content: end;">
                                                         <div class="match-title text-right">
                                                             <img src="{{ asset('/images/'~match.equipe1.logo ) }}"
                                                                  alt="{{ match.equipe1.logo }}"
@@ -100,7 +100,7 @@
                                                             {{ match.equipe1 }}
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="tw25">
                                                         <div class="text-center">
                                                             {% if (match.nbBut1 != -1) %}
                                                                 {{ match.nbBut1 }}
@@ -111,7 +111,7 @@
                                                             {% endif %}
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="tw25">
                                                         <div class="match-title match_equipe_item">
 
                                                             {{ match.equipe2 }}
@@ -140,20 +140,20 @@
                                             <tbody>
                                             {% for match in nextMatchs %}
                                                 <tr>
-                                                    <td class="tw40" style="text-align: center">
+                                                    <td class="tw25" style="text-align: center">
                                                         <div class="match-date">{{ match.date | date }}</div>
                                                         <div class="match-date"><b>{{ 'round '~match.round }}</b></div>
                                                     </td>
                                                     <td>
-                                                        <div class="match-title text-right">
-                                                            <img src="{{ asset('/images/'~match.equipe2.logo ) }}"
+                                                        <div class="match-title tw25 text-right">
+                                                            <img src="{{ asset('/images/'~match.equipe1.logo ) }}"
                                                                  alt="{{ match.equipe1.logo }}"
                                                                  style="width: 30px;height: 30px">
                                                             {{ match.equipe1 }}
 
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="tw25">
                                                         <div class="text-center">
                                                             {% if (match.nbBut1 != -1) %}
                                                                 {{ match.nbBut1 }}
@@ -164,7 +164,7 @@
                                                             {% endif %}
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="tw25">
                                                         <div class="match-title match_equipe_item">
 
                                                             {{ match.equipe2 }}
@@ -233,7 +233,7 @@
                                                 <tbody>
                                                 {% for match in matchHistory %}
                                                     <tr>
-                                                        <td class="tw40" style="text-align: center">
+                                                        <td class="tw25" style="text-align: center">
                                                             <div class="match-date">{{ match.date | date }}</div>
                                                             <div class="match-date"><b>{{ 'round '~match.round }}</b>
                                                             </div>
@@ -247,7 +247,7 @@
 
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td class="tw25">
                                                             <div class="text-center">
                                                                 {% if (match.nbBut1 != -1) %}
                                                                     {{ match.nbBut1 }}
@@ -258,7 +258,7 @@
                                                                 {% endif %}
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td class="tw25">
                                                             <div class="match-title match_equipe_item">
 
                                                                 {{ match.equipe2 }}

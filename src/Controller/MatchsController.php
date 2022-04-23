@@ -6,9 +6,10 @@ use App\Entity\Matchs;
 use App\Form\Matchs1Type;
 use App\Form\ResultType;
 use App\Form\TirageAuSortType;
-use App\Repository\EquipeRepository;
 use App\Repository\MatchsRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,14 +40,32 @@ class MatchsController extends AbstractController
 
         $form->handleRequest($request);
 
+        $now = new DateTime();
+        $dateMatch = $form->get("date")->getData();
 
+        if ($dateMatch < $now && $form->isSubmitted()) {
+            $form->get("date")->addError(new FormError("date doit etre au future"));
+            return $this->render('matchs/new.html.twig', [
+                'match' => $match,
+                'form' => $form->createView(),
+            ]);
+        }
         if ($form->isSubmitted() && $form->isValid()) {
+
+
             if ($matchsRepository->haveMatch($match->getEquipe1(), $match->getDate()) == []) {
-                $match->setSaison(str_replace("/", "", $match->getSaison()));
-                $matchsRepository->add($match);
-                return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+                if ($matchsRepository->haveMatch($match->getEquipe2(), $match->getDate()) == []) {
+                    $match->setSaison(str_replace("/", "", $match->getSaison()));
+                    $matchsRepository->add($match);
+                    $this->addFlash('success', 'match ajoutée avec succées');
+                    return $this->redirectToRoute('app_matchs_index', [], Response::HTTP_SEE_OTHER);
+                } else {
+                    $this->addFlash('fail', $match->getEquipe2() . ' a un match pour ' . $match->getDate()->format('d-m-y'));
+
+                }
+
             } else {
-                $this->addFlash('fail', 'une equipe de deux a un match pour ' . $match->getDate()->format('d-m-y'));
+                $this->addFlash('fail', $match->getEquipe1() . ' a un match pour ' . $match->getDate()->format('d-m-y'));
             }
 
         }

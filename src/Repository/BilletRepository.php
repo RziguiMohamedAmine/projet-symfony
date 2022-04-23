@@ -85,6 +85,17 @@ class BilletRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function BilletDisponible($id)
+    {
+        $now = new DateTime();
+        $dql = $this->_em->createQuery("select m, (select count(b.id) from App\Entity\Billet b where b.idMatch = m.id) from App\Entity\Matchs m where m.date> :date and m.id = $id order by m.date");
+        $dql->setParameter('date', $now);
+        $match = $dql->getResult();
+        return $match[0][0]->getNbSpectateur() > $match[0][1];
+    }
+
+
+
     // /**
     //  * @return Billet[] Returns an array of Billet objects
     //  */

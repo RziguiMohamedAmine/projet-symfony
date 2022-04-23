@@ -59,9 +59,7 @@ class Matchs
      *
      * @ORM\Column(name="date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      * @Assert\NotBlank (message="ce champ est obligatoire");
-     * @Assert\GreaterThan(
-     *     "today",
-     *     message="date doit etre au future")
+     *
      */
     private $date;
 

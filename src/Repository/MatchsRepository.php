@@ -8,6 +8,7 @@ use App\Entity\Equipe;
 use App\Entity\Matchs;
 use DateInterval;
 use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -104,7 +105,7 @@ class  MatchsRepository extends ServiceEntityRepository
             ->andWhere('m.saison = :saison')
             ->setParameter('valDeb', $atEndOfDay)
             ->setParameter('saison', $saison)
-            ->orderBy('m.date', 'ASC')
+            ->orderBy('m.date', 'DESC')
             ->getQuery()
             ->getResult();
     }
@@ -237,19 +238,15 @@ class  MatchsRepository extends ServiceEntityRepository
 
     public function haveMatch(Equipe $equipe, DateTime $date)
     {
-        $atStartOfDay = $date;
-        $atEndOfDay = $date;
-        $atStartOfDay->setTime(0, 0, 0, 0);
-        $atEndOfDay->setTime(23, 59, 59, 59);
-
         $qb = $this->createQueryBuilder('m')
             ->andWhere('m.equipe1 = :idEquipe')
             ->orWhere('m.equipe2 = :idEquipe')
             ->andWhere('m.date >= :valDeb')
             ->andWhere('m.date <= :valFin')
             ->setParameter('idEquipe', $equipe->getId())
-            ->setParameter('valDeb', $atStartOfDay)
-            ->setParameter('valFin', $atEndOfDay);
+            ->setParameter('valDeb', $date->format('Y-m-d 00:00:00'))
+            ->setParameter('valFin', $date->format('Y-m-d 23:59:59'));
+        dump($qb->getParameters());
         return $qb->getQuery()->getResult();
 
 
@@ -467,7 +464,13 @@ class  MatchsRepository extends ServiceEntityRepository
         return $query;
     }
 
-
+    public function getMatchsAndBilletNumber()
+    {
+        $now = new DateTime();
+        $dql = $this->_em->createQuery("select m, (select count(b.id) from App\Entity\Billet b where b.idMatch = m.id) from App\Entity\Matchs m where m.date> :date order by m.date");
+        $dql->setParameter('date', $now);
+        return $dql->getResult();
+    }
 
 
 

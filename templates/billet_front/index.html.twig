@@ -31,22 +31,31 @@
                             <div class="match">
                                 <div class="match-header">
                                     <div class="match-date">
-                                        {{ match.date | date }}
+                                        {{ match[0].date | date }}
                                     </div>
                                 </div>
                                 <div class="match-content">
                                     <div class="column">
                                         <div class="team team--home">
                                             <div class="team-logo">
-                                                <img src="{{ asset('/images/')~match.equipe1.logo }}"/>
+                                                <img src="{{ asset('/images/')~match[0].equipe1.logo }}"/>
                                             </div>
-                                            <h2 class="team-name">{{ match.equipe1.nomeq }}</h2>
+                                            <h2 class="team-name">{{ match[0].equipe1.nomeq }}</h2>
                                         </div>
                                     </div>
                                     <div class="">
                                         <div class="match-details">
-                                            <a class="match-bet-place"
-                                               href="{{ path('app_billet_front_reservation', {'id': match.id}) }}">
+                                            {% if(match[1]>= match[0].nbSpectateur) %}
+                                                Billet non disponible
+                                            {% endif %}
+                                            <a class="match-bet-place
+                                            {% if(match[1]>= match[0].nbSpectateur) %}
+                                                disabled
+                                            {% endif %}
+
+"
+                                               href="{{ path('app_billet_front_reservation', {'id': match[0].id}) }}"
+                                            >
                                                 obtenir un billet
                                             </a>
                                         </div>
@@ -54,9 +63,9 @@
                                     <div class="column">
                                         <div class="team team--away">
                                             <div class="team-logo">
-                                                <img src="{{ asset('/images/')~match.equipe2.logo }}"/>
+                                                <img src="{{ asset('/images/')~match[0].equipe2.logo }}"/>
                                             </div>
-                                            <h2 class="team-name">{{ match.equipe2.nomeq }}</h2>
+                                            <h2 class="team-name">{{ match[0].equipe2.nomeq }}</h2>
                                         </div>
                                     </div>
                                 </div>

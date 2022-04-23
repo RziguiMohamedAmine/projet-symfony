@@ -50,6 +50,9 @@
                               aria-labelledBy="primary-tab">
                              <div class="teams">
                                  <div class="nav-team" id="primary-nav">
+                                     {% if((validBillets | length) == 0) %}
+                                         <center><b style="color: white">0 billet disponible</b></center>
+                                     {% endif %}
                                      {% for billet in validBillets %}
                                          <div class="position {% if loop.index == 1 %} active{% endif %}"
                                               style="display: flex; justify-content: center;">
@@ -108,10 +111,11 @@
 
                              <div class="clearfix"></div>
                          </div>
-
                          <div role="tabpanel" class="tab-pane fade" id="secondary" aria-labelledBy="secondary-tab">
                              <div class="teams">
                                  <div class="nav-team" id="secondary-nav">
+
+
                                      {% for billet in invalidBillet %}
                                          <div class="position {% if loop.index == 1 %} active{% endif %}"
                                               style="display: flex; justify-content: center;">
@@ -130,6 +134,9 @@
                              </div>
                              <div class="teams-caro">
                                  <div id="secondary-team-caro" class="owl-carousel owl-theme">
+                                     {% if((invalidBillet | length) == 0) %}
+                                         <center><b style="color: white">0 billet disponible</b></center>
+                                     {% endif %}
                                      {% for billet in invalidBillet %}
                                          <div class="item">
 

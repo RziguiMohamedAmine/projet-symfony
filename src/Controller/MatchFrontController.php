@@ -26,7 +26,7 @@ class MatchFrontController extends AbstractController
 
         $matchHistory = $matchsRepository->getMatchHistory($saisons[0]['saison']);
 
-        $classment = $classementRepository->findBy(['saison' => $saisons[0]]);
+        $classment = $classementRepository->findBy(['saison' => $saisons[0]], ['nbPoint' => 'DESC']);
 
         return $this->render('match_front/index.html.twig', [
             'todayMatchs' => $todayMatchs,

@@ -31,6 +31,21 @@ class BilletType extends AbstractType
                 'label' => 'Match',
                 'placeholder' => 'select match',
                 'query_builder' => function (MatchsRepository $matchsRepository) {
+//                    $date = new DateTime();
+//                    $qb = $matchsRepository->getEntityManager()->createQueryBuilder();
+//                    $qb2 = $qb;
+//                    $qb2->select('count(b.id)')
+//                        ->from('App\Entity\Billet', 'b')
+//                        ->where('b.idMatch = :idMatch');
+//
+//                    $qb = $this->_em->createQueryBuilder();
+//                    $qb->select('m')
+//                        ->addSelect($qb2->getDQL())
+//                        ->from('App\Entity\Matchs', 'm');
+//                    $qb2->setParameter('idMacth', 'm.id');
+//                    $query = $qb->getQuery();
+//
+//                    return $query;
                     $date = new DateTime();
                     return $matchsRepository->createQueryBuilder('m')
                         ->where('m.date > :date')

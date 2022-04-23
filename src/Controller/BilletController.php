@@ -47,6 +47,8 @@ class BilletController extends AbstractController
                 $billet->setPrix(15);
             }
             $billetRepository->add($billet);
+            $this->addFlash('success', 'billet ajout success');
+
             return $this->redirectToRoute('app_billet_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -75,6 +77,7 @@ class BilletController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'billet edit success');
             $billetRepository->add($billet);
             return $this->redirectToRoute('app_billet_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -92,6 +95,8 @@ class BilletController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $billet->getId(), $request->request->get('_token'))) {
             $billetRepository->remove($billet);
+            $this->addFlash('success', 'billet delete success');
+
         }
 
         return $this->redirectToRoute('app_billet_index', [], Response::HTTP_SEE_OTHER);

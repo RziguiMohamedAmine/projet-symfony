@@ -35,9 +35,8 @@ class BilletFrontController extends AbstractController
      */
     public function index(MatchsRepository $matchsRepository): Response
     {
-        $matchs = array_merge($matchsRepository->getNextMatchs(), $matchsRepository->getTodayMatchs());
         return $this->render('billet_front/index.html.twig', [
-            'matchs' => $matchs,
+            'matchs' => $matchsRepository->getMatchsAndBilletNumber(),
         ]);
     }
 
@@ -78,7 +77,13 @@ class BilletFrontController extends AbstractController
         } elseif ($bloc == 'E') {
             $billet->setPrix(15);
         }
-        $billetRepository->add($billet);
+        if ($billetRepository->BilletDisponible($id))
+            $billetRepository->add($billet);
+        else {
+            $this->addFlash('fail', 'billet non encore disponible');
+            $this->redirectToRoute('app_billet_front');
+        }
+
         return $this->redirectToRoute('app_billet_front_mes_billet');
     }
 
