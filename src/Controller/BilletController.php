@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Billet;
 use App\Form\BilletType;
 use App\Repository\BilletRepository;
+use App\Repository\MatchsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,10 +31,12 @@ class BilletController extends AbstractController
     /**
      * @Route("/new", name="app_billet_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, BilletRepository $billetRepository): Response
+    public function new(Request $request, BilletRepository $billetRepository, MatchsRepository $matchsRepository): Response
     {
         $billet = new Billet();
-        $form = $this->createForm(BilletType::class, $billet);
+        $form = $this->createForm(BilletType::class, $billet, [
+            'matchRep' => $matchsRepository
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

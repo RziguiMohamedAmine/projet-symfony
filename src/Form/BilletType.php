@@ -16,6 +16,8 @@ class BilletType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $matchRep = $options['matchRep'];
+
         $builder
             ->add('bloc', ChoiceType::class, [
                 'choices' => [
@@ -30,26 +32,10 @@ class BilletType extends AbstractType
                 'class' => Matchs::class,
                 'label' => 'Match',
                 'placeholder' => 'select match',
-                'query_builder' => function (MatchsRepository $matchsRepository) {
-//                    $date = new DateTime();
-//                    $qb = $matchsRepository->getEntityManager()->createQueryBuilder();
-//                    $qb2 = $qb;
-//                    $qb2->select('count(b.id)')
-//                        ->from('App\Entity\Billet', 'b')
-//                        ->where('b.idMatch = :idMatch');
-//
-//                    $qb = $this->_em->createQueryBuilder();
-//                    $qb->select('m')
-//                        ->addSelect($qb2->getDQL())
-//                        ->from('App\Entity\Matchs', 'm');
-//                    $qb2->setParameter('idMacth', 'm.id');
-//                    $query = $qb->getQuery();
-//
-//                    return $query;
-                    $date = new DateTime();
-                    return $matchsRepository->createQueryBuilder('m')
-                        ->where('m.date > :date')
-                        ->setParameter('date', $date);
+                'choices' => $matchRep->getMatchsWithBilletApp(),
+                'choice_label' => function (Matchs $choice, $key, $value) {
+                    $availble_billet = $choice->getNbSpectateur() - $choice->nbBillet;
+                    return $choice->getEquipe1() . ' - ' . $choice->getEquipe2() . ' : ' . $availble_billet;
                 },
             ])
             ->add('idUser', null, [
@@ -59,6 +45,8 @@ class BilletType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setRequired('matchRep');
+
         $resolver->setDefaults([
             'data_class' => Billet::class,
         ]);

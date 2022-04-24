@@ -17,6 +17,7 @@ use App\Validator as AcmeAssert;
  */
 class Matchs
 {
+    public $nbBillet = 0;
     /**
      * @var int
      *
@@ -25,21 +26,18 @@ class Matchs
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
     /**
      * @var int
      *
      * @ORM\Column(name="nb_but1", type="integer", nullable=false)
      */
     private $nbBut1 = -1;
-
     /**
      * @var int
      *
      * @ORM\Column(name="nb_but2", type="integer", nullable=false)
      */
     private $nbBut2 = -1;
-
     /**
      * @var string
      *
@@ -53,7 +51,6 @@ class Matchs
      * )
      */
     private $stade;
-
     /**
      * @var int
      *
@@ -62,7 +59,6 @@ class Matchs
      *
      */
     private $date;
-
     /**
      * @var int
      *
@@ -71,7 +67,6 @@ class Matchs
      * @Assert\Positive(message="ce champ doit etre positive")
      */
     private $nbSpectateur;
-
     /**
      * @var string
      *
@@ -84,7 +79,6 @@ class Matchs
      * @AcmeAssert\SaisonFormat()
      */
     private $saison;
-
     /**
      * @var int
      *
@@ -93,8 +87,6 @@ class Matchs
      * @Assert\Positive(message="round doit etre >0")
      */
     private $round;
-
-
     /**
      * @var \Equipe
      *
@@ -116,7 +108,6 @@ class Matchs
      */
 
     private $equipe2;
-
     /**
      * @var \Arbitre
      *
@@ -138,7 +129,6 @@ class Matchs
      * @Assert\NotBlank(message="ce champ est obligtoire")
      */
     private $idArbitre2;
-
     /**
      * @var \Arbitre
      *
@@ -159,7 +149,6 @@ class Matchs
      * @Assert\NotBlank(message="ce champ est obligtoire")
      */
     private $idArbitre4;
-
 
     public function getId(): ?int
     {

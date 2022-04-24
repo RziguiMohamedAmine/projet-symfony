@@ -472,6 +472,40 @@ class  MatchsRepository extends ServiceEntityRepository
         return $dql->getResult();
     }
 
+    public function getMatchsWithBilletApp()
+    {
+        $date = new DateTime();
+
+
+//        $expr = $this->_em->getExpressionBuilder();
+
+// create a subquery in order to take all address records for a specified user id
+        $sub = $this->_em->createQueryBuilder()
+            ->select('count(b.id)')
+            ->from('App\Entity\Billet', 'b')
+            ->where('b.idMatch = m.id');
+
+
+        $qb = $this->_em->createQueryBuilder()
+            ->select('m')
+            ->addSelect("(" . $sub->getDQL() . ")")
+            ->from('App:Matchs', 'm')
+            ->where('m.date > :date')
+            ->setParameter('date', $date);
+
+        $matchs = $qb->getQuery()->getResult();
+        $matchsNew = array();
+        foreach ($matchs as $match) {
+            $match[0]->nbBillet = $match[1];
+            $matchsNew[] = $match[0];
+        }
+
+        dump($matchsNew);
+
+
+        return $matchsNew;
+
+    }
 
 
 
