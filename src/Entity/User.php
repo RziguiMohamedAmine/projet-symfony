@@ -2,92 +2,153 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * User
- *
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"}), @ORM\UniqueConstraint(name="t_unique", columns={"tel"})})
- * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=100, nullable=false)
-     */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=100, nullable=false)
-     */
-    private $prenom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=100, nullable=false)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="pass", type="string", length=100, nullable=false)
+     * @ORM\Column(type="json")
      */
-    private $pass;
+    private $roles = [];
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tel", type="integer", nullable=false)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="integer")
      */
     private $tel;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="ban", type="boolean", nullable=false)
+     * @ORM\Column(type="integer" , nullable=true)
      */
-    private $ban = '0';
+    private $ban;
+
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="block", type="date", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $forgetpassCode;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
      */
     private $block;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="forgetpassCode", type="string", length=50, nullable=true)
+     * @ORM\Column(type="boolean")
      */
-    private $forgetpasscode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=50, nullable=false, options={"default"="user"})
-     */
-    private $role = 'user';
+    private $isVerified=false;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string)$this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -114,30 +175,6 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPass(): ?string
-    {
-        return $this->pass;
-    }
-
-    public function setPass(string $pass): self
-    {
-        $this->pass = $pass;
-
-        return $this;
-    }
-
     public function getTel(): ?int
     {
         return $this->tel;
@@ -150,12 +187,12 @@ class User
         return $this;
     }
 
-    public function getBan(): ?bool
+    public function getBan(): ?int
     {
         return $this->ban;
     }
 
-    public function setBan(bool $ban): self
+    public function setBan(int $ban): self
     {
         $this->ban = $ban;
 
@@ -167,36 +204,34 @@ class User
         return $this->block;
     }
 
-    public function setBlock(?\DateTimeInterface $block): self
+    public function setBlock(\DateTimeInterface $block): self
     {
         $this->block = $block;
 
         return $this;
     }
 
-    public function getForgetpasscode(): ?string
+    public function getForgetpassCode(): ?string
     {
-        return $this->forgetpasscode;
+        return $this->forgetpassCode;
     }
 
-    public function setForgetpasscode(?string $forgetpasscode): self
+    public function setForgetpassCode(?string $forgetpassCode): self
     {
-        $this->forgetpasscode = $forgetpasscode;
+        $this->forgetpassCode = $forgetpassCode;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getIsVerified(): ?bool
     {
-        return $this->role;
+        return $this->isVerified;
     }
 
-    public function setRole(string $role): self
+    public function setIsVerified(bool $isVerified): self
     {
-        $this->role = $role;
+        $this->isVerified = $isVerified;
 
         return $this;
     }
-
-
 }

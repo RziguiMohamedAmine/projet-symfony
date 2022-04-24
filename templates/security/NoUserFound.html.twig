@@ -1,0 +1,62 @@
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css"href="{{asset('front/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+
+    <link rel="stylesheet"type="text/css" href="{{asset('front/css/styleus.css')}}">
+{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="main">
+
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                     <div class="signin-image">
+                        <figure><img src="{{asset('back/assets/images/Logo_FTF.png')}}" alt="sing up image"></figure>
+                        <a href="{{ path('registration') }}" class="signup-image-link">Create an account</a>
+                     </div>
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign In</h2>
+
+                      <h1>No user Found</h1>
+                        <div class="social-login">
+                            <span class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="{{ path('connect_google') }}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
