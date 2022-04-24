@@ -90,7 +90,6 @@ class JoueurRepository extends ServiceEntityRepository
     public function ScoreJoueur(): array
     {
         $conn = $this->getEntityManager()->getConnection();
-
         $sql = '
          select joueur.*,equipe.*, sum(m.nb_but) as
            somme from joueur INNER join matchjoueur m on joueur.id=m.id_joueur INNER JOIN equipe on equipe.id=joueur.id_equipe

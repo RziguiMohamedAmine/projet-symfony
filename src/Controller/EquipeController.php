@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Equipe;
+use App\Entity\Formation;
 use App\Form\EquipeType;
 use App\Repository\EquipeRepository;
+use App\Repository\FormationRepository;
 use App\Repository\JoueurRepository;
 use App\Repository\StadeRepository;
 use Dompdf\Dompdf;
@@ -132,18 +134,20 @@ class EquipeController extends AbstractController
 
     /**
      * @param EquipeRepository $equipeRepository
-     * @param JoueurRepository $joueurRepository
+     * @param FormationRepository $joueurRepository
      * @param $id
      * @return Response
      *  @Route("/back/formation/{id}", name="app_equipe_formationback", methods={"GET", "POST"})
      */
-    public  function FormationEquipeBack(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository,$id)
+    public  function FormationEquipeBack(EquipeRepository $equipeRepository,FormationRepository $joueurRepository,$id)
     {
         $equipe = $equipeRepository->find($id);
-        $joueur=$joueurRepository->listJoueur($equipe->getId());
+        $joueur=$joueurRepository->formationEquipe($equipe->getId());
         return $this->render("equipe/formationback.html.twig",[
             'e'=>$equipe,'joueur'=>$joueur
         ]);
+
+
     }
 
 
@@ -168,15 +172,15 @@ class EquipeController extends AbstractController
 
     /**
      * @param EquipeRepository $equipeRepository
-     * @param JoueurRepository $joueurRepository
+     * @param FormationRepository $joueurRepository
      * @param $id
      * @return Response
      *  @Route("/front/formation/{id}", name="app_equipe_formation", methods={"GET", "POST"})
      */
-    public  function FormationEquipe(EquipeRepository $equipeRepository,JoueurRepository $joueurRepository,$id)
+    public  function FormationEquipe(EquipeRepository $equipeRepository,FormationRepository $joueurRepository,$id)
     {
         $equipe = $equipeRepository->find($id);
-        $joueur=$joueurRepository->listJoueur($equipe->getId());
+        $joueur=$joueurRepository->formationEquipe($equipe->getId());
         return $this->render("equipe/formation.html.twig",[
             'e'=>$equipe,'joueur'=>$joueur
         ]);
@@ -267,7 +271,7 @@ class EquipeController extends AbstractController
 
 
     /**
-     * @Route("/", name="app_equipe_indform", methods={"GET"})
+     * @Route("/back/", name="app_equipe_indform", methods={"GET"})
      */
     public function indexEq(EquipeRepository $equipeRepository): Response
     {

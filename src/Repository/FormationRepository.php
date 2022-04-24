@@ -86,4 +86,18 @@ class FormationRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
     }
+
+
+    public function deleteform(int $id): int
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        Delete FROM formation WHERE formation.id_joueur =:id';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $id]);
+        // returns an array of arrays (i.e. a raw data set)
+        return 0;
+    }
+
 }

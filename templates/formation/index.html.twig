@@ -47,7 +47,7 @@
                                                  <th data-priority="1">Joueur</th>
                                                  <th data-priority="1">Poste</th>
 
-                                                 <th data-priority="3">Modifier</th>
+
                                                  <th data-priority="6">Supprimer</th>
 
                                              </tr>
@@ -55,17 +55,11 @@
                                              <tbody>
                                              {% for formation in formations %}
                                                  <tr>
-                                                     <td>{{ formation.nom }}</td>
+                                                     <td>{{ formation.nom}}</td>
                                                      <td>{{ formation.poste }}</td>
-
-                                                     <td> <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-tbl-edit">
-                                                             <i class="fa fa-edit" style="font-size:30px;color:rgb(15, 192, 15)"></i>
+                                                     <td> <a href="{{ path('app_formation_delete', {'id': formation.id}) }}" class="btn btn-tbl-edit">
+                                                             <i class="fa fa-trash" style="font-size:30px;color:rgb(241,7,35)"></i>
                                                          </a></td>
-                                                     <td>
-                                                         <form method="post" action="{{ path('app_formation_delete', {'id': formation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formation.id) }}">
-                                                             <button class="btn btn-tbl-edit"><i class="fa fa-trash" style="font-size:30px;color:red"></i> </button>
-                                                         </form></td>
 
                                                  </tr>
                                              {% else %}
