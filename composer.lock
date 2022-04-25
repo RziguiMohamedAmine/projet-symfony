@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8756f43c79df9425653f872dc9b140e2",
+    "content-hash": "85d6bd0795e42ea7ca941a8669d1d531",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2103,6 +2103,66 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
             },
             "time": "2020-08-25T19:10:18+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v7.125.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "822c00aa380c10c2a3c55d105c5da72ad577b7c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/822c00aa380c10c2a3c55d105c5da72ad577b7c4",
+                "reference": "822c00aa380c10c2a3c55d105c5da72ad577b7c4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.5.0",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v7.125.0"
+            },
+            "time": "2022-04-21T22:31:37+00:00"
         },
         {
             "name": "symfony/asset",
@@ -7287,6 +7347,65 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "yellowskies/qr-code-bundle",
+            "version": "1.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AntoineTesson/QRcodeBundle.git",
+                "reference": "1c47585160f461722b734651ae8353c98c258726"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AntoineTesson/QRcodeBundle/zipball/1c47585160f461722b734651ae8353c98c258726",
+                "reference": "1c47585160f461722b734651ae8353c98c258726",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "symfony/framework-bundle": ">=2.3",
+                "symfony/options-resolver": ">=2.1",
+                "symfony/twig-bundle": ">=2.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5 | ^8.5 | ^9.5"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Skies\\QRcodeBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Tesson",
+                    "email": "tesson.a@gmail.com",
+                    "homepage": "https://yellow-skies.com"
+                }
+            ],
+            "description": "Symfony2Barcode Generator Bundle with Twig function extension",
+            "keywords": [
+                "Symfony2",
+                "barcode",
+                "bundle",
+                "generator",
+                "qr code",
+                "qrcode",
+                "symfony",
+                "symfony3",
+                "symfony4",
+                "twig"
+            ],
+            "support": {
+                "issues": "https://github.com/AntoineTesson/QRcodeBundle/issues",
+                "source": "https://github.com/AntoineTesson/QRcodeBundle/tree/1.2.10"
+            },
+            "time": "2022-02-27T15:39:27+00:00"
         }
     ],
     "packages-dev": [

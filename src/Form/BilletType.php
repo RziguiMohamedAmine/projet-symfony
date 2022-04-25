@@ -37,6 +37,7 @@ class BilletType extends AbstractType
                     $availble_billet = $choice->getNbSpectateur() - $choice->nbBillet;
                     return $choice->getEquipe1() . ' - ' . $choice->getEquipe2() . ' : ' . $availble_billet;
                 },
+               
             ])
             ->add('idUser', null, [
                 'label' => 'User'

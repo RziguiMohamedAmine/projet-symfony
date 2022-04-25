@@ -40,19 +40,26 @@ class BilletController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($billet->getBloc() == 'A') {
-                $billet->setPrix(30);
-            } elseif ($billet->getBloc() == 'B') {
-                $billet->setPrix(25);
-            } elseif ($billet->getBloc() == 'C') {
-                $billet->setPrix(20);
-            } elseif ($billet->getBloc() == 'D') {
-                $billet->setPrix(15);
-            }
-            $billetRepository->add($billet);
-            $this->addFlash('success', 'billet ajout success');
+            $availble_billet = $billet->getIdMatch()->getNbSpectateur() - $billet->getIdMatch()->nbBillet;
+            if ($availble_billet <= 0) {
+                $this->addFlash('fail', 'Billet non disponible');
+            } else {
 
-            return $this->redirectToRoute('app_billet_index', [], Response::HTTP_SEE_OTHER);
+
+                if ($billet->getBloc() == 'A') {
+                    $billet->setPrix(30);
+                } elseif ($billet->getBloc() == 'B') {
+                    $billet->setPrix(25);
+                } elseif ($billet->getBloc() == 'C') {
+                    $billet->setPrix(20);
+                } elseif ($billet->getBloc() == 'D') {
+                    $billet->setPrix(15);
+                }
+                $billetRepository->add($billet);
+                $this->addFlash('success', 'billet ajout success');
+
+                return $this->redirectToRoute('app_billet_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('billet/new.html.twig', [

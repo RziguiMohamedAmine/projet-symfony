@@ -77,28 +77,33 @@
                                          <div class="item">
 
                                              <div class="teams-description">
-                                                 <p>
-                                                     <span class="title">Référence : </span>{{ 'B'~billet.id*3600 }}
-                                                 </p>
-                                                 <p>
-                                                     <span class="title">Equipe1 : </span>{{ billet.idMatch.equipe1.nomeq }}
-                                                 </p>
-                                                 <p>
-                                                     <span class="title">Equipe2 : </span>{{ billet.idMatch.equipe2.nomeq }}
-                                                 </p>
-                                                 <p>
-                                                     <span class="title">Stade : </span>{{ billet.idMatch.equipe1.stade }}
-                                                 </p>
-                                                 <p>
-                                                     <span class="title">Bloc : </span>{{ billet.bloc | upper }}
-                                                 </p>
-                                                 <p>
-                                                     <span class="title">Prix : </span>{{ billet.prix }} DT
-                                                 </p>
+                                                 <div>
+                                                     <p>
+                                                         <span class="title">Référence : </span>{{ 'B'~billet.id*3600 }}
+                                                     </p>
+                                                     <p>
+                                                         <span class="title">Equipe1 : </span>{{ billet.idMatch.equipe1.nomeq }}
+                                                     </p>
+                                                     <p>
+                                                         <span class="title">Equipe2 : </span>{{ billet.idMatch.equipe2.nomeq }}
+                                                     </p>
+                                                     <p>
+                                                         <span class="title">Stade : </span>{{ billet.idMatch.equipe1.stade }}
+                                                     </p>
+                                                     <p>
+                                                         <span class="title">Bloc : </span>{{ billet.bloc | upper }}
+                                                     </p>
+                                                     <p>
+                                                         <span class="title">Prix : </span>{{ billet.prix }} DT
+                                                     </p>
 
-                                                 <p>
-                                                     <span class="title">Prix : </span>{{ billet.idMatch.date | date }}
-                                                 </p>
+                                                     <p>
+                                                         <span class="title">Prix : </span>{{ billet.idMatch.date | date }}
+                                                     </p>
+                                                 </div>
+                                                 <div>
+                                                     {{ barcode({code: billet.idMatch.equipe1.nomeq, type: 'qrcode', format: 'svg', width: 10, height: 10, color: 'black'}) }}
+                                                 </div>
 
                                              </div>
 

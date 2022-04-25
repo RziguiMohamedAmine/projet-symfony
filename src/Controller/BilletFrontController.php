@@ -6,9 +6,13 @@ use App\Entity\Billet;
 use App\Repository\BilletRepository;
 use App\Repository\MatchsRepository;
 use App\Repository\UserRepository;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 
 /**
  * @Route("/front/billet")
@@ -81,10 +85,32 @@ class BilletFrontController extends AbstractController
             $billetRepository->add($billet);
         else {
             $this->addFlash('fail', 'billet non encore disponible');
-            $this->redirectToRoute('app_billet_front');
+            return $this->redirectToRoute('app_billet_front');
         }
+        Stripe::setApiKey('sk_test_51HnVLcL83IQ8H8DrwhPGzj69I35Pj4kT5Ha3L0OiU2V3Rq3yatCybhyndI09PRuezGocFKvQPTjSE0TbmxTpxKKJ00duZqdBmt');
+        $equipe1 = $billet->getIdMatch()->getEquipe1();
+        $equipe2 = $billet->getIdMatch()->getEquipe2();
 
-        return $this->redirectToRoute('app_billet_front_mes_billet');
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => "Billet Match $equipe1 - $equipe2",
+                        ],
+                        'unit_amount' => $billet->getPrix() * 100,
+                    ],
+                    'quantity' => 1,
+                ]
+            ],
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl('app_billet_front_mes_billet', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('app_billet_front', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ]);
+
+        return $this->redirect($session->url, 303);
     }
 
 
