@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\OrderItems;
 use App\Entity\Orders;
 use App\Repository\OrdersItemsRepository;
 use App\Repository\OrdersRepository;
+use App\Repository\ProduitRepository;
 use App\Service\Cart\CartService;
 use App\Service\OrderService\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,12 +20,16 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(CartService $cartService): Response
+    public function index(CartService $cartService , OrdersItemsRepository $orderItemsRepo, ProduitRepository $produitRepository): Response
     {
+        $bestSellers = $orderItemsRepo->getBestSellers();
+
+
         return $this->render('cart/index.html.twig',[
             'items' => $cartService->getCart(),
             'total' => $cartService->getTotal(),
-            'orders' => $cartService->getPlacedOrders()
+            'orders' => $cartService->getPlacedOrders(),
+            'bestSellers' => $bestSellers
         ]);
     }
 
@@ -76,7 +82,6 @@ class CartController extends AbstractController
             'items' => $ordersItemsRepository -> findBy(['order' =>  $cartService->getOrder($id)])
         ]);
     }
-
 
 
 }

@@ -73,4 +73,20 @@ class OrdersItemsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getBestSellers(){
+        $sql="SELECT * from produit
+            where id in (select product_id FROM order_items
+            WHERE order_id in (SELECT id FROM orders WHERE LOWER(state)=LOWER(?))
+            GROUP BY product_id
+            ORDER BY count(product_id) DESC)
+            ";
+
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, "placed");
+        $rs = $stmt->executeQuery();
+        return $rs->fetchAll();
+
+    }
 }
