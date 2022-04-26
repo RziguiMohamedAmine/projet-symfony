@@ -1,0 +1,46 @@
+{% extends 'front.html.twig' %}
+{% block body %}
+
+    <div class="section subbanner" style="padding-top: 150px">
+    <div class="container">
+{% if order %}
+    <h3>#{{ order.id}}: {{ order.date|date("d/m/Y") }}</h3>
+    <hr>
+    {% if  items %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+                {% set total = 0 %}
+                {% for item in items %}
+                    {% set total = total + item.produit.prix*item.quantity %}
+                    <tbody>
+                    <tr>
+                        <td>{{ item.produit.nom }}</td>
+                        <td>${{ item.produit.prix }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.produit.prix*item.quantity }}</td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            <tfoot>
+            <tr>
+                <td colspan="3" class="text-right"><b>Total:</b></td>
+                <td>${{ total }}</td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    {% endif %}
+{% else %}
+    <h3>Order Not Found, <a href="{{ path("cart") }}">back to cart!</a></h3>
+{% endif %}
+    </div>
+    </div>
+{% endblock %}

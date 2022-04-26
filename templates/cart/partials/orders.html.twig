@@ -1,0 +1,13 @@
+<table class="table table-bordered">
+    <tr>
+        <th>Transaction</th>
+        <th>Date</th>
+    </tr>
+    {% for order in orders %}
+        <tr>
+            <td><a href="{{ path('orderDetails',{'id':order.id}) }}">#{{ order.id }}</a></td>
+            <td>{{ order.date|date("d/m/Y") }}</td>
+        </tr>
+
+    {% endfor %}
+</table>

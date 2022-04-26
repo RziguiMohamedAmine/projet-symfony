@@ -1,0 +1,20 @@
+
+
+{% block body %}
+<div class="well">
+    <table class="table">
+        <tr>
+            <td>Subtotal</td>
+            <td>${{ total }}</td>
+        </tr>
+        <tr>
+            <td>Shipping</td>
+            <td>$5</td>
+        </tr>
+        <tr>
+            <td class="success">Total</td>
+            <td class ="success">${{ total + 5 }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

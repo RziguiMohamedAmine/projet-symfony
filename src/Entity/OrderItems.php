@@ -25,11 +25,14 @@ class OrderItems
     private $id;
 
     /**
-     * @var int
+     * @var \Produit
      *
-     * @ORM\Column(name="product_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Produit")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
      */
-    private $productId;
+    private $produit;
 
     /**
      * @var int
@@ -53,14 +56,14 @@ class OrderItems
         return $this->id;
     }
 
-    public function getProductId(): ?int
+    public function getProduit(): ?Produit
     {
-        return $this->productId;
+        return $this->produit;
     }
 
-    public function setProductId(int $productId): self
+    public function setProduit(?Produit $produit): self
     {
-        $this->productId = $productId;
+        $this->produit = $produit;
 
         return $this;
     }
