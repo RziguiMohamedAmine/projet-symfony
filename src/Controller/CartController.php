@@ -82,6 +82,4 @@ class CartController extends AbstractController
             'items' => $ordersItemsRepository -> findBy(['order' =>  $cartService->getOrder($id)])
         ]);
     }
-
-
 }

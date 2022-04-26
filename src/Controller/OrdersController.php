@@ -111,7 +111,7 @@ class OrdersController extends AbstractController
     public function placeOrder(CartService $cartService , OrderService  $orderService){
 
         $orderService ->placeOrder($cartService->getCurrentOrder(),$cartService,$this->getDoctrine()->getManager());
-        die('Order Placed !');
+        return $this->redirectToRoute('cart');
 
     }
 
