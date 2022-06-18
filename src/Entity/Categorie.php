@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
@@ -25,7 +26,12 @@ class Categorie
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" champ obligatoire")
+     * @Assert\Length(
+     *      min = 1,
+     *      minMessage=" Entrer un prix"
      *
+     *     )
      * @ORM\Column(name="nom", type="string", length=100, nullable=false)
      */
     private $nom;
@@ -47,5 +53,10 @@ class Categorie
         return $this;
     }
 
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
 }

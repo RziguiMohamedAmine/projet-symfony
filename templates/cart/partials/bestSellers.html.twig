@@ -1,0 +1,23 @@
+{% if bestSellers | length > 0%}
+    <div class="well">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set limit = 3 %}
+            {% for item in bestSellers|slice(0,limit) %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>${{ item.prix }}</td>
+                </tr>
+                {% set limit = limit+1 %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

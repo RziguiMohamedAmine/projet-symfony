@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as AcmeAssert;
 
 
 /**
@@ -14,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Matchs
 {
+    public $nbBillet = 0;
     /**
      * @var int
      *
@@ -22,96 +26,67 @@ class Matchs
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
     /**
      * @var int
      *
      * @ORM\Column(name="nb_but1", type="integer", nullable=false)
      */
-    private $nbBut1;
-
+    private $nbBut1 = -1;
     /**
      * @var int
      *
      * @ORM\Column(name="nb_but2", type="integer", nullable=false)
      */
-    private $nbBut2;
-
+    private $nbBut2 = -1;
     /**
      * @var string
      *
      * @ORM\Column(name="stade", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="cette champ est obligatoire")
+     * @Assert\Length(
+     *     min=3,
+     *     max=100,
+     *     minMessage="le nom de stade doit etre sperieur à 3",
+     *     maxMessage = "le nom de stade doit etre inferieur à 100"
+     * )
      */
-    private $stade = '';
-
+    private $stade;
     /**
-     * @var \DateTime
+     * @var int
      *
      * @ORM\Column(name="date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @Assert\NotBlank (message="ce champ est obligatoire");
+     *
      */
-    private $date = 'CURRENT_TIMESTAMP';
-
+    private $date;
     /**
      * @var int
      *
      * @ORM\Column(name="nb_spectateur", type="integer", nullable=false)
+     * @Assert\NotBlank(message="ce champ est obligatoire")
+     * @Assert\Positive(message="ce champ doit etre positive")
      */
     private $nbSpectateur;
-
     /**
      * @var string
      *
      * @ORM\Column(name="saison", type="string", length=8, nullable=false)
+     * @Assert\NotBlank(message = "saison est obligtoire")
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]{4}\/[0-9]{4}$/",
+     *     message="saion doit etre de cette format 2020/2021"
+     * )
+     * @AcmeAssert\SaisonFormat()
      */
     private $saison;
-
     /**
      * @var int
      *
      * @ORM\Column(name="round", type="integer", nullable=false)
+     * @Assert\NotBlank(message="round est obligatoire")
+     * @Assert\Positive(message="round doit etre >0")
      */
-    private $round = '0';
-
-    /**
-     * @var \Arbitre
-     *
-     * @ORM\ManyToOne(targetEntity="Arbitre")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_arbitre4", referencedColumnName="id")
-     * })
-     */
-    private $idArbitre4;
-
-    /**
-     * @var \Equipe
-     *
-     * @ORM\ManyToOne(targetEntity="Equipe")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="equipe2", referencedColumnName="id")
-     * })
-     */
-    private $equipe2;
-
-    /**
-     * @var \Arbitre
-     *
-     * @ORM\ManyToOne(targetEntity="Arbitre")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_arbitre1", referencedColumnName="id")
-     * })
-     */
-    private $idArbitre1;
-
-    /**
-     * @var \Arbitre
-     *
-     * @ORM\ManyToOne(targetEntity="Arbitre")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_arbitre3", referencedColumnName="id")
-     * })
-     */
-    private $idArbitre3;
-
+    private $round;
     /**
      * @var \Equipe
      *
@@ -119,9 +94,31 @@ class Matchs
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="equipe1", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
     private $equipe1;
+    /**
+     * @var \Equipe
+     *
+     * @ORM\ManyToOne(targetEntity="Equipe")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="equipe2", referencedColumnName="id")
+     * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
+     */
 
+    private $equipe2;
+    /**
+     * @var \Arbitre
+     *
+     * @ORM\ManyToOne(targetEntity="Arbitre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_arbitre1", referencedColumnName="id")
+     * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
+     */
+
+    private $idArbitre1;
     /**
      * @var \Arbitre
      *
@@ -129,12 +126,40 @@ class Matchs
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_arbitre2", referencedColumnName="id")
      * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
      */
     private $idArbitre2;
+    /**
+     * @var \Arbitre
+     *
+     * @ORM\ManyToOne(targetEntity="Arbitre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_arbitre3", referencedColumnName="id")
+     * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
+     */
+    private $idArbitre3;
+    /**
+     * @var \Arbitre
+     *
+     * @ORM\ManyToOne(targetEntity="Arbitre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_arbitre4", referencedColumnName="id")
+     * })
+     * @Assert\NotBlank(message="ce champ est obligtoire")
+     */
+    private $idArbitre4;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getNbBut1(): ?int
@@ -142,9 +167,9 @@ class Matchs
         return $this->nbBut1;
     }
 
-    public function setNbBut1(int $nbBut1): self
+    public function setNbBut1($nbBut1): self
     {
-        $this->nbBut1 = $nbBut1;
+        $this->nbBut1 = -1;
 
         return $this;
     }
@@ -154,9 +179,9 @@ class Matchs
         return $this->nbBut2;
     }
 
-    public function setNbBut2(int $nbBut2): self
+    public function setNbBut2($nbBut2): self
     {
-        $this->nbBut2 = $nbBut2;
+        $this->nbBut2 = -1;
 
         return $this;
     }
@@ -166,19 +191,19 @@ class Matchs
         return $this->stade;
     }
 
-    public function setStade(string $stade): self
+    public function setStade($stade): self
     {
         $this->stade = $stade;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate($date): self
     {
         $this->date = $date;
 
@@ -190,7 +215,7 @@ class Matchs
         return $this->nbSpectateur;
     }
 
-    public function setNbSpectateur(int $nbSpectateur): self
+    public function setNbSpectateur($nbSpectateur): self
     {
         $this->nbSpectateur = $nbSpectateur;
 
@@ -202,7 +227,7 @@ class Matchs
         return $this->saison;
     }
 
-    public function setSaison(string $saison): self
+    public function setSaison($saison): self
     {
         $this->saison = $saison;
 
@@ -214,7 +239,7 @@ class Matchs
         return $this->round;
     }
 
-    public function setRound(int $round): self
+    public function setRound($round): self
     {
         $this->round = $round;
 
@@ -226,21 +251,9 @@ class Matchs
         return $this->idArbitre4;
     }
 
-    public function setIdArbitre4(?Arbitre $idArbitre4): self
+    public function setIdArbitre4($idArbitre4): self
     {
         $this->idArbitre4 = $idArbitre4;
-
-        return $this;
-    }
-
-    public function getEquipe2(): ?Equipe
-    {
-        return $this->equipe2;
-    }
-
-    public function setEquipe2(?Equipe $equipe2): self
-    {
-        $this->equipe2 = $equipe2;
 
         return $this;
     }
@@ -250,7 +263,7 @@ class Matchs
         return $this->idArbitre1;
     }
 
-    public function setIdArbitre1(?Arbitre $idArbitre1): self
+    public function setIdArbitre1($idArbitre1): self
     {
         $this->idArbitre1 = $idArbitre1;
 
@@ -262,21 +275,9 @@ class Matchs
         return $this->idArbitre3;
     }
 
-    public function setIdArbitre3(?Arbitre $idArbitre3): self
+    public function setIdArbitre3($idArbitre3): self
     {
         $this->idArbitre3 = $idArbitre3;
-
-        return $this;
-    }
-
-    public function getEquipe1(): ?Equipe
-    {
-        return $this->equipe1;
-    }
-
-    public function setEquipe1(?Equipe $equipe1): self
-    {
-        $this->equipe1 = $equipe1;
 
         return $this;
     }
@@ -286,9 +287,38 @@ class Matchs
         return $this->idArbitre2;
     }
 
-    public function setIdArbitre2(?Arbitre $idArbitre2): self
+    public function setIdArbitre2($idArbitre2): self
     {
         $this->idArbitre2 = $idArbitre2;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getEquipe1()->getNomeq() . " - " . $this->getEquipe2()->getNomeq();
+    }
+
+    public function getEquipe1(): ?Equipe
+    {
+        return $this->equipe1;
+    }
+
+    public function setEquipe1($equipe1): self
+    {
+        $this->equipe1 = $equipe1;
+
+        return $this;
+    }
+
+    public function getEquipe2(): ?Equipe
+    {
+        return $this->equipe2;
+    }
+
+    public function setEquipe2($equipe2): self
+    {
+        $this->equipe2 = $equipe2;
 
         return $this;
     }

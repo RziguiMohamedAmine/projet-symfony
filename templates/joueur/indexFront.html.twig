@@ -1,0 +1,110 @@
+{% extends 'front.html.twig' %}
+ {% block body %}
+     <div class="section subbanner">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-12 col-md-12">
+                     <div class="caption"><img src="{{ 'http://127.0.0.1/images/'~ e.logo }}" width = "60" height = "60">Joueurs de {{ e.nomeq }}</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+
+     <div class="section singlepage">
+         <div class="container">
+
+             <div class="row">
+                 <div class="col-sm-12 col-md-12">
+                     <div class="page-title">
+                         <h2 class="lead">Joueurs de {{ e.nomeq }}</h2>
+                         <div class="border-style"></div>
+                         <div class="page-description">
+                             <p><strong>Federation Tunisienne de football</strong> Lorem ipsum dolor sit amet, libero turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin viverra, vel varius eget sit mollis. Commodo enim aliquam suspendisse tortor cum diam, commodo facilisis, rutrum et duis nisl porttitor, vel eleifend odio ultricies ut, orci in adipiscing felis velit nibh.</p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="row">
+
+                 <div class="col-sm-12 col-md-12">
+
+                     <div class="team-tab" data-example-id="togglable-tabs">
+                         <ul id="myTabs" class="nav nav-tabs nav-tabs-team" role="tablist">
+                             <li class="active"><a href="#primary" id="primary-tab" role="tab" data-toggle="tab" aria-controls="primary" aria-expanded="true">PRIMARY TEAM</a></li>
+                         </ul>
+                         <div id="myTabContent" class="tab-content tab-team tab-team-bg">
+                             <div role="tabpanel" class="tab-pane fade in active" id="primary" aria-labelledBy="primary-tab">
+                                 <div class="teams">
+                                     <div class="nav-team" id="primary-nav">
+                                         {% for joueur in joueur %}
+                                             <div class="position ">
+                                                 {% if joueur.poste=="gardien" %}
+                                                 <a title=""><span class="gk">GK</span>{{ joueur.nom }} {{ joueur.prenom }}</a>
+                                                 {% endif %}
+                                                 {% if joueur.poste=="milieu" %}
+                                                     <a title=""><span class="rmf">RMF</span>{{ joueur.nom }} {{ joueur.prenom }}</a>
+                                                 {% endif %}
+                                                 {% if joueur.poste=="defenseur" %}
+                                                     <a title=""><span class="cb">CB</span>{{ joueur.nom }} {{ joueur.prenom }}</a>
+                                                 {% endif %}
+                                                 {% if joueur.poste=="attaquant" %}
+                                                     <a title=""><span class="st">ST</span>{{ joueur.nom }} {{ joueur.prenom }}</a>
+                                                 {% endif %}
+                                             </div>
+                                         {% endfor %}
+                                         <!--  -->
+                                     </div>
+                                 </div>
+                                 <div class="teams-caro">
+                                     <div id="primary-team-caro" class="owl-carousel owl-theme">
+
+                                         {% for joueur in joueur %}
+                                             <div class="item">
+
+                                                 <div class="teams-description">
+
+                                                     <p><span class="title">Nom : </span>{{ joueur.nom }}</p>
+                                                     <p><span class="title">Prenom : </span>{{ joueur.prenom }}</p>
+                                                     <p><span class="title">Poste : </span>{{ joueur.poste }}</p>
+                                                     <p><span class="title">Nationalite : </span>{{ joueur.nationalite }}</p>
+                                                     <p><span class="title">Date Naissance : </span>{{ joueur.dateNaiss ? joueur.dateNaiss|date('Y-m-d') : '' }}</p>
+                                                     <p><span class="title">Taille : </span>{{ joueur.taille }}</p>
+                                                     <p><span class="title">Poids : </span>{{ joueur.poids }}</p>
+                                                     <p><span class="title">Equipe : </span>{{ joueur.getIdEquipe() }}</p>
+                                                     <p><span class="title">INFORMATION </span></p>
+                                                     <p class="font-normal">Lorem ipsum dolor sit amet, libero turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin viverra, vel varius eget sit mollis.</p>
+
+                                                 </div>
+                                                 <div class="teams-description">
+                                                     <img src="{{ 'http://127.0.0.1/images/'~ joueur.image }}" width = "150" height = "150">
+                                                 </div>
+
+                                             </div>
+                                         {% endfor %}
+
+
+
+
+                                     </div>
+                                 </div>
+                                 <div class="clearfix"></div>
+                             </div>
+                             <div class="clearfix"></div>
+                         </div>
+
+                     </div>
+                 </div><!-- /example -->
+
+             </div>
+
+
+         </div>
+     </div>
+     </div>
+
+
+
+ {% endblock %}

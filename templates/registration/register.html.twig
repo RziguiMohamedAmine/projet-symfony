@@ -2,14 +2,24 @@
 {% block css %}
 
     <link rel="stylesheet" type="text/css"href="{{asset('front/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+    <link href="{{asset('back/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet"type="text/css" href="{{asset('front/css/styleus.css')}}">
 {% endblock %}
 
 <div class="main">
 
+
     <section class="signup">
         <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message | raw }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
             {{ form_start(form) }}
             <div class="signup-content">
                 <div class="signup-form">
@@ -74,4 +84,6 @@
 
 {% block js %}
     <script type="text/javascript" src="{{asset('front/js/scriptUser.js')}}"></script>
+    <script src="{{asset('back/assets/js/bootstrap.bundle.min.js')}}"></script>
+
 {% endblock %}

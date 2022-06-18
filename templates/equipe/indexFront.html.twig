@@ -1,0 +1,158 @@
+{% extends 'front.html.twig' %}
+ {% block body %}
+     <div class="section subbanner">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-12 col-md-12">
+                     <div class="caption">Equipes</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+
+     <div class="section singlepage">
+         <div class="container">
+
+             <div class="row">
+                 <div class="col-sm-12 col-md-12">
+                     <div class="page-title">
+                         <h2 class="lead">Equipes</h2>
+                         <div class="border-style"></div>
+                         <div class="page-description">
+                             <p><strong>Federation Tunisienne de football</strong> Lorem ipsum dolor sit amet, libero turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin viverra, vel varius eget sit mollis. Commodo enim aliquam suspendisse tortor cum diam, commodo facilisis, rutrum et duis nisl porttitor, vel eleifend odio ultricies ut, orci in adipiscing felis velit nibh.</p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="row">
+
+                 <div class="col-sm-12 col-md-12">
+
+                     <div class="team-tab" data-example-id="togglable-tabs">
+                         <ul id="myTabs" class="nav nav-tabs nav-tabs-team" role="tablist">
+                             <li class="active"><a href="#primary" id="primary-tab" role="tab" data-toggle="tab" aria-controls="primary" aria-expanded="true">PRIMARY TEAM</a></li>
+                             </ul>
+                         <div id="myTabContent" class="tab-content tab-team tab-team-bg">
+                             <div role="tabpanel" class="tab-pane fade in active" id="primary" aria-labelledBy="primary-tab">
+                                 <div class="teams">
+                                     <div class="nav-team" id="primary-nav">
+                                         {% for equipe in equipes %}
+                                         <div class="position">
+                                             <a title=""><span ><img src="{{ 'http://127.0.0.1/images/'~ equipe.logo }}" width = "30" height = "30"></span>{{ equipe.nomeq }}</a>
+                                         </div>
+                                         {% endfor %}
+                                         <!--  -->
+                                     </div>
+                                 </div>
+                                 <div class="teams-caro">
+                                     <div id="primary-team-caro" class="owl-carousel owl-theme">
+
+                                         {% for equipe in equipes %}
+                                         <div class="item">
+
+                                             <div class="teams-description">
+
+                                                 <p><span class="title">Equipe : </span>{{ equipe.nomeq }}</p>
+                                                 <p><span class="title">Niveau : </span>{{ equipe.niveau }}</p>
+                                                 <p><span class="title">Entreneur : </span>{{ equipe.nomEntreneur }}</p>
+                                                 <p><span class="title">Stade : </span>{{ equipe.stade }}<a href="{{ path('app_equipe_map', {'id': equipe.id}) }}" class="btn btn-tbl-edit" >
+                                                         <i class="fa fa-map-marker" style="font-size:30px;color:red"></i>
+                                                     </a></p>
+                                                 <p><span class="title">Formation:</span><a href="{{ path('app_equipe_formation', {'id': equipe.id}) }}" class="btn btn-tbl-edit" >
+                                                         <img src="{{asset('front/images/foot.png')}}" width="50" height="50" alt="" />
+                                                     </a></p>
+                                                 <p><span class="title">INFORMATION </span></p>
+                                                 <p class="font-normal">Lorem ipsum dolor sit amet, libero turpis non cras ligula, id commodo, aenean est in volutpat amet sodales, porttitor bibendum facilisi suspendisse, aliquam ipsum ante morbi sed ipsum mollis. Sollicitudin viverra, vel varius eget sit mollis.</p>
+
+                                                 <p><span class="title">Effectif : </span><a href="{{ path('app_equipe_joueur', {'id': equipe.id}) }}" class="btn btn-tbl-edit">
+                                                         <i class="fa fa-users" style="font-size:30px;color:rgb(15, 192, 15)"></i>
+                                                     </a></p>
+                                             </div>
+                                             <div class="teams-description">
+                                                 <img src="{{ 'http://127.0.0.1/images/'~ equipe.logo }}" widht="200" height="200" alt="" class="img-responsive" />
+                                             </div>
+                                         </div>
+                                         {% endfor %}
+
+
+
+                                     </div>
+                                 </div>
+                                 <div class="clearfix"></div>
+                             </div>
+                                 <div class="clearfix"></div>
+                             </div>
+
+                         </div>
+                     </div><!-- /example -->
+
+                 <!-- OUR PLAYER SECTION -->
+                 <div class="section player" >
+                     <div class="container">
+                         <div class="row">
+                             <div class="col-sm-12 col-md-12">
+                                 <div class="page-title">
+                                     <h2 class="lead">Meuilleur Buteur de la ligue1</h2>
+                                     <div class="border-style"></div>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             <div id="player-caro" class="owl-carousel owl-theme">
+                                 {% for joueur in joueurs %}
+                                 <div class="item player-item">
+                                     <div class="gambar">
+                                         {# {{ 'http://127.0.0.1/images/'~ joueur.image }} #}
+                                         <img src="{{ 'http://127.0.0.1/images/'~ joueur.image }}" height="150" width="150" alt="" class="img-responsive">
+                                     </div>
+                                     <div class="item-body">
+                                         <div class="name">
+                                             {{ joueur.nom }}
+                                         </div>
+                                         <div class="position">
+                                             {% if joueur.poste=="gardien" %}
+                                                <span class="gk">GK</span> Gardien de but
+                                             {% endif %}
+                                             {% if joueur.poste=="milieu" %}
+                                                <span class="rmf">RMF</span> Milieu de terrain
+                                             {% endif %}
+                                             {% if joueur.poste=="defenseur" %}
+                                               <span class="cb">CB</span> Défenseur
+                                             {% endif %}
+                                             {% if joueur.poste=="attaquant" %}
+                                                 <span class="st">ST</span>Attaquant
+                                             {% endif %}
+                                         </div>
+                                         <div class="name">
+                                             but: {{ joueur.somme }} <div></div> <img src="{{ 'http://127.0.0.1/images/'~ joueur.logo }}" widht="40" height="40" />
+
+                                         </div>
+
+                                     </div>
+
+                                 </div>
+                                 {% endfor %}
+                             </div>
+                         </div>
+
+                         <div class="player-pagination pagination">
+
+
+                         </div>
+
+                     </div>
+                 </div>
+                 </div>
+
+
+             </div>
+         </div>
+     </div>
+
+
+
+ {% endblock %}

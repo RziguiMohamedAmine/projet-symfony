@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -15,7 +15,6 @@ class Equipe
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -24,35 +23,38 @@ class Equipe
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     **@Assert\Length(
+     *      min = "3",
+     *      minMessage = "Le nom de l'equipe doit faire au moins {{ limit }} caractères",
+     * )
      * @ORM\Column(name="nomeq", type="string", length=100, nullable=false)
      */
     private $nomeq;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="logo", type="string", length=100, nullable=false)
      */
     private $logo;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="nom_entreneur", type="string", length=100, nullable=false)
      */
     private $nomEntreneur;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="niveau", type="string", length=100, nullable=false)
      */
     private $niveau;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="stade", type="string", length=100, nullable=false)
      */
     private $stade;
@@ -120,6 +122,10 @@ class Equipe
         $this->stade = $stade;
 
         return $this;
+    }
+
+    public function __toString() {
+        return $this->nomeq;
     }
 
 

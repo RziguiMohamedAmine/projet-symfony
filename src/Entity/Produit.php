@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Produit
@@ -22,46 +24,59 @@ class Produit
     private $id;
 
     /**
-     * @var string
+     * @Assert\NotBlank(message=" champ obligatoire")
+     * @Assert\Length(
+     *      min = 4,
+     *      minMessage=" Entrer un nom au mini de 5 caracteres"
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     *     )
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
+     * @Assert\NotBlank(message=" Entrer une image")
      *
      * @ORM\Column(name="image", type="string", length=500, nullable=false)
      */
     private $image;
 
     /**
-     * @var float
+     * @Assert\NotBlank(message=" champ obligatoire")
+     * @Assert\Length(
+     *      min = 1,
+     *      minMessage=" Entrer un prix"
      *
+     *     )
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
     private $prix;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=500, nullable=false)
+     * @Assert\NotBlank(message="Ce champ ne doit pas depasser 100 caractéres ")
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 100,
+     *      minMessage = "doit etre >=7 ",
+     *      maxMessage = "doit etre <=100" )
+     * @ORM\Column(type="string", length=1000)
      */
     private $description;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message=" champ obligatoire")
      * @ORM\Column(name="stock", type="integer", nullable=false)
      */
     private $stock = '0';
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message=" champ obligatoire")
      * @ORM\Column(name="code", type="integer", nullable=false)
      */
-    private $code;
+    private $code=0;
 
     /**
      * @var \Categorie
@@ -162,5 +177,8 @@ class Produit
         return $this;
     }
 
-
+public function __toString()
+{
+   return $this->nom;
+}
 }

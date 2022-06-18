@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Joueur
@@ -26,54 +26,62 @@ class Joueur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=100, nullable=false)
+     * @Assert\Length(
+     *      min = "3",
+     *      minMessage = "Votre nom doit faire au moins {{ limit }} caractères",
+     * )
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="prenom", type="string", length=100, nullable=false)
      */
     private $prenom;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank
      * @ORM\Column(name="poste", type="string", length=100, nullable=false)
      */
     private $poste;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="nationalite", type="string", length=100, nullable=false)
      */
     private $nationalite;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="date_naiss", type="date", nullable=false)
+     * @Assert\LessThan("01/01/2006",message = "Le date ne doit pas etre superieur a 01/01/2006",)
      */
     private $dateNaiss;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="taille", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\Positive(message = "Le taille ne peut pas etre negative",)
+     * @Assert\GreaterThan(130,message = "Le Taille ne doit pas etre inferieur a 130",)
      */
     private $taille;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="poids", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\GreaterThan(18,message = "Le poids ne doit pas etre inferieur a 40",)
      */
     private $poids;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="image", type="string", length=200, nullable=false)
      */
     private $image;
@@ -200,6 +208,8 @@ class Joueur
 
         return $this;
     }
-
+    public function __toString() {
+        return $this->nom;
+    }
 
 }

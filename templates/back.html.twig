@@ -44,10 +44,14 @@
 
         <nav class="navbar-custom">
             <ul class="navbar-right list-inline float-right mb-0">
-
+                <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
+                    <a href="{{ path('app_equipe_indexFront') }}" class="nav-link dropdown-toggle arrow-none waves-effect " >
+                        Client
+                    </a>
+                </li>
                 <!-- language-->
                 <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
-                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle arrow-none waves-effect " data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="{{asset('back/assets/images/flags/us_flag.jpg')}}" class="mr-2" height="12" alt="" /> English <span class="mdi mdi-chevron-down"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated language-switch">
@@ -177,6 +181,128 @@
                             <li><a href="{{ path('app_user_index') }}">Afficher User</a></li>
                         </ul>
                     </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Gestion des Equipes <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Gestion des Equipes <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_equipe_new') }}">Ajouter Equipe</a></li>
+                            <li><a href="{{ path('app_equipe_index') }}">Afficher Equipe</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Gestion des Joueurs <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_joueur_new') }}">Ajouter Joueur</a></li>
+                            <li><a href="{{ path('app_joueur_index') }}">Afficher Joueur</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Gestion Stat joueur <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_matchjoueur_new')}} ">Ajouter Statistiques</a></li>
+                            <li><a href="{{ path('app_matchjoueur_index') }}">Afficher Statistiques</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Gestion Formation <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_equipe_indform') }}">Formations Equipes</a></li>
+                        </ul>
+                    </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Gestion De Blog <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+
+                            <li><a href="{{ path('addBlog') }}">Ajouter Blog</a></li>
+                            <li><a href="{{ path('display_blog') }}">Afficher Blog</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="icon-paper-sheet"></i>
+                            <span> Gestion des Match
+                                <span class="float-right menu-arrow">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_matchs_new') }}">Ajouter Match</a></li>
+                            <li><a href="{{ path('app_matchs_index') }}">Afficher Match</a></li>
+                            <li><a href="{{ path('app_matchs_tirage_au_sort_form') }}">Tirage Au Sort</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="icon-paper-sheet"></i>
+                            <span> Gestion des Billets
+                                <span class="float-right menu-arrow">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_billet_new') }}">Ajouter Billet</a></li>
+                            <li><a href="{{ path('app_billet_index') }}">Afficher Billets</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="icon-paper-sheet"></i>
+                            <span> Gestion des Produits
+                                <span class="float-right menu-arrow">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </span>
+                            </span>
+                        </a>
+
+                        <ul class="submenu">
+                            <li><a href="{{ path('app_produit_new') }}">Ajouter produit</a></li>
+                            <li><a href="{{ path('app_produit_index') }}">Afficher produit</a></li>
+                        </ul></li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="icon-paper-sheet"></i>
+                            <span> Gestion Categories
+                                <span class="float-right menu-arrow">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </span>
+                            </span>
+                        </a>
+                          <ul class="submenu">
+                            <li><a href="{{ path('app_categorie_new') }}">Ajouter catégorie</a></li>
+                            <li><a href="{{ path('app_categorie_index') }}">Afficher catégorie</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect">
+                            <i class="icon-paper-sheet"></i>
+                            <span> Gestion Commande
+                                <span class="float-right menu-arrow">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="submenu">
+                            <li>  <a href="{{ path('app_orders') }}">Orders</a></li>
+                        </ul>
+                    </li>
+
+
+
+
+
 
                 </ul>
 

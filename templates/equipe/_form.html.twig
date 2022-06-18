@@ -1,0 +1,92 @@
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="content-page">
+    <!-- Start content -->
+
+        <div class="container-fluid">
+            <div class="page-title-box">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <h4 class="page-title">Gestion Des Equipes</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Equipes</a></li>
+                            <li class="breadcrumb-item active">Ajouter Equipe</li>
+                        </ol>
+                    </div>
+                </div> <!-- end row -->
+            </div>
+            <!-- end page-title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Equipes</h4>
+                            <p class="sub-title">    <code
+                                        class="highlighter-rouge">  </code>
+                                <code class="highlighter-rouge"> </code> <code
+                                        class="highlighter-rouge">
+
+                                </code>  </p>
+
+                            {{ form_start(form) }}
+                            <div class="form-group">
+
+                                {{  form_row(form.nomeq,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+
+                                {{  form_row(form.niveau,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+
+                                {{  form_row(form.stade,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+
+                                {{  form_row(form.nomEntreneur,{'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+
+
+
+                                {{  form_row(form.logo) }}
+
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                            {{ button_label|default('Save') }}</button>
+
+                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+
+
+
+        <!-- container-fluid -->
+
+    </div>
+    <!-- content -->
+
+
+</div>
+
+
+
+
+

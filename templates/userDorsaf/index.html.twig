@@ -1,0 +1,47 @@
+{% extends 'front.html.twig' %}
+{%  block body %}
+<center>
+    <br><br><br><br><br><br>
+{%  for blog in b %}
+<style>
+    .button {
+
+        padding: 5px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        background-color: transparent;
+        color: black;
+        border: 2px solid #f44336;
+    }
+    .button:hover {
+        background-color: #f44336; /* Green */
+        color: white;
+    }
+</style>
+<div class="row-cols-1">
+<td></td>    <td><img style="height: 400px; width: 800px" src="{{ asset('uploads/images/'~blog.image) }}" ></td>
+
+    <h5 class="card-title">
+    <h4>Titre:</h4>{{ blog.titre}}
+      {% set nbC = 0 %}
+   <h4>nombre des commentaires:</h4> 
+   <td>{% for c in blog.getCommantaires().toArray() %}
+                                    {% set nbC = nbC+1 %}
+                            {% endfor %}
+                                {{ nbC }}
+                            </td>
+ <td><button class="button" ><a href="{{ path('consulter_publ',{'id':blog.id}) }}">Consulter</a></button></td>
+</h5>
+
+<p class="card-text"></p>
+
+</div>
+
+{% endfor %}
+
+</center>
+{%  endblock %}

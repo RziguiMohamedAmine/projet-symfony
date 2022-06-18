@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 	"use strict";
 	
+	
 	/* =================================
 	BANNER ROTATOR IMAGE 
 	=================================== */
@@ -10,8 +11,6 @@ $(document).ready(function(){
 		var src = $(this).find('img').attr('src');
 		$(this).css('background-image', 'url(' + src + ')');
 	});
-	
-	
 
 	/* =================================
 	LOADER 
@@ -137,6 +136,36 @@ $(document).ready(function(){
 			$(this).addClass('active').siblings().removeClass('active');
 		});
 	});
+
+	// Team - Third
+	var teams3 = $("#third-team-caro");
+	teams3.owlCarousel({
+		singleItem : true,
+		pagination : false
+	});
+ 
+	var tom3 = $('#third-nav .position');
+	tom3.each(function(e){
+		$(this).on('click', function(){
+			teams3.trigger('owl.goTo', e);
+			$(this).addClass('active').siblings().removeClass('active');
+		});
+	});
+
+	// Team - fourth
+	var teams4 = $("#fourth-team-caro");
+	teams4.owlCarousel({
+		singleItem : true,
+		pagination : false
+	});
+ 
+	var tom4 = $('#fourth-nav .position');
+	tom4.each(function(e){
+		$(this).on('click', function(){
+			teams4.trigger('owl.goTo', e);
+			$(this).addClass('active').siblings().removeClass('active');
+		});
+	});
 	
 	
 	
@@ -211,12 +240,16 @@ $(document).ready(function(){
 	
 	var latitude = myLat,
 		longitude = myLng,
-		map_zoom = 14;
+		map_zoom = 17;
+
 
 	//google map custom marker icon - .png fallback for IE11
 	var is_internetExplorer11= navigator.userAgent.toLowerCase().indexOf('trident') > -1;
-	var marker_url = ( is_internetExplorer11 ) ? 'images/cd-icon-location.png' : 'images/cd-icon-location.svg';
-
+	var marker_url = new google.maps.Marker({
+		position:{lat:myLat,lng:myLng},
+		map,
+		title: "Hello World!",
+	});
 	//define the basic color of your map, plus a value for saturation and brightness
 	var main_color = '#000000',
 		saturation_value= -80,

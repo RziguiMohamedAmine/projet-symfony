@@ -73,4 +73,26 @@ class MatchjoueurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
 }
+
+
+
+
+
+/*
+select joueur.*, sum(m.nb_but) as
+somme from joueur INNER join matchjoueur m on joueur.id=m.id_joueur GROUP by joueur.id order by somme DESC LIMIT 3
+*/
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,123 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+
+
+
+
+
+
+
+
+
+     <!-- ============================================================== -->
+     <!-- Start right Content here -->
+     <!-- ============================================================== -->
+     <div class="content-page">
+         <!-- Start content -->
+         <div class="content">
+             <div class="container-fluid">
+                 <div class="page-title-box">
+                     <div class="row align-items-center">
+                         <div class="col-sm-6">
+                             <h4 class="page-title">Gestion Des Formations</h4>
+                         </div>
+                         <div class="col-sm-6">
+                             <ol class="breadcrumb float-right">
+                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Formation</a></li>
+                                 <li class="breadcrumb-item active">Afficher Formation</li>
+                             </ol>
+                         </div>
+                     </div> <!-- end row -->
+                 </div>
+                 <!-- end page-title -->
+
+                 <div class="row">
+                     <div class="col-12">
+                         <div class="card m-b-30">
+                             <div class="card-body">
+
+                                 <h4 class="mt-0 header-title">Gestion Formation</h4>
+                                 <p class="sub-title font-14">This is an experimental awesome solution for responsive tables with complex data.</p>
+
+                                 <div class="table-rep-plugin">
+                                     <div class="table-responsive b-0" data-pattern="priority-columns">
+                                         <table id="tech-companies-1" class="table  table-striped">
+                                             <thead>
+                                             <tr>
+                                                 <th data-priority="1">Joueur</th>
+                                                 <th data-priority="1">Poste</th>
+
+
+                                                 <th data-priority="6">Supprimer</th>
+
+                                             </tr>
+                                             </thead>
+                                             <tbody>
+                                             {% for formation in formations %}
+                                                 <tr>
+                                                     <td>{{ formation.nom}}</td>
+                                                     <td>{{ formation.poste }}</td>
+                                                     <td> <a href="{{ path('app_formation_delete', {'id': formation.id}) }}" class="btn btn-tbl-edit">
+                                                             <i class="fa fa-trash" style="font-size:30px;color:rgb(241,7,35)"></i>
+                                                         </a></td>
+
+                                                 </tr>
+                                             {% else %}
+                                                 <tr>
+                                                     <td colspan="7">no records found</td>
+                                                 </tr>
+                                             {% endfor %}
+                                             </tbody>
+                                         </table>
+                                     </div>
+
+                                 </div>
+
+                             </div>
+                         </div>
+                     </div> <!-- end col -->
+                 </div> <!-- end row -->
+
+
+             </div>
+             <!-- container-fluid -->
+
+         </div>
+         <!-- content -->
+
+
+
+     </div>
+     <!-- ============================================================== -->
+     <!-- End Right content here -->
+     <!-- ============================================================== -->
+
+
+     <!-- END wrapper -->
+
+     <!-- jQuery  -->
+ {% endblock %}
+          {% block js %}
+
+
+              <!-- Responsive-table-->
+              <script src="../plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
+
+              <!-- App js -->
+
+              <script>
+                  $(function() {
+                      $('.table-responsive').responsiveTable({
+                          addDisplayAllBtn: 'btn btn-secondary'
+                      });
+                  });
+              </script>
+          {% endblock %}
+
+
+
+
+
+
+
+

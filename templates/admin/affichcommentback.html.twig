@@ -1,0 +1,64 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+        <a class="btn btn-danger" href="{{ path("addComment") }}">Ajouter</a>
+
+        <div class="card">
+            <div class="card-body">
+
+                <h5 class="card-title">Liste des commentaire</h5>
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>     
+                       
+                        <th>commentaire</th>
+                        <th>Publication</th>
+                        <th>Modification</th>
+                        <th>Suppression</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+
+                    
+                    {% for commentaire in c %}
+                        <tr>
+                       
+                            <td>{{ commentaire.descrp }}</td>
+                            <td>{{ commentaire.getBlog().titre }}</td>
+                            
+                 
+    {#<td><img src="{{ asset ('public/uploades/images/products/' ~ blog.getImage()) }}" class="img-rounded"/></td>#}
+                          {#<td>{{ blog.image }}</td>#}
+                            <td>
+                                <a class="btn btn-danger" href="{{ path('modifComm',{'id':commentaire.id}) }}">Modifier</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" href="{{ path('supp_cmnt',{'id':commentaire.id}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <!-- End small tables -->
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock %}

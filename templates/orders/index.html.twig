@@ -1,0 +1,33 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+
+    <div class="section subbanner" style="padding: 150px 0px 50px 150px" >
+        <div class="container">
+                {% if  orders %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Transaction</th>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th>Supprimer</th>
+                        </tr>
+                        </thead>
+                        {% for order in orders %}
+                            <tbody>
+                            <tr>
+                                <td>#{{ order.id }}</td>
+                                <td>#{{ order.user.id }}</td>
+                                <td>{{ order.date|date("d/m/Y") }}</td>
+                                <td><a href="{{ path('order_remove',{'id':order.id}) }}" ><i class="fa fa-trash" style="font-size:30px;color:red"></i> </a></td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                    {{ knp_pagination_render(orders) }}
+            {% else %}
+                <h3>No orders found</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

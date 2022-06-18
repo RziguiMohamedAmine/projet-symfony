@@ -1,0 +1,145 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block body %}
+    <div class="section singlepage" >
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="page-title">
+                        <h2 class="lead">RECENT PRODUCTS</h2>
+                        <div class="border-style"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pbot-main">
+
+
+                <div class="col-sm-12 col-md-3">
+                    <div class="sidenav">
+                        <h4 class="sidenav-heading">CATEGORY</h4>
+                        {% for categories in categorie %}
+                            <a href={{ path('app_produit_show', {'id_categorie':categories.id}) }} title="" class="active"> {{ categories.nom }}</a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 col-md-9">
+
+                    <div class="row">
+                        {% for produits in produit %}
+                            <div class="col-sm-12 col-md-4">
+                                <div class="shop-item">
+                                    <div class="gambar">
+                                        <img src="{{ 'http://127.0.0.1/images/'~ produits[0].image }}" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="item-body">
+                                        <div class="name">
+                                            {{ produits[0].nom }}
+                                        </div>
+                                        <div class="price">
+                                            {{ produits[0].prix~ ' DT' }}
+
+                                            <a href="{{ path('cart_add', {'id':produits[0].id}) }}" title="" class="shop-buy">BUY</a>
+                                            <form action="{{ path('app_wishlist_new', {'id_produit':produits[0].id}) }}" method="post" style="display: flex;justify-content: end;margin-right: 0px;">
+                                                <button type="submit" class="ui huge red icon button" style="background: transparent;border-color: transparent;"><i class="fa fa-heart" aria-hidden="true"
+                                                                                                                                                                    style="font-size: 26px;color: red;"></i></button>
+                                            </form>
+
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <form action="{{ path('app_produit_star', {'id':produits[0].id}) }}" id="starForm{{ produits[0].id }}" method="post">
+                                                        <div class="star-rating star-rating{{ produits[0].id }}">
+
+                                                            {#                                                    {% for for i in 0..produits[1]  %}#}
+                                                            <span class="fa fa-star" data-rating="1" ></span>
+                                                            <span class="fa fa-star-o" data-rating="2"></span>
+                                                            <span class="fa fa-star-o" data-rating="3"></span>
+                                                            <span class="fa fa-star-o" data-rating="4"></span>
+                                                            <span class="fa fa-star-o" data-rating="5"></span>
+                                                            <input type="hidden" name="whatever3" class="rating-value" value="{{ produits[1] }}">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+
+                    <ul class="pagination">
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <!-- CLIENT SECTION -->
+    <div class="section stat-client p-main bg-client">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                    <div class="client-img">
+                        <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                    <div class="client-img">
+                        <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                    <div class="client-img">
+                        <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                    <div class="client-img">
+                        <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                    <div class="client-img">
+                        <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                    <div class="client-img">
+                        <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{asset('front/js/rating.js')}}"></script>
+{% endblock %}

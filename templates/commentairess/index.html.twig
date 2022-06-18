@@ -1,0 +1,49 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Commentaire index{% endblock %}
+
+{% block body %}
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+
+        commentaires de {{ blog.titre }}
+        <div class="card">
+            <div class="card-body">
+    <table class="table table-striped">
+
+
+        <thead>
+            <tr>
+
+                <th>Descrp</th>
+                <th>Temps_comm</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for commentaire in commentaires %}
+            <tr>
+
+                <td>{{ commentaire.descrp }}</td>
+                <td>{{ commentaire.tempsComm ? commentaire.tempsComm|date('Y-m-d H:i:s') : '' }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock %}

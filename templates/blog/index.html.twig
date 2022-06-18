@@ -1,0 +1,97 @@
+
+{% extends 'back.html.twig' %}
+
+{% block body %}
+
+
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+
+         <script src="{{ asset('assets/jquery.min.js') }}"></script>
+ <form class="form-inline d-none d-sm-inline-block">
+          <input type="text" id="search" class="form-control form-control-no-border mr-sm-2" placeholder="Rechercher">
+      </form>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Liste des blogs</h5>
+
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>     <th>image</th>
+                        <th>titre</th>
+                        <th>contenu</th>
+                        <th>Nb Commentaire</th>
+                        <th>Modification</th>
+                        <th>Suppression</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+
+                    
+                    {% for blog in b %}
+                        {% set nbC = 0 %}
+                        <tr>
+                            <td><a href="{{ path('affichcomm',{'id':blog.id}) }}"><img style="height: 100px; width: 100px" src="{{ asset('uploads/images/'~blog.image) }}" ></a></td>
+                            <td>{{ blog.titre }}</td>
+                            <td>{{ blog.contenu }}</td>
+                            <td>{% for c in blog.getCommantaires().toArray() %}
+                                    {% set nbC = nbC+1 %}
+                            {% endfor %}
+                                {{ nbC }}
+                            </td>
+                 
+    {#<td><img src="{{ asset ('public/uploades/images/products/' ~ blog.getImage()) }}" class="img-rounded"/></td>#}
+                          {#<td>{{ blog.image }}</td>#}
+                            <td>
+                                <a class="btn btn-success" href="{{ path('modifBlog',{'id':blog.id}) }}">Modifier</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="{{ path('supp_blog',{'id':blog.id}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <!-- End small tables -->
+
+            </div>
+        </div>
+
+    </div>
+
+<script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found == 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+</script>
+</div>
+{% endblock %}

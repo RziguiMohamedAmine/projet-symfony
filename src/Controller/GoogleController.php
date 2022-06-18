@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -43,7 +44,16 @@ class GoogleController extends AbstractController
 
         }
         else{
-            return $this->redirectToRoute('app_user_home');
+
+            if(in_array('ROLE_ADMIN',$this->getUser()->getRoles(),true)) {
+                return $this->RedirectToRoute('app_user_index');
+            }
+
+            // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+            return $this->redirectToRoute('app_equipe_indexFront');
+
+
+
         }
 
     }

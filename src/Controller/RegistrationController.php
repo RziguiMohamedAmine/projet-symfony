@@ -62,6 +62,7 @@ class RegistrationController extends AbstractController
             $email->context(['signedUrl' => $signatureComponents->getSignedUrl()]);
 
             $this->mailer->send($email);
+            $this->addFlash("success","verifier votre Email");
 
         }
 

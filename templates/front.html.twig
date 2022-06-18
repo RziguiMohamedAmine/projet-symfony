@@ -99,13 +99,39 @@
 		</div>
 		<nav class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="index.html">HOME</a></li>
-				<li><a href="about.html">ABOUT</a></li>
+				<li
+						{% if(app.request.attributes.get('_route') == 'app_front_match' or app.request.attributes.get('_route') == 'app_front_match_saison') %}
+							class="active"
+						{% endif %}
+				>
+					<a href="{{ path('app_front_match') }}">
+						Match
+					</a>
+				</li>
 
-				<li><a href="gallery.html">GALLERY</a></li>
-				<li><a href="news.html">NEWS</a></li>
-				<li><a href="shop.html">SHOP</a></li>
-				<li><a href="contact.html">CONTACT</a></li>
+
+
+				<li><a href="{{ path('app_equipe_indexFront') }}">Equipes</a></li>
+				<li><a href="{{ path('display_blog_front') }}">News</a></li>
+				<li class="nav-item dropdown
+ {% if(app.request.attributes.get('_route') == 'app_billet_front' or app.request.attributes.get('_route') == 'app_billet_front_reservation' or app.request.attributes.get('_route') == 'app_billet_front_mes_billet' or app.request.attributes.get('_route') == 'app_billet_front_bloc') %}
+                                             active
+
+                {% endif %}
+                ">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+					   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Billet
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path('app_billet_front') }}">Achat Billet</a>
+						<div class="dropdown-divider"></div>
+
+						<a class="dropdown-item" href="{{ path('app_billet_front_mes_billet') }}">Mes Billets</a>
+					</div>
+				</li>
+				<li><a href="{{ path('app_produit_index_front') }}">SHOP</a></li>
+				<li><a href="{{ path('cart') }}">Cart</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -253,7 +279,7 @@
 						<ul class="sitemap">
 							<li><a href="index.html" title="">Home</a></li>
 							<li><a href="about.html" title="">About</a></li>
-
+							<li><a href="{{ path('app_equipe_indexFront') }}">Equipes</a></li>
 							<li><a href="gallery.html" title="">Gallery</a></li>
 							<li><a href="news.html" title="">News</a></li>
 							<li><a href="shop.html" title="">Shop</a></li>

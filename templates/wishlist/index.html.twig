@@ -1,0 +1,116 @@
+
+
+    {% extends 'front.html.twig' %}
+
+    {% block title %}WishList{% endblock %}
+
+    {% block body %}
+        <div class="section singlepage" >
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="page-title" style="margin-bottom: 14px;
+    margin-top: 138px;">
+                            <h2 class="lead">WishList</h2>
+                            <div class="border-style"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pbot-main">
+
+
+
+
+
+                    <div class="col-sm-12 col-md-9">
+
+                        <div class="row">
+                            {% for produits in products.products %}
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="shop-item">
+                                        <div class="gambar">
+                                            <img src="{{ 'http://127.0.0.1/images/'~ produits.image }}" alt="" class="img-responsive">
+                                        </div>
+                                        <div class="item-body">
+                                            <div class="name">
+                                                {{ produits.nom }}
+                                            </div>
+                                            <div class="price">
+                                                {{ produits.prix~ ' DT' }}
+
+                                                <a href="#" title="" class="shop-buy">BUY</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+
+                        <ul class="pagination">
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <!-- CLIENT SECTION -->
+        <div class="section stat-client p-main bg-client">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="client-img">
+                            <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="client-img">
+                            <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="client-img">
+                            <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="client-img">
+                            <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="client-img">
+                            <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="client-img">
+                            <img src="http://placehold.it/165x85" alt="" class="img-responsive" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+

@@ -91,18 +91,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     */
 
-    public function banner(int $id): array
+    public function banner(int $id): int
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-         update user set ban=1 where id =:id';
+         update user set ban = 1 where id =:id';
 
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery(['id' => $id]);
 
         // returns an array of arrays (i.e. a raw data set)
-        return $resultSet->fetchAllAssociative();
+        return 0;
     }
 
 }

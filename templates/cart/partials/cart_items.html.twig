@@ -1,0 +1,41 @@
+
+{% if items | length > 0%}
+<div class="well">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.product.nom }}</td>
+                <td>${{ item.product.prix }}</td>
+                <td>
+                    <form action="{{path('cart_update')}}" method="POST">
+                        <input type="hidden" value="{{ item.product.id}}" name="id">
+                        <select name="quantity" id="quantity" onchange="this.form.submit()">
+                            {% for i in 1..item.product.stock %}
+                                <option value="{{ i }}" {% if i==item.quantity %} selected="{{ i }}" {% endif %} >{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
+                <td>${{ item.quantity * item.product.prix }}</td>
+                <td><a href="{{ path('cart_remove',{'id':item.product.id}) }}" class="btn btn-danger btn-sm">
+                        X
+
+                    </a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else  %}
+    <p>Empty cart <a href="{{ path('app_produit_index_front')}}">Start shopping</a></p>
+{% endif %}

@@ -1,0 +1,52 @@
+
+{% extends 'front.html.twig' %}
+{% block body %}
+
+
+        <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+            {% for message in app.flashes('info') %}
+                {% if message == 'Item has been added !' %}
+                <div class="alert alert-success">
+                    {%  elseif message =='Item has been removed !' %}
+                    <div class="alert alert-danger">
+                    {% elseif  message == 'Item has been updated !'%}
+                        <div class="alert alert-warning">
+                            {% endif %}
+                             {{ message }}
+                        </div>
+                        {% endfor %}
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>Shopping Cart</h3>
+                    {% include 'cart/partials/cart_items.html.twig' %}
+                    <h3>Best sellers</h3>
+                    {% include 'cart/partials/bestSellers.html.twig' %}
+                    <h3>Orders</h3>
+                    <hr>
+                    {% include 'cart/partials/orders.html.twig' %}
+                </div>
+                <div class="col-md-4">
+                    {% if items|length > 0  %}
+                        <div class="well">
+                            <h4>Cart Summary</h4>
+                            <hr>
+                            {% include 'cart/partials/summary.html.twig' %}
+                            {#  <a href="{{ path('app_orders',{'orderID':items[0].order.id})}}" class="btn btn-success">Checkout</a>#}
+                            <a href="{{ path('placeOrder')}}" class="btn btn-success">place order</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+
+
+{% endblock %}

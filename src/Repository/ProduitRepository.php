@@ -45,6 +45,25 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAvisAndProduit($id){
+        $qb =$this->createQueryBuilder('p')
+            ->addSelect("(select a.avis from App:Avis a where a.idUser = $id and a.idProduit = p.id)")
+            ->getQuery()
+            ->getResult();
+
+    return $qb;
+    }
+
+    public function getAvisAndProduitbyCategory($id, $idCategory){
+        $qb =$this->createQueryBuilder('p')
+            ->where("p.idCat = $idCategory")
+            ->addSelect("(select a.avis from App:Avis a where a.idUser = $id and a.idProduit = p.id)")
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */

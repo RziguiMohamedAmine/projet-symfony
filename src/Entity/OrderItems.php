@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 
@@ -21,20 +21,26 @@ class OrderItems
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
-     * @var int
+     * @var \Produit
      *
-     * @ORM\Column(name="product_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Produit")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
+     * @Groups("post:read")
      */
-    private $productId;
+    private $produit;
 
     /**
      * @var int
      *
      * @ORM\Column(name="quantity", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $quantity;
 
@@ -45,6 +51,7 @@ class OrderItems
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      * })
+     * @Groups("post:read")
      */
     private $order;
 
@@ -53,14 +60,14 @@ class OrderItems
         return $this->id;
     }
 
-    public function getProductId(): ?int
+    public function getProduit(): ?Produit
     {
-        return $this->productId;
+        return $this->produit;
     }
 
-    public function setProductId(int $productId): self
+    public function setProduit(?Produit $produit): self
     {
-        $this->productId = $productId;
+        $this->produit = $produit;
 
         return $this;
     }

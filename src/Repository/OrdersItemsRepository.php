@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\OrderItems;
+use App\Service\Cart\CartService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -73,4 +74,22 @@ class OrdersItemsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getBestSellers(){
+        $sql="SELECT * from produit
+            where id in (select product_id FROM order_items
+            WHERE order_id in (SELECT id FROM orders WHERE LOWER(state)=LOWER('placed'))
+            GROUP BY product_id
+            ORDER BY count(product_id) DESC)
+            ";
+
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+
+        $rs = $stmt->executeQuery();
+        return $rs->fetchAll();
+
+    }
+
+
 }
